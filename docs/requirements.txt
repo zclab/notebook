@@ -1,4 +1,6 @@
 docutils==0.18
+rich
+PyYAML
 Sphinx
 ablog
 myst-nb
