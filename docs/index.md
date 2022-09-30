@@ -1,6 +1,6 @@
 # ZC's Notebook
 
-This is a site used for recording some useful documentation or blogging involved in algorithm and programming for my reference! We have the following contents:
+This is a site used for recording some documentation or blogging involved in algorithm and programming for my reference! 
 
 :::{toctree}
 :maxdepth: 1
