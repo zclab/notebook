@@ -8,12 +8,12 @@ tags: Python, pathlib
 
 # An introduction to Python pathlib module
 
-> pathlib是python 3.4才引进的一个较新的模块，pathlib把每一个path封装成一个对象，通过操作对象来操作路径，非常体现类和对象的封装思想，而且通过对象操作，可以使用链式编程，非常方便。
+> `pathlib` 是python 3.4才引进的一个较新的模块，`pathlib` 把每一个 `path` 封装成一个对象，通过操作对象来操作路径，非常体现类和对象的封装思想，而且通过对象操作，可以使用链式编程，非常方便。
 
 
-## pathlib 模块的 Path 类  
+## `pathlib` 模块的 `Path` 类  
 
-### 1、实例化一个Path对象：Path([path字符串]) -> Path对象
+### 1、实例化一个 `Path` 对象：`Path([path字符串])` -> `Path` 对象
 
 ```python
 >>> from pathlib import Path
@@ -28,7 +28,7 @@ tags: Python, pathlib
 >>> Path('a/b')
 ```
 
-### 2、Path路径查看：str(Path对象) -> Path路径字符
+### 2、`Path` 路径查看：`str(Path对象)` -> `Path` 路径字符
 
 ```python
 >>> str(Path('/etc/fs'))
@@ -41,9 +41,9 @@ tags: Python, pathlib
 'a/b'
 ```
 
-### 3、路径拼接操作符‘/’
+### 3、路径拼接操作符 `/`
 
- Path实例化后的路径对象可以通过操作符‘/’进行路径拼接
+ Path实例化后的路径对象可以通过操作符 `/` 进行路径拼接
 
  * Path对象 / Path对象 -> Path对象
  * Paht对象 / 路径字符串 或者 路径字符串 / Paht对象  -> Path对象
@@ -70,9 +70,9 @@ PosixPath('/home/data')
 ```
 
 
-### 4、路径拼接方法：Path对象.joinpath(Path对象|path字符串) -> Path对象
+### 4、路径拼接方法：`Path对象.joinpath(Path对象|path字符串)` -> `Path` 对象
 
-实现的功能跟操作符‘/’一样，也可以进行Path对象和字符串的拼接
+实现的功能跟操作符 `/` 一样，也可以进行Path对象和字符串的拼接
 
 ```python
 >>> P1 = Path('/root')
@@ -93,12 +93,12 @@ PosixPath('/home/data')
 ```
 
 
-### 5、路径分解：Path对象.parts -> Tuple
+### 5、路径分解：`Path对象.parts` -> `Tuple`
 
 说明：
 
-1. parts是属性，不是方法
-2. 将Path对象的路径分解成各个部分，然后封装成一个元组
+1. `parts` 是属性，不是方法
+2. 将 `Path` 对象的路径分解成各个部分，然后封装成一个元组
 
 ```python
 >>> P1 = Path('/root/dir1/test1.py')
@@ -108,12 +108,12 @@ PosixPath('/home/data')
 ```
 
 
-### 6、一级父目录：Path对象.parent -> Path对象
+### 6、一级父目录：`Path对象.parent` -> `Path对象`
 
 说明：
 
-1. parent是属性，不是方法
-2. 返回的是一个Path对象，所以又可以进行对象操作
+1. `parent` 是属性，不是方法
+2. 返回的是一个 `Path` 对象，所以又可以进行对象操作
 
 ```python
 >>> P1 = Path('/root/dir1/test1.py')
@@ -125,12 +125,12 @@ PosixPath('/root/dir1')
 '/root'
 ```
 
-### 7、多级父目录：Path对象.parents -> sequence
+### 7、多级父目录：`Path对象.parents` -> `sequence`
 
 说明：
 
 1. 返回的是一个有序序列，可以通过list查看，或者for循环迭代
-2. 序列的每一个元素都是Path对象
+2. 序列的每一个元素都是 `Path` 对象
 3. 既然是有序的，就可以用index，index为0的是父目录，index为1的是祖父目录，以此类推到根目录
 
 ```python
@@ -150,7 +150,7 @@ PosixPath('/root/dir1')
 /
 ```
 
-### 8、查看Path对象的文件名称：Path对象.name -> 文件名称
+### 8、查看Path对象的文件名称：`Path对象.name` -> `文件名称`
 
 说明：查看路径最后一部分的文件名称
 
@@ -169,12 +169,12 @@ PosixPath('/root/dir1')
 ```
 
 
-### 9、查看Path对象的文件名称：Path对象.stem-> 不带后缀的文件名称
+### 9、查看Path对象的文件名称：`Path对象.stem` -> 不带后缀的文件名称
 
 说明：
 
 1.  查看路径最后一部分的不带后缀的文件名称
-2.  不带后缀就是文件名称去掉‘.xxx’的内容，只会去掉最后一个后缀名称
+2.  不带后缀就是文件名称去掉 `.xxx` 的内容，只会去掉最后一个后缀名称
 
 ```python
 >>> P1 = Path('/root/dir1/test1.py')
@@ -192,7 +192,7 @@ PosixPath('/root/dir1')
 ```
 
 
-### 10、查看Path对象的文件名称后缀：Path对象.suffix -> 后缀名称
+### 10、查看Path对象的文件名称后缀：`Path对象.suffix` -> 后缀名称
 
 说明：
 
@@ -210,7 +210,7 @@ PosixPath('/root/dir1')
 ```
 
 
-### 11、查看Path对象的文件名称后缀：Path对象.suffixes -> 后缀名称组成的列表
+### 11、查看Path对象的文件名称后缀：`Path对象.suffixes` -> 后缀名称组成的列表
 
 说明：
 1. 将文件名的一个或多个后缀放到列表中
@@ -228,7 +228,7 @@ PosixPath('/root/dir1')
 ```
 
 
-### 12、添加后缀名到路径尾部：Path对象.with_suffix(suffix) -> Path对象
+### 12、添加后缀名到路径尾部：`Path对象.with_suffix(suffix)` -> `Path` 对象
 
 ① 给文件名添加指定后缀
 
@@ -249,7 +249,7 @@ PosixPath('/root/dir1/test1.gz')
 PosixPath('/root/dir1/test1.gz')
 ```
 
-### 13、替换路径的文件名：Path对象.with_name(name) -> Path对象
+### 13、替换路径的文件名：`Path对象.with_name(name)` -> `Path` 对象
 
 ```python
 >>> P1 = Path('/root/dir1/test1.py')
@@ -262,7 +262,7 @@ PosixPath('/root/dir1/good')
 ```
 
 
-### 14、返回当前工作目录：Path.cwd() -> Path对象
+### 14、返回当前工作目录：`Path.cwd()` -> `Path` 对象
 
 ```python
 >>> P1.cwd()
@@ -270,7 +270,7 @@ PosixPath('/home/python/jupyter')
 ```
 
 
-### 15、返回当前家目录：Path.home() -> Path对象
+### 15、返回当前家目录：`Path.home()` -> `Path` 对象
 
 ```python
 >>> P1.home()
@@ -278,23 +278,23 @@ PosixPath('/home/python')
 ```
 
 
-### 16、is系列的判断
+### 16、`is` 系列的判断
 
-① exists()：判断Path对象路径是否存在
+① `exists()`：判断Path对象路径是否存在
 
-② is_dir()：判断Path对象是否是目录
+② `is_dir()`：判断Path对象是否是目录
 
-③ is_file()：判断Path对象是否是文件
+③ `is_file()`：判断Path对象是否是文件
 
-④ is_symlink()：判断Path对象是否是链接文件
+④ `is_symlink()`：判断Path对象是否是链接文件
 
-⑤ is_socket()：判断Path对象是否是套接字文件
+⑤ `is_socket()`：判断Path对象是否是套接字文件
 
-⑥ is_block_device()：判断Path对象是否是块设备文件
+⑥ `is_block_device()`：判断Path对象是否是块设备文件
 
-⑦ is_char_device()：判断Path对象是否是字符设备文件
+⑦ `is_char_device()`：判断Path对象是否是字符设备文件
 
-⑧ is_absolute()：判断Path对象是否是绝对路径
+⑧ `is_absolute()`：判断Path对象是否是绝对路径
 
 说明：判断的时候，要有查看的权限，不然会抛出异常
 
@@ -315,7 +315,7 @@ True
 ```
 
 
-### 17、解析一个路径：Path对象.resolve() -> Path对象
+### 17、解析一个路径：`Path对象.resolve()` -> `Path` 对象
 
  说明：
 
@@ -336,7 +336,7 @@ PosixPath('/etc/rc.d/rc.local')
 ```
 
 
-### 18、删除一层空目录：Path对象.rmdir()
+### 18、删除一层空目录：`Path对象.rmdir()`
 
 说明：
 
@@ -360,7 +360,7 @@ P3.rmdir()
 ```
 
 
-### 19、创建一个文件：Paht对象.touch(mode=0oxxx
+### 19、创建一个文件：`Paht对象.touch(mode=0oxxx)`
 
 说明：
 
@@ -377,15 +377,15 @@ P3.rmdir()
 ```
 
 
-### 20、创建目录：Paht对象.mkdir(mode=0oxxx, parents=False,exist_ok=Fasle
+### 20、创建目录：`Paht对象.mkdir(mode=0oxxx, parents=False,exist_ok=Fasle)`
 
 说明：
 
-① mode：指定目录权限，使用八进制格式
+① `mode`：指定目录权限，使用八进制格式
 
-② parents：如果父目录不存在，是否创建，True等同于linux的mkdir -p命令
+② `parents`：如果父目录不存在，是否创建，True 等同于 linux 的 `mkdir -p` 命令
 
-③ exist_ok：Fasle表示，如果目录已经存在，则抛出异常，True表示，如果目录存在不抛出异常
+③ `exist_ok`：Fasle表示，如果目录已经存在，则抛出异常，True 表示，如果目录存在不抛出异常
 
 
 ```python
@@ -409,7 +409,7 @@ FileExistsError: [Errno 17] File exists: '/tmp/test_do/a/b/c'
 ```
 
 
-### 21、迭代当前目录：Path对象.iterdir() -> Generator
+### 21、迭代当前目录：`Path对象.iterdir()` -> `Generator`
 
 说明：
 
@@ -440,7 +440,7 @@ test_go/
 /tmp/test_go/test.p3
 ```
 
-### 22、通过通配符查询指定路径下的文件：Path对象.glob(pattern) -> Generato
+### 22、通过通配符查询指定路径下的文件：`Path对象.glob(pattern)` -> `Generator`
 
 说明：
 
@@ -448,7 +448,7 @@ test_go/
 
 ② 返回的是一个生成器，可以使用for循环，或者用list
 
-③ 生成器的每一个元素都是一个Path对象
+③ 生成器的每一个元素都是一个 `Path` 对象
 
 
 ```shell
@@ -473,7 +473,7 @@ test_go/
 ```
 
 
-### 23、通过通配符查询指定路径下的文件：Path对象.rglob(pattern) -> Generator
+### 23、通过通配符查询指定路径下的文件：`Path对象.rglob(pattern)` -> `Generator`
 
 说明：
 
@@ -481,7 +481,7 @@ test_go/
 
 ② 返回的是一个生成器，可以使用for循环，或者用list
 
-③ 生成器的每一个元素都是一个Path对象
+③ 生成器的每一个元素都是一个 `Path` 对象
 
 
 ```shell
@@ -493,13 +493,13 @@ test_go/
  ```
 
 
- ### 24、查看文件详细信息：Path对象.stat()
+ ### 24、查看文件详细信息：`Path对象.stat()`
 
  说明：
 
-① 等同于linux的stat命令，返回一个stat对象
+① 等同于 linux 的 `stat` 命令，返回一个 `stat` 对象
 
-② 如果是链接文件，会跟踪到源文件，使用lstat()查看的是文件本身
+② 如果是链接文件，会跟踪到源文件，使用 `lstat()` 查看的是文件本身
 
 ```python
 >>> P1 = Path('/tmp/test_go')
@@ -513,9 +513,9 @@ os.stat_result(st_mode=16893, st_ino=256377, st_dev=64769, st_nlink=4, st_uid=10
 
 
 
-## Path使用总结
+## `Path` 使用总结
 
 ① 核心就是把一个路径封装成一个对象，通过对象的属性或者方法来操作路径
 
-② 很多方法返回的仍然是一个Path对象，通过Path对象又可以访问属性或者调用访问，实现链式编程
+② 很多方法返回的仍然是一个 `Path` 对象，通过 `Path` 对象又可以访问属性或者调用访问，实现链式编程
 

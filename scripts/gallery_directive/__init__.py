@@ -78,6 +78,8 @@ class GalleryDirective(SphinxDirective):
             options = {}
             if "link" in item:
                 options["link"] = item["link"]
+            elif "website" in item:
+                options["link"] = item["website"]
 
             if "class-card" in self.options:
                 options["class-card"] = self.options["class-card"]
