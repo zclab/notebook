@@ -65,7 +65,7 @@ myst_heading_anchors = 3
 blog_path = "blog"
 blog_post_pattern = "posts/*/*"
 blog_authors = {
-    "zclab": ("子川", "https://github.com"),
+    "zclab": ("子川", "https://github.com/zclab"),
 }
 blog_locations = {
     "beijing": ("北京", "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E5%B8%82"),
@@ -111,7 +111,7 @@ html_theme_options = {
     "show_prev_next": True,
     "navigation_with_keys": True,
     "use_edit_page_button": True,
-    "header_links_before_dropdown": 4,
+    "header_links_before_dropdown": 5,
     "external_links": [
         {
             "name": "Rust语言圣经", 
@@ -129,7 +129,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/",
+            "url": "https://github.com/zclab",
             "icon": "fab fa-github-square",
             "type": "fontawesome",
         },
