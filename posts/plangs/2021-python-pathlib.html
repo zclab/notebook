@@ -575,12 +575,12 @@
              <section class="tex2jax_ignore mathjax_ignore" id="an-introduction-to-python-pathlib-module">
 <h1>An introduction to Python pathlib module<a class="headerlink" href="#an-introduction-to-python-pathlib-module" title="Permalink to this heading">#</a></h1>
 <blockquote>
-<div><p>pathlib是python 3.4才引进的一个较新的模块，pathlib把每一个path封装成一个对象，通过操作对象来操作路径，非常体现类和对象的封装思想，而且通过对象操作，可以使用链式编程，非常方便。</p>
+<div><p><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> 是python 3.4才引进的一个较新的模块，<code class="docutils literal notranslate"><span class="pre">pathlib</span></code> 把每一个 <code class="docutils literal notranslate"><span class="pre">path</span></code> 封装成一个对象，通过操作对象来操作路径，非常体现类和对象的封装思想，而且通过对象操作，可以使用链式编程，非常方便。</p>
 </div></blockquote>
 <section id="pathlib-path">
-<h2>pathlib 模块的 Path 类<a class="headerlink" href="#pathlib-path" title="Permalink to this heading">#</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> 模块的 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 类<a class="headerlink" href="#pathlib-path" title="Permalink to this heading">#</a></h2>
 <section id="path-path-path-path">
-<h3>1、实例化一个Path对象：Path([path字符串]) -&gt; Path对象<a class="headerlink" href="#path-path-path-path" title="Permalink to this heading">#</a></h3>
+<h3>1、实例化一个 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象：<code class="docutils literal notranslate"><span class="pre">Path([path字符串])</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象<a class="headerlink" href="#path-path-path-path" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="go"> </span>
 <span class="go">#默认是当前目录‘.’</span>
@@ -595,7 +595,7 @@
 </div>
 </section>
 <section id="path-str-path-path">
-<h3>2、Path路径查看：str(Path对象) -&gt; Path路径字符<a class="headerlink" href="#path-str-path-path" title="Permalink to this heading">#</a></h3>
+<h3>2、<code class="docutils literal notranslate"><span class="pre">Path</span></code> 路径查看：<code class="docutils literal notranslate"><span class="pre">str(Path对象)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 路径字符<a class="headerlink" href="#path-str-path-path" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/etc/fs&#39;</span><span class="p">))</span>
 <span class="go">&#39;/etc/fs&#39;</span>
 <span class="go"> </span>
@@ -608,8 +608,8 @@
 </div>
 </section>
 <section id="id1">
-<h3>3、路径拼接操作符‘/’<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>Path实例化后的路径对象可以通过操作符‘/’进行路径拼接</p>
+<h3>3、路径拼接操作符 <code class="docutils literal notranslate"><span class="pre">/</span></code><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>Path实例化后的路径对象可以通过操作符 <code class="docutils literal notranslate"><span class="pre">/</span></code> 进行路径拼接</p>
 <ul class="simple">
 <li><p>Path对象 / Path对象 -&gt; Path对象</p></li>
 <li><p>Paht对象 / 路径字符串 或者 路径字符串 / Paht对象  -&gt; Path对象</p></li>
@@ -636,8 +636,8 @@
 </div>
 </section>
 <section id="path-joinpath-path-path-path">
-<h3>4、路径拼接方法：Path对象.joinpath(Path对象|path字符串) -&gt; Path对象<a class="headerlink" href="#path-joinpath-path-path-path" title="Permalink to this heading">#</a></h3>
-<p>实现的功能跟操作符‘/’一样，也可以进行Path对象和字符串的拼接</p>
+<h3>4、路径拼接方法：<code class="docutils literal notranslate"><span class="pre">Path对象.joinpath(Path对象|path字符串)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象<a class="headerlink" href="#path-joinpath-path-path-path" title="Permalink to this heading">#</a></h3>
+<p>实现的功能跟操作符 <code class="docutils literal notranslate"><span class="pre">/</span></code> 一样，也可以进行Path对象和字符串的拼接</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P2</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/data&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P3</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
@@ -657,11 +657,11 @@
 </div>
 </section>
 <section id="path-parts-tuple">
-<h3>5、路径分解：Path对象.parts -&gt; Tuple<a class="headerlink" href="#path-parts-tuple" title="Permalink to this heading">#</a></h3>
+<h3>5、路径分解：<code class="docutils literal notranslate"><span class="pre">Path对象.parts</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Tuple</span></code><a class="headerlink" href="#path-parts-tuple" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <ol class="arabic simple">
-<li><p>parts是属性，不是方法</p></li>
-<li><p>将Path对象的路径分解成各个部分，然后封装成一个元组</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parts</span></code> 是属性，不是方法</p></li>
+<li><p>将 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象的路径分解成各个部分，然后封装成一个元组</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root/dir1/test1.py&#39;</span><span class="p">)</span>
 <span class="go"> </span>
@@ -671,11 +671,11 @@
 </div>
 </section>
 <section id="path-parent-path">
-<h3>6、一级父目录：Path对象.parent -&gt; Path对象<a class="headerlink" href="#path-parent-path" title="Permalink to this heading">#</a></h3>
+<h3>6、一级父目录：<code class="docutils literal notranslate"><span class="pre">Path对象.parent</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path对象</span></code><a class="headerlink" href="#path-parent-path" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <ol class="arabic simple">
-<li><p>parent是属性，不是方法</p></li>
-<li><p>返回的是一个Path对象，所以又可以进行对象操作</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code> 是属性，不是方法</p></li>
+<li><p>返回的是一个 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象，所以又可以进行对象操作</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root/dir1/test1.py&#39;</span><span class="p">)</span>
 <span class="go"> </span>
@@ -688,11 +688,11 @@
 </div>
 </section>
 <section id="path-parents-sequence">
-<h3>7、多级父目录：Path对象.parents -&gt; sequence<a class="headerlink" href="#path-parents-sequence" title="Permalink to this heading">#</a></h3>
+<h3>7、多级父目录：<code class="docutils literal notranslate"><span class="pre">Path对象.parents</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sequence</span></code><a class="headerlink" href="#path-parents-sequence" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <ol class="arabic simple">
 <li><p>返回的是一个有序序列，可以通过list查看，或者for循环迭代</p></li>
-<li><p>序列的每一个元素都是Path对象</p></li>
+<li><p>序列的每一个元素都是 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象</p></li>
 <li><p>既然是有序的，就可以用index，index为0的是父目录，index为1的是祖父目录，以此类推到根目录</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root/dir1/test1.py&#39;</span><span class="p">)</span>
@@ -713,7 +713,7 @@
 </div>
 </section>
 <section id="path-path-name">
-<h3>8、查看Path对象的文件名称：Path对象.name -&gt; 文件名称<a class="headerlink" href="#path-path-name" title="Permalink to this heading">#</a></h3>
+<h3>8、查看Path对象的文件名称：<code class="docutils literal notranslate"><span class="pre">Path对象.name</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">文件名称</span></code><a class="headerlink" href="#path-path-name" title="Permalink to this heading">#</a></h3>
 <p>说明：查看路径最后一部分的文件名称</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root/dir1/test1.py&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">name</span>
@@ -730,11 +730,11 @@
 </div>
 </section>
 <section id="path-path-stem">
-<h3>9、查看Path对象的文件名称：Path对象.stem-&gt; 不带后缀的文件名称<a class="headerlink" href="#path-path-stem" title="Permalink to this heading">#</a></h3>
+<h3>9、查看Path对象的文件名称：<code class="docutils literal notranslate"><span class="pre">Path对象.stem</span></code> -&gt; 不带后缀的文件名称<a class="headerlink" href="#path-path-stem" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <ol class="arabic simple">
 <li><p>查看路径最后一部分的不带后缀的文件名称</p></li>
-<li><p>不带后缀就是文件名称去掉‘.xxx’的内容，只会去掉最后一个后缀名称</p></li>
+<li><p>不带后缀就是文件名称去掉 <code class="docutils literal notranslate"><span class="pre">.xxx</span></code> 的内容，只会去掉最后一个后缀名称</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root/dir1/test1.py&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">stem</span>
@@ -752,7 +752,7 @@
 </div>
 </section>
 <section id="path-path-suffix">
-<h3>10、查看Path对象的文件名称后缀：Path对象.suffix -&gt; 后缀名称<a class="headerlink" href="#path-path-suffix" title="Permalink to this heading">#</a></h3>
+<h3>10、查看Path对象的文件名称后缀：<code class="docutils literal notranslate"><span class="pre">Path对象.suffix</span></code> -&gt; 后缀名称<a class="headerlink" href="#path-path-suffix" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <ol class="arabic simple">
 <li><p>如果一个文件有多个后缀，只会查看最后一个后缀的名称</p></li>
@@ -769,7 +769,7 @@
 </div>
 </section>
 <section id="path-path-suffixes">
-<h3>11、查看Path对象的文件名称后缀：Path对象.suffixes -&gt; 后缀名称组成的列表<a class="headerlink" href="#path-path-suffixes" title="Permalink to this heading">#</a></h3>
+<h3>11、查看Path对象的文件名称后缀：<code class="docutils literal notranslate"><span class="pre">Path对象.suffixes</span></code> -&gt; 后缀名称组成的列表<a class="headerlink" href="#path-path-suffixes" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <ol class="arabic simple">
 <li><p>将文件名的一个或多个后缀放到列表中</p></li>
@@ -786,7 +786,7 @@
 </div>
 </section>
 <section id="path-with-suffix-suffix-path">
-<h3>12、添加后缀名到路径尾部：Path对象.with_suffix(suffix) -&gt; Path对象<a class="headerlink" href="#path-with-suffix-suffix-path" title="Permalink to this heading">#</a></h3>
+<h3>12、添加后缀名到路径尾部：<code class="docutils literal notranslate"><span class="pre">Path对象.with_suffix(suffix)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象<a class="headerlink" href="#path-with-suffix-suffix-path" title="Permalink to this heading">#</a></h3>
 <p>① 给文件名添加指定后缀</p>
 <p>② 如果文件名已经存在后缀，则替换</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#如果后缀已经存在，则替换</span>
@@ -805,7 +805,7 @@
 </div>
 </section>
 <section id="path-with-name-name-path">
-<h3>13、替换路径的文件名：Path对象.with_name(name) -&gt; Path对象<a class="headerlink" href="#path-with-name-name-path" title="Permalink to this heading">#</a></h3>
+<h3>13、替换路径的文件名：<code class="docutils literal notranslate"><span class="pre">Path对象.with_name(name)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象<a class="headerlink" href="#path-with-name-name-path" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root/dir1/test1.py&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">with_name</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">)</span>
 <span class="go">PosixPath(&#39;/root/dir1/.gz&#39;)</span>
@@ -817,29 +817,29 @@
 </div>
 </section>
 <section id="path-cwd-path">
-<h3>14、返回当前工作目录：Path.cwd() -&gt; Path对象<a class="headerlink" href="#path-cwd-path" title="Permalink to this heading">#</a></h3>
+<h3>14、返回当前工作目录：<code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象<a class="headerlink" href="#path-cwd-path" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 <span class="go">PosixPath(&#39;/home/python/jupyter&#39;)</span>
 </pre></div>
 </div>
 </section>
 <section id="path-home-path">
-<h3>15、返回当前家目录：Path.home() -&gt; Path对象<a class="headerlink" href="#path-home-path" title="Permalink to this heading">#</a></h3>
+<h3>15、返回当前家目录：<code class="docutils literal notranslate"><span class="pre">Path.home()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象<a class="headerlink" href="#path-home-path" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
 <span class="go">PosixPath(&#39;/home/python&#39;)</span>
 </pre></div>
 </div>
 </section>
 <section id="is">
-<h3>16、is系列的判断<a class="headerlink" href="#is" title="Permalink to this heading">#</a></h3>
-<p>① exists()：判断Path对象路径是否存在</p>
-<p>② is_dir()：判断Path对象是否是目录</p>
-<p>③ is_file()：判断Path对象是否是文件</p>
-<p>④ is_symlink()：判断Path对象是否是链接文件</p>
-<p>⑤ is_socket()：判断Path对象是否是套接字文件</p>
-<p>⑥ is_block_device()：判断Path对象是否是块设备文件</p>
-<p>⑦ is_char_device()：判断Path对象是否是字符设备文件</p>
-<p>⑧ is_absolute()：判断Path对象是否是绝对路径</p>
+<h3>16、<code class="docutils literal notranslate"><span class="pre">is</span></code> 系列的判断<a class="headerlink" href="#is" title="Permalink to this heading">#</a></h3>
+<p>① <code class="docutils literal notranslate"><span class="pre">exists()</span></code>：判断Path对象路径是否存在</p>
+<p>② <code class="docutils literal notranslate"><span class="pre">is_dir()</span></code>：判断Path对象是否是目录</p>
+<p>③ <code class="docutils literal notranslate"><span class="pre">is_file()</span></code>：判断Path对象是否是文件</p>
+<p>④ <code class="docutils literal notranslate"><span class="pre">is_symlink()</span></code>：判断Path对象是否是链接文件</p>
+<p>⑤ <code class="docutils literal notranslate"><span class="pre">is_socket()</span></code>：判断Path对象是否是套接字文件</p>
+<p>⑥ <code class="docutils literal notranslate"><span class="pre">is_block_device()</span></code>：判断Path对象是否是块设备文件</p>
+<p>⑦ <code class="docutils literal notranslate"><span class="pre">is_char_device()</span></code>：判断Path对象是否是字符设备文件</p>
+<p>⑧ <code class="docutils literal notranslate"><span class="pre">is_absolute()</span></code>：判断Path对象是否是绝对路径</p>
 <p>说明：判断的时候，要有查看的权限，不然会抛出异常</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/root/dir1/test1/&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
@@ -858,7 +858,7 @@
 </div>
 </section>
 <section id="path-resolve-path">
-<h3>17、解析一个路径：Path对象.resolve() -&gt; Path对象<a class="headerlink" href="#path-resolve-path" title="Permalink to this heading">#</a></h3>
+<h3>17、解析一个路径：<code class="docutils literal notranslate"><span class="pre">Path对象.resolve()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象<a class="headerlink" href="#path-resolve-path" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <p>① 如果Path对象是一个普通文件，则返回自身</p>
 <p>② 如果Path对象是一个链接文件，则返回源文件</p>
@@ -875,7 +875,7 @@
 </div>
 </section>
 <section id="path-rmdir">
-<h3>18、删除一层空目录：Path对象.rmdir()<a class="headerlink" href="#path-rmdir" title="Permalink to this heading">#</a></h3>
+<h3>18、删除一层空目录：<code class="docutils literal notranslate"><span class="pre">Path对象.rmdir()</span></code><a class="headerlink" href="#path-rmdir" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <p>① Path对象必须是一个空目录</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/tmp/test1.py&#39;</span><span class="p">)</span>
@@ -896,7 +896,7 @@
 </div>
 </section>
 <section id="paht-touch-mode-0oxxx">
-<h3>19、创建一个文件：Paht对象.touch(mode=0oxxx<a class="headerlink" href="#paht-touch-mode-0oxxx" title="Permalink to this heading">#</a></h3>
+<h3>19、创建一个文件：<code class="docutils literal notranslate"><span class="pre">Paht对象.touch(mode=0oxxx)</span></code><a class="headerlink" href="#paht-touch-mode-0oxxx" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <p>① 如果文件已经存在，则不会重新创建</p>
 <p>② 指定文件权限使用八进制格式</p>
@@ -909,11 +909,11 @@
 </div>
 </section>
 <section id="paht-mkdir-mode-0oxxx-parents-false-exist-ok-fasle">
-<h3>20、创建目录：Paht对象.mkdir(mode=0oxxx, parents=False,exist_ok=Fasle<a class="headerlink" href="#paht-mkdir-mode-0oxxx-parents-false-exist-ok-fasle" title="Permalink to this heading">#</a></h3>
+<h3>20、创建目录：<code class="docutils literal notranslate"><span class="pre">Paht对象.mkdir(mode=0oxxx,</span> <span class="pre">parents=False,exist_ok=Fasle)</span></code><a class="headerlink" href="#paht-mkdir-mode-0oxxx-parents-false-exist-ok-fasle" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
-<p>① mode：指定目录权限，使用八进制格式</p>
-<p>② parents：如果父目录不存在，是否创建，True等同于linux的mkdir -p命令</p>
-<p>③ exist_ok：Fasle表示，如果目录已经存在，则抛出异常，True表示，如果目录存在不抛出异常</p>
+<p>① <code class="docutils literal notranslate"><span class="pre">mode</span></code>：指定目录权限，使用八进制格式</p>
+<p>② <code class="docutils literal notranslate"><span class="pre">parents</span></code>：如果父目录不存在，是否创建，True 等同于 linux 的 <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span></code> 命令</p>
+<p>③ <code class="docutils literal notranslate"><span class="pre">exist_ok</span></code>：Fasle表示，如果目录已经存在，则抛出异常，True 表示，如果目录存在不抛出异常</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/tmp/test_do&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mo">0o744</span><span class="p">)</span>
 <span class="go"> </span>
@@ -935,7 +935,7 @@
 </div>
 </section>
 <section id="path-iterdir-generator">
-<h3>21、迭代当前目录：Path对象.iterdir() -&gt; Generator<a class="headerlink" href="#path-iterdir-generator" title="Permalink to this heading">#</a></h3>
+<h3>21、迭代当前目录：<code class="docutils literal notranslate"><span class="pre">Path对象.iterdir()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Generator</span></code><a class="headerlink" href="#path-iterdir-generator" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <p>① 只对当前目录进行迭代，不会渗透入到每个子目录</p>
 <p>② 返回一个生成器，可以使用for循环进行迭代</p>
@@ -961,12 +961,12 @@ test_go/
 </pre></div>
 </div>
 </section>
-<section id="path-glob-pattern-generato">
-<h3>22、通过通配符查询指定路径下的文件：Path对象.glob(pattern) -&gt; Generato<a class="headerlink" href="#path-glob-pattern-generato" title="Permalink to this heading">#</a></h3>
+<section id="path-glob-pattern-generator">
+<h3>22、通过通配符查询指定路径下的文件：<code class="docutils literal notranslate"><span class="pre">Path对象.glob(pattern)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Generator</span></code><a class="headerlink" href="#path-glob-pattern-generator" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <p>① 只会查询指定目录的文件，不会递归</p>
 <p>② 返回的是一个生成器，可以使用for循环，或者用list</p>
-<p>③ 生成器的每一个元素都是一个Path对象</p>
+<p>③ 生成器的每一个元素都是一个 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>root@jimmy tmp<span class="o">]</span><span class="c1"># tree test_go/</span>
 test_go/
 <span class="p">|</span>-- dir1
@@ -989,11 +989,11 @@ test_go/
 </div>
 </section>
 <section id="path-rglob-pattern-generator">
-<h3>23、通过通配符查询指定路径下的文件：Path对象.rglob(pattern) -&gt; Generator<a class="headerlink" href="#path-rglob-pattern-generator" title="Permalink to this heading">#</a></h3>
+<h3>23、通过通配符查询指定路径下的文件：<code class="docutils literal notranslate"><span class="pre">Path对象.rglob(pattern)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Generator</span></code><a class="headerlink" href="#path-rglob-pattern-generator" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
 <p>① 只会查询指定目录的文件，会递归每一个子目录</p>
 <p>② 返回的是一个生成器，可以使用for循环，或者用list</p>
-<p>③ 生成器的每一个元素都是一个Path对象</p>
+<p>③ 生成器的每一个元素都是一个 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1">#当前所有目录有三个以test.py开头的文件，递归了子目录</span>
 &gt;&gt;&gt; list<span class="o">(</span>P1.rglob<span class="o">(</span><span class="s2">&quot;test.py*&quot;</span><span class="o">))</span>
 <span class="o">[</span>PosixPath<span class="o">(</span><span class="s1">&#39;/tmp/test_go/test.py2&#39;</span><span class="o">)</span>,
@@ -1003,10 +1003,10 @@ test_go/
 </div>
 </section>
 <section id="path-stat">
-<h3>24、查看文件详细信息：Path对象.stat()<a class="headerlink" href="#path-stat" title="Permalink to this heading">#</a></h3>
+<h3>24、查看文件详细信息：<code class="docutils literal notranslate"><span class="pre">Path对象.stat()</span></code><a class="headerlink" href="#path-stat" title="Permalink to this heading">#</a></h3>
 <p>说明：</p>
-<p>① 等同于linux的stat命令，返回一个stat对象</p>
-<p>② 如果是链接文件，会跟踪到源文件，使用lstat()查看的是文件本身</p>
+<p>① 等同于 linux 的 <code class="docutils literal notranslate"><span class="pre">stat</span></code> 命令，返回一个 <code class="docutils literal notranslate"><span class="pre">stat</span></code> 对象</p>
+<p>② 如果是链接文件，会跟踪到源文件，使用 <code class="docutils literal notranslate"><span class="pre">lstat()</span></code> 查看的是文件本身</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/tmp/test_go&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P1</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span>
 <span class="go">os.stat_result(st_mode=16893, st_ino=256377, st_dev=64769, st_nlink=4, st_uid=1000, st_gid=1000, st_size=4096, st_atime=1554106724, st_mtime=1554186613, st_ctime=1554186613)</span>
@@ -1019,9 +1019,9 @@ test_go/
 </section>
 </section>
 <section id="path">
-<h2>Path使用总结<a class="headerlink" href="#path" title="Permalink to this heading">#</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">Path</span></code> 使用总结<a class="headerlink" href="#path" title="Permalink to this heading">#</a></h2>
 <p>① 核心就是把一个路径封装成一个对象，通过对象的属性或者方法来操作路径</p>
-<p>② 很多方法返回的仍然是一个Path对象，通过Path对象又可以访问属性或者调用访问，实现链式编程</p>
+<p>② 很多方法返回的仍然是一个 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象，通过 <code class="docutils literal notranslate"><span class="pre">Path</span></code> 对象又可以访问属性或者调用访问，实现链式编程</p>
 </section>
 </section>
 
@@ -1091,134 +1091,387 @@ test_go/
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pathlib-path">
-   pathlib 模块的 Path 类
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pathlib
+    </span>
+   </code>
+   模块的
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Path
+    </span>
+   </code>
+   类
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-path-path-path">
-     1、实例化一个Path对象：Path([path字符串]) -&gt; Path对象
+     1、实例化一个
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path([path字符串])
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-str-path-path">
-     2、Path路径查看：str(Path对象) -&gt; Path路径字符
+     2、
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     路径查看：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str(Path对象)
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     路径字符
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id1">
-     3、路径拼接操作符‘/’
+     3、路径拼接操作符
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       /
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-joinpath-path-path-path">
-     4、路径拼接方法：Path对象.joinpath(Path对象|path字符串) -&gt; Path对象
+     4、路径拼接方法：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.joinpath(Path对象|path字符串)
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-parts-tuple">
-     5、路径分解：Path对象.parts -&gt; Tuple
+     5、路径分解：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.parts
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Tuple
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-parent-path">
-     6、一级父目录：Path对象.parent -&gt; Path对象
+     6、一级父目录：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.parent
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-parents-sequence">
-     7、多级父目录：Path对象.parents -&gt; sequence
+     7、多级父目录：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.parents
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sequence
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-path-name">
-     8、查看Path对象的文件名称：Path对象.name -&gt; 文件名称
+     8、查看Path对象的文件名称：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.name
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       文件名称
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-path-stem">
-     9、查看Path对象的文件名称：Path对象.stem-&gt; 不带后缀的文件名称
+     9、查看Path对象的文件名称：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.stem
+      </span>
+     </code>
+     -&gt; 不带后缀的文件名称
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-path-suffix">
-     10、查看Path对象的文件名称后缀：Path对象.suffix -&gt; 后缀名称
+     10、查看Path对象的文件名称后缀：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.suffix
+      </span>
+     </code>
+     -&gt; 后缀名称
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-path-suffixes">
-     11、查看Path对象的文件名称后缀：Path对象.suffixes -&gt; 后缀名称组成的列表
+     11、查看Path对象的文件名称后缀：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.suffixes
+      </span>
+     </code>
+     -&gt; 后缀名称组成的列表
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-with-suffix-suffix-path">
-     12、添加后缀名到路径尾部：Path对象.with_suffix(suffix) -&gt; Path对象
+     12、添加后缀名到路径尾部：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.with_suffix(suffix)
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-with-name-name-path">
-     13、替换路径的文件名：Path对象.with_name(name) -&gt; Path对象
+     13、替换路径的文件名：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.with_name(name)
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-cwd-path">
-     14、返回当前工作目录：Path.cwd() -&gt; Path对象
+     14、返回当前工作目录：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path.cwd()
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-home-path">
-     15、返回当前家目录：Path.home() -&gt; Path对象
+     15、返回当前家目录：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path.home()
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#is">
-     16、is系列的判断
+     16、
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       is
+      </span>
+     </code>
+     系列的判断
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-resolve-path">
-     17、解析一个路径：Path对象.resolve() -&gt; Path对象
+     17、解析一个路径：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.resolve()
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path
+      </span>
+     </code>
+     对象
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-rmdir">
-     18、删除一层空目录：Path对象.rmdir()
+     18、删除一层空目录：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.rmdir()
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#paht-touch-mode-0oxxx">
-     19、创建一个文件：Paht对象.touch(mode=0oxxx
+     19、创建一个文件：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Paht对象.touch(mode=0oxxx)
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#paht-mkdir-mode-0oxxx-parents-false-exist-ok-fasle">
-     20、创建目录：Paht对象.mkdir(mode=0oxxx, parents=False,exist_ok=Fasle
+     20、创建目录：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Paht对象.mkdir(mode=0oxxx,
+      </span>
+      <span class="pre">
+       parents=False,exist_ok=Fasle)
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-iterdir-generator">
-     21、迭代当前目录：Path对象.iterdir() -&gt; Generator
+     21、迭代当前目录：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.iterdir()
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Generator
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#path-glob-pattern-generato">
-     22、通过通配符查询指定路径下的文件：Path对象.glob(pattern) -&gt; Generato
+    <a class="reference internal nav-link" href="#path-glob-pattern-generator">
+     22、通过通配符查询指定路径下的文件：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.glob(pattern)
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Generator
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-rglob-pattern-generator">
-     23、通过通配符查询指定路径下的文件：Path对象.rglob(pattern) -&gt; Generator
+     23、通过通配符查询指定路径下的文件：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.rglob(pattern)
+      </span>
+     </code>
+     -&gt;
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Generator
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#path-stat">
-     24、查看文件详细信息：Path对象.stat()
+     24、查看文件详细信息：
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Path对象.stat()
+      </span>
+     </code>
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#path">
-   Path使用总结
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Path
+    </span>
+   </code>
+   使用总结
   </a>
  </li>
 </ul>
