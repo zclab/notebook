@@ -1,0 +1,1214 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18: http://docutils.sourceforge.net/" />
+
+    <title>04. Dueling Network &#8212; ZC Notebook</title>
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+
+  
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/6.1.2/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reinforcement/dueling';</script>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="05. Noisy Networks for Exploration" href="noisy_net.html" />
+    <link rel="prev" title="03. Prioritized Experience Replay (PER)" href="per.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/logo-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+    <p class="title logo__title">ZC's Notebook</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item current active">
+                    <a class="nav-link" href="index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item current active">
+                    <a class="nav-link" href="index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="A2C.html">
+   Actor-Critic
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="PPO.html">
+   Proximal Policy Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DDPG.html">
+   Deep Deterministic Policy Gradient
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="TD3.html">
+   TD3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="SAC.html">
+   Soft Actor Critic (SAC)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DDPGfD.html">
+   DDPGfD
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BC.html">
+   Behavior Cloning (without HER)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dqn.html">
+   Deep Q Network (DQN)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="double_q.html">
+   Double DQN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="per.html">
+   Prioritized Experience Replay (PER)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Dueling Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="noisy_net.html">
+   Noisy Networks for Exploration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="categorical_dqn.html">
+   Categorical DQN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="n_step_learning.html">
+   N-Step Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rainbow.html">
+   Rainbow
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+<div class="bd-content">
+    <div class="bd-article-container">
+        
+        <div class="bd-header-article">
+            
+        </div>
+        
+        
+        <article class="bd-article" role="main">
+             <section class="tex2jax_ignore mathjax_ignore" id="dueling-network">
+<h1>04. Dueling Network<a class="headerlink" href="#dueling-network" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://arxiv.org/pdf/1511.06581.pdf">Z. Wang et al., “Dueling Network Architectures for Deep Reinforcement Learning.” arXiv preprint arXiv:1511.06581, 2015.</a></p>
+<p>The proposed network architecture, which is named <em>dueling architecture</em>, explicitly separates the representation of state values and (state-dependent) action advantages.</p>
+<p><img alt="fig1" src="https://user-images.githubusercontent.com/14961526/60322956-c2f0b600-99bb-11e9-9ed4-443bd14bc3b0.png" /></p>
+<p>The dueling network automatically produces separate estimates of the state value function and advantage function, without any extra supervision. Intuitively, the dueling architecture can learn which states are (or are not) valuable, without having to learn the effect of each action for each state. This is particularly useful in states where its actions do not affect the environment in any relevant way.</p>
+<p>The dueling architecture represents both the value <span class="math notranslate nohighlight">\(V(s)\)</span> and advantage <span class="math notranslate nohighlight">\(A(s, a)\)</span> functions with a single deep model whose output combines the two to produce a state-action value <span class="math notranslate nohighlight">\(Q(s, a)\)</span>. Unlike in advantage updating, the representation and algorithm are decoupled by construction.</p>
+<div class="math notranslate nohighlight">
+\[A^\pi (s, a) = Q^\pi (s, a) - V^\pi (s).\]</div>
+<p>The value function <span class="math notranslate nohighlight">\(V\)</span> measures the how good it is to be in a particular state <span class="math notranslate nohighlight">\(s\)</span>. The <span class="math notranslate nohighlight">\(Q\)</span> function, however, measures the the value of choosing a particular action when in this state. Now, using the definition of advantage, we might be tempted to construct the aggregating module as follows:</p>
+<div class="math notranslate nohighlight">
+\[Q(s, a; \theta, \alpha, \beta) = V (s; \theta, \beta) + A(s, a; \theta, \alpha),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta\)</span> denotes the parameters of the convolutional layers, while <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are the parameters of the two streams of fully-connected layers.</p>
+<p>Unfortunately, the above equation is unidentifiable in the sense that given <span class="math notranslate nohighlight">\(Q\)</span> we cannot recover <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(A\)</span> uniquely; for example, there are uncountable pairs of <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(A\)</span> that make <span class="math notranslate nohighlight">\(Q\)</span> values to zero. To address this issue of identifiability, we can force the advantage function estimator to have zero advantage at the chosen action. That is, we let the last module of the network implement the forward mapping.</p>
+<div class="math notranslate nohighlight">
+\[
+Q(s, a; \theta, \alpha, \beta) = V (s; \theta, \beta) + \big( A(s, a; \theta, \alpha) - \max_{a' \in |\mathcal{A}|} A(s, a'; \theta, \alpha) \big).
+\]</div>
+<p>This formula guarantees that we can recover the unique <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(A\)</span>, but the optimization is not so stable because the advantages have to compensate any change to the optimal action’s advantage. Due to the reason, an alternative module that replaces the max operator with an average is proposed:</p>
+<div class="math notranslate nohighlight">
+\[
+Q(s, a; \theta, \alpha, \beta) = V (s; \theta, \beta) + \big( A(s, a; \theta, \alpha) - \frac{1}{|\mathcal{A}|} \sum_{a'} A(s, a'; \theta, \alpha) \big).
+\]</div>
+<p>Unlike the max advantage form, in this formula, the advantages only need to change as fast as the mean, so it increases the stability of optimization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils</span> <span class="kn">import</span> <span class="n">clip_grad_norm_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="replay-buffer">
+<h2>Replay buffer<a class="headerlink" href="#replay-buffer" title="Permalink to this heading">#</a></h2>
+<p>Please see <em>01.dqn.ipynb</em> for detailed description.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ReplayBuffer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A simple numpy replay buffer.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span> <span class="n">obs_dim</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span> <span class="n">obs_dim</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">act</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+        <span class="n">rew</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+        <span class="n">next_obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+        <span class="n">done</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">next_obs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">act</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">rew</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">done</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">sample_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+                    <span class="n">next_obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+                    <span class="n">acts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+                    <span class="n">rews</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+                    <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h2>Dueling Network<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Carefully take a look at advantage and value layers separated from feature layer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># set common feature layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> 
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># set advantage layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">advantage_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># set value layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward method implementation.&quot;&quot;&quot;</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_layer</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+        <span class="n">advantage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">advantage_layer</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+
+        <span class="n">q</span> <span class="o">=</span> <span class="n">value</span> <span class="o">+</span> <span class="n">advantage</span> <span class="o">-</span> <span class="n">advantage</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">q</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dqn-duelingnet-agent-w-o-double-dqn-per">
+<h2>DQN + DuelingNet Agent (w/o Double-DQN &amp; PER)<a class="headerlink" href="#dqn-duelingnet-agent-w-o-double-dqn-per" title="Permalink to this heading">#</a></h2>
+<p>Here is a summary of DQNAgent class.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>select_action</p></td>
+<td><p>select an action from the input state.</p></td>
+</tr>
+<tr class="row-odd"><td><p>step</p></td>
+<td><p>take an action and return the response of the env.</p></td>
+</tr>
+<tr class="row-even"><td><p>compute_dqn_loss</p></td>
+<td><p>return dqn loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p>update_model</p></td>
+<td><p>update the model by gradient descent.</p></td>
+</tr>
+<tr class="row-even"><td><p>target_hard_update</p></td>
+<td><p>hard update from the local model to the target model.</p></td>
+</tr>
+<tr class="row-odd"><td><p>train</p></td>
+<td><p>train the agent during num_frames.</p></td>
+</tr>
+<tr class="row-even"><td><p>test</p></td>
+<td><p>test the agent (1 episode).</p></td>
+</tr>
+<tr class="row-odd"><td><p>plot</p></td>
+<td><p>plot the training progresses.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Aside from the dueling network architecture, the authors suggest to use Double-DQN and Prioritized Experience Replay as extra components for better performance. However, we don’t implement them to simplify the tutorial. There is only one diffrence between DQNAgent here and the one from <em>01.dqn.ipynb</em> and that is the usage of clip_grad_norm_ to prevent gradient exploding.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DQNAgent</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;DQN Agent interacting with environment.</span>
+<span class="sd">    </span>
+<span class="sd">    Attribute:</span>
+<span class="sd">        env (gym.Env): openAI Gym environment</span>
+<span class="sd">        memory (ReplayBuffer): replay memory to store transitions</span>
+<span class="sd">        batch_size (int): batch size for sampling</span>
+<span class="sd">        epsilon (float): parameter for epsilon greedy policy</span>
+<span class="sd">        epsilon_decay (float): step size to decrease epsilon</span>
+<span class="sd">        max_epsilon (float): max value of epsilon</span>
+<span class="sd">        min_epsilon (float): min value of epsilon</span>
+<span class="sd">        target_update (int): period for target model&#39;s hard update</span>
+<span class="sd">        gamma (float): discount factor</span>
+<span class="sd">        dqn (Network): model to train and select actions</span>
+<span class="sd">        dqn_target (Network): target model to update</span>
+<span class="sd">        optimizer (torch.optim): optimizer for training dqn</span>
+<span class="sd">        transition (list): transition information including</span>
+<span class="sd">                           state, action, reward, next_state, done</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">env</span><span class="p">:</span> <span class="n">gym</span><span class="o">.</span><span class="n">Env</span><span class="p">,</span>
+        <span class="n">memory_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">target_update</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">epsilon_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">max_epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">min_epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            env (gym.Env): openAI Gym environment</span>
+<span class="sd">            memory_size (int): length of memory</span>
+<span class="sd">            batch_size (int): batch size for sampling</span>
+<span class="sd">            target_update (int): period for target model&#39;s hard update</span>
+<span class="sd">            epsilon_decay (float): step size to decrease epsilon</span>
+<span class="sd">            lr (float): learning rate</span>
+<span class="sd">            max_epsilon (float): max value of epsilon</span>
+<span class="sd">            min_epsilon (float): min value of epsilon</span>
+<span class="sd">            gamma (float): discount factor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obs_dim</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">action_dim</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="n">ReplayBuffer</span><span class="p">(</span><span class="n">obs_dim</span><span class="p">,</span> <span class="n">memory_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">max_epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon_decay</span> <span class="o">=</span> <span class="n">epsilon_decay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_epsilon</span> <span class="o">=</span> <span class="n">max_epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_epsilon</span> <span class="o">=</span> <span class="n">min_epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_update</span> <span class="o">=</span> <span class="n">target_update</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        
+        <span class="c1"># device: cpu / gpu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span>
+            <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># networks: dqn, dqn_target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">obs_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">obs_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        
+        <span class="c1"># optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
+
+        <span class="c1"># transition to store in memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        
+        <span class="c1"># mode: train / test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">select_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Select an action from the input state.&quot;&quot;&quot;</span>
+        <span class="c1"># epsilon greedy policy</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">():</span>
+            <span class="n">selected_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">selected_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+            <span class="n">selected_action</span> <span class="o">=</span> <span class="n">selected_action</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">selected_action</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">selected_action</span>
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Take an action and return the response of the env.&quot;&quot;&quot;</span>
+        <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transition</span> <span class="o">+=</span> <span class="p">[</span><span class="n">reward</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">done</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">transition</span><span class="p">)</span>
+    
+        <span class="k">return</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span>
+
+    <span class="k">def</span> <span class="nf">update_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Update the model by gradient descent.&quot;&quot;&quot;</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">sample_batch</span><span class="p">()</span>
+
+        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_dqn_loss</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="c1"># DuelingNet: we clip the gradients to have their norm less than or equal to 10.</span>
+        <span class="n">clip_grad_norm_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="mf">10.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">plotting_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Train the agent.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">update_cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">epsilons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">frame_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_frames</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+            <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="n">reward</span>
+
+            <span class="c1"># if episode ends</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+                <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># if training is ready</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span>
+                <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_model</span><span class="p">()</span>
+                <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+                <span class="n">update_cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+                
+                <span class="c1"># linearly decrease epsilon</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">min_epsilon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">-</span> <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">max_epsilon</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_epsilon</span>
+                    <span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon_decay</span>
+                <span class="p">)</span>
+                <span class="n">epsilons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
+                
+                <span class="c1"># if hard update is needed</span>
+                <span class="k">if</span> <span class="n">update_cnt</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_update</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_target_hard_update</span><span class="p">()</span>
+
+            <span class="c1"># plotting</span>
+            <span class="k">if</span> <span class="n">frame_idx</span> <span class="o">%</span> <span class="n">plotting_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span><span class="p">(</span><span class="n">frame_idx</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">epsilons</span><span class="p">)</span>
+                
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Test the agent.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span> <span class="o">=</span> <span class="kc">True</span>
+        
+        <span class="c1"># for recording a video</span>
+        <span class="n">naive_env</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">RecordVideo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">video_folder</span><span class="o">=</span><span class="n">video_folder</span><span class="p">)</span>
+        
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+            <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="n">reward</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;score: &quot;</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="c1"># reset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">naive_env</span>
+
+    <span class="k">def</span> <span class="nf">_compute_dqn_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samples</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return dqn loss.&quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>  <span class="c1"># for shortening the following lines</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">next_state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;next_obs&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;acts&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">reward</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;rews&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;done&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># G_t   = r + gamma * v(s_{t+1})  if state != Terminal</span>
+        <span class="c1">#       = r                       otherwise</span>
+        <span class="n">curr_q_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="n">next_q_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span>
+            <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">done</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">next_q_value</span> <span class="o">*</span> <span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># calculate dqn loss</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">smooth_l1_loss</span><span class="p">(</span><span class="n">curr_q_value</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss</span>
+
+    <span class="k">def</span> <span class="nf">_target_hard_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Hard update: target &lt;- local.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+                
+    <span class="k">def</span> <span class="nf">_plot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">frame_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">scores</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> 
+        <span class="n">losses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> 
+        <span class="n">epsilons</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot the training progresses.&quot;&quot;&quot;</span>
+        <span class="n">clear_output</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;frame </span><span class="si">%s</span><span class="s1">. score: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">frame_idx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:])))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;epsilons&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epsilons</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Permalink to this heading">#</a></h2>
+<p>You can see the <a class="reference external" href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/cartpole.py">code</a> and <a class="reference external" href="https://github.com/openai/gym/blob/master/gym/envs/__init__.py#L53">configurations</a> of CartPole-v0 from OpenAI’s repository.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># environment</span>
+<span class="n">env_id</span> <span class="o">=</span> <span class="s2">&quot;CartPole-v0&quot;</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">env_id</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">Monitor</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;videos&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-random-seed">
+<h2>Set random seed<a class="headerlink" href="#set-random-seed" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seed</span> <span class="o">=</span> <span class="mi">777</span>
+
+<span class="k">def</span> <span class="nf">seed_torch</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">deterministic</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">seed_torch</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">env</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[777]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initialize">
+<h2>Initialize<a class="headerlink" href="#initialize" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters</span>
+<span class="n">num_frames</span> <span class="o">=</span> <span class="mi">20000</span>
+<span class="n">memory_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">target_update</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">epsilon_decay</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2000</span>
+
+<span class="c1"># train</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">DQNAgent</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">memory_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">target_update</span><span class="p">,</span> <span class="n">epsilon_decay</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cpu
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train">
+<h2>Train<a class="headerlink" href="#train" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">agent</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">num_frames</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ad38147549e372b8ba8a979512041182513e1e5f1b55758beb2d029b87dcc0b0.png" src="../_images/ad38147549e372b8ba8a979512041182513e1e5f1b55758beb2d029b87dcc0b0.png" />
+</div>
+</div>
+</section>
+<section id="test">
+<h2>Test<a class="headerlink" href="#test" title="Permalink to this heading">#</a></h2>
+<p>Run the trained agent (1 episode).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">video_folder</span><span class="o">=</span><span class="s2">&quot;videos/dueling&quot;</span>
+<span class="n">agent</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">video_folder</span><span class="o">=</span><span class="n">video_folder</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>score:  200.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="render">
+<h2>Render<a class="headerlink" href="#render" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+
+
+<span class="k">def</span> <span class="nf">ipython_show_video</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Show a video at `path` within IPython Notebook.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Cannot access: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+    <span class="n">video</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r+b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">video</span><span class="p">)</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;video width=&quot;320&quot; height=&quot;240&quot; alt=&quot;test&quot; controls&gt;</span>
+<span class="s2">        &lt;source src=&quot;data:video/mp4;base64,</span><span class="si">{0}</span><span class="s2">&quot; type=&quot;video/mp4&quot;/&gt;</span>
+<span class="s2">        &lt;/video&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoded</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">))</span>
+    <span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">show_latest_video</span><span class="p">(</span><span class="n">video_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Show the most recently recorded video from video folder.&quot;&quot;&quot;</span>
+    <span class="n">list_of_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">video_folder</span><span class="p">,</span> <span class="s2">&quot;*.mp4&quot;</span><span class="p">))</span>
+    <span class="n">latest_file</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">list_of_files</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">)</span>
+    <span class="n">ipython_show_video</span><span class="p">(</span><span class="n">latest_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">latest_file</span>
+
+
+<span class="n">latest_file</span> <span class="o">=</span> <span class="n">show_latest_video</span><span class="p">(</span><span class="n">video_folder</span><span class="o">=</span><span class="n">video_folder</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Played:&quot;</span><span class="p">,</span> <span class="n">latest_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <video width="320" height="240" alt="test" controls>
+        <source src="data:video/mp4;base64,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AAAAyQAAAQAAAAAUc3RzcwAAAAAAAAABAAAAAQAABkhjdHRzAAAAAAAAAMcAAAABAAACAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAAAwAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAQAAAAAAgAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAQAAAAAAgAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEA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" type="video/mp4"/>
+        </video>
+        </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Played: videos/dueling/rl-video-episode-0.mp4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+<div class="section">
+   
+</div>
+
+            
+            
+        </article>
+        
+        
+        
+        <footer class="bd-footer-article">
+            
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="per.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">03. Prioritized Experience Replay (PER)</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="noisy_net.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">05. Noisy Networks for Exploration</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+            
+        </footer>
+        
+    </div>
+    
+    
+    
+    <div class="bd-sidebar-secondary bd-toc">
+        
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fas fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#replay-buffer">
+   Replay buffer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Dueling Network
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dqn-duelingnet-agent-w-o-double-dqn-per">
+   DQN + DuelingNet Agent (w/o Double-DQN &amp; PER)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#environment">
+   Environment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#set-random-seed">
+   Set random seed
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize">
+   Initialize
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train">
+   Train
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test">
+   Test
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#render">
+   Render
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/zclab/notebook/edit/main/docs/reinforcement/dueling.ipynb">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../_sources/reinforcement/dueling.ipynb.txt">
+        <i class="fas fa-file-alt"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+    </div>
+    
+    
+</div>
+<footer class="bd-footer-content">
+    <div class="bd-footer-content__inner">
+        
+    </div>
+</footer>
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+    
+    
+    <img src="https://img.shields.io/badge/Copyright-2021--2022 子川-blue" />
+    <br>
+    
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+    
+    <a href="http://sphinx-doc.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Sphinx-5.2.2-blue" />
+    </a>
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/latest/" target="_blank">
+        <img src="https://img.shields.io/badge/Theme-Pydata%20Sphinx%20Theme-blue" />
+    </a>
+    <br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

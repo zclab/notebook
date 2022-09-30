@@ -1,0 +1,1676 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18: http://docutils.sourceforge.net/" />
+
+    <title>08. Rainbow &#8212; ZC Notebook</title>
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+
+  
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/6.1.2/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reinforcement/rainbow';</script>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="科学计算" href="../science/index.html" />
+    <link rel="prev" title="07. N-Step Learning" href="n_step_learning.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/logo-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+    <p class="title logo__title">ZC's Notebook</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item current active">
+                    <a class="nav-link" href="index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item current active">
+                    <a class="nav-link" href="index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="A2C.html">
+   Actor-Critic
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="PPO.html">
+   Proximal Policy Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DDPG.html">
+   Deep Deterministic Policy Gradient
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="TD3.html">
+   TD3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="SAC.html">
+   Soft Actor Critic (SAC)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DDPGfD.html">
+   DDPGfD
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BC.html">
+   Behavior Cloning (without HER)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dqn.html">
+   Deep Q Network (DQN)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="double_q.html">
+   Double DQN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="per.html">
+   Prioritized Experience Replay (PER)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dueling.html">
+   Dueling Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="noisy_net.html">
+   Noisy Networks for Exploration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="categorical_dqn.html">
+   Categorical DQN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="n_step_learning.html">
+   N-Step Learning
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Rainbow
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+<div class="bd-content">
+    <div class="bd-article-container">
+        
+        <div class="bd-header-article">
+            
+        </div>
+        
+        
+        <article class="bd-article" role="main">
+             <section class="tex2jax_ignore mathjax_ignore" id="rainbow">
+<h1>08. Rainbow<a class="headerlink" href="#rainbow" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://arxiv.org/pdf/1710.02298.pdf">M. Hessel et al., “Rainbow: Combining Improvements in Deep Reinforcement Learning.” arXiv preprint arXiv:1710.02298, 2017.</a></p>
+<p>We will integrate all the following seven components into a single integrated agent, which is called Rainbow!</p>
+<ol class="arabic simple">
+<li><p>DQN</p></li>
+<li><p>Double DQN</p></li>
+<li><p>Prioritized Experience Replay</p></li>
+<li><p>Dueling Network</p></li>
+<li><p>Noisy Network</p></li>
+<li><p>Categorical DQN</p></li>
+<li><p>N-step Learning</p></li>
+</ol>
+<p>This method shows an impressive performance on the Atari 2600 benchmark, both in terms of data efficiency and final performance.</p>
+<p><img alt="rainbow" src="https://user-images.githubusercontent.com/14961526/60591412-61748100-9dd9-11e9-84fb-076c7a61fbab.png" /></p>
+<p>However, the integration is not so simple because some of components are not independent each other, so we will look into a number of points that people especailly feel confused.</p>
+<ol class="arabic simple">
+<li><p>Noisy Network &lt;-&gt; Dueling Network</p></li>
+<li><p>Dueling Network &lt;-&gt; Categorical DQN</p></li>
+<li><p>Categorical DQN &lt;-&gt; Double DQN</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Deque</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils</span> <span class="kn">import</span> <span class="n">clip_grad_norm_</span>
+
+<span class="c1"># download segment tree module</span>
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="o">!</span>wget https://raw.githubusercontent.com/curt-park/rainbow-is-all-you-need/master/segment_tree.py
+
+<span class="kn">from</span> <span class="nn">segment_tree</span> <span class="kn">import</span> <span class="n">MinSegmentTree</span><span class="p">,</span> <span class="n">SumSegmentTree</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="replay-buffer">
+<h2>Replay buffer<a class="headerlink" href="#replay-buffer" title="Permalink to this heading">#</a></h2>
+<p>Same as the basic N-step buffer.</p>
+<p>(Please see <em>01.dqn.ipynb</em>, <em>07.n_step_learning.ipynb</em> for detailed description about the basic (n-step) replay buffer.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ReplayBuffer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A simple numpy replay buffer.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">obs_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> 
+        <span class="n">n_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> 
+        <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span> <span class="n">obs_dim</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span> <span class="n">obs_dim</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        
+        <span class="c1"># for N-step Learning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_step_buffer</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">n_step</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span> <span class="o">=</span> <span class="n">n_step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+
+    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+        <span class="n">act</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+        <span class="n">rew</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+        <span class="n">next_obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+        <span class="n">done</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="n">transition</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">act</span><span class="p">,</span> <span class="n">rew</span><span class="p">,</span> <span class="n">next_obs</span><span class="p">,</span> <span class="n">done</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_step_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transition</span><span class="p">)</span>
+
+        <span class="c1"># single step transition is not ready</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_step_buffer</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">()</span>
+        
+        <span class="c1"># make a n-step transition</span>
+        <span class="n">rew</span><span class="p">,</span> <span class="n">next_obs</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_n_step_info</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_step_buffer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span>
+        <span class="p">)</span>
+        <span class="n">obs</span><span class="p">,</span> <span class="n">act</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step_buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">next_obs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">act</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">rew</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">done</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step_buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">sample_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">next_obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">acts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">rews</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="c1"># for N-step Learning</span>
+            <span class="n">indices</span><span class="o">=</span><span class="n">idxs</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">sample_batch_from_idxs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">idxs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="c1"># for N-step Learning</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">next_obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">acts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">rews</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+            <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_n_step_info</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">n_step_buffer</span><span class="p">:</span> <span class="n">Deque</span><span class="p">,</span> <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return n step rew, next_obs, and done.&quot;&quot;&quot;</span>
+        <span class="c1"># info of the last transition</span>
+        <span class="n">rew</span><span class="p">,</span> <span class="n">next_obs</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">n_step_buffer</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+
+        <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">n_step_buffer</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">r</span><span class="p">,</span> <span class="n">n_o</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">transition</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+
+            <span class="n">rew</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">rew</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span>
+            <span class="n">next_obs</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_o</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span> <span class="k">else</span> <span class="p">(</span><span class="n">next_obs</span><span class="p">,</span> <span class="n">done</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">rew</span><span class="p">,</span> <span class="n">next_obs</span><span class="p">,</span> <span class="n">done</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="prioritized-replay-buffer">
+<h2>Prioritized replay Buffer<a class="headerlink" href="#prioritized-replay-buffer" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">store</span></code> method returns boolean in order to inform if a N-step transition has been generated.</p>
+<p>(Please see <em>02.per.ipynb</em> for detailed description about PER.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PrioritizedReplayBuffer</span><span class="p">(</span><span class="n">ReplayBuffer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Prioritized Replay buffer.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        max_priority (float): max priority</span>
+<span class="sd">        tree_ptr (int): next index of tree</span>
+<span class="sd">        alpha (float): alpha parameter for prioritized replay buffer</span>
+<span class="sd">        sum_tree (SumSegmentTree): sum tree for prior</span>
+<span class="sd">        min_tree (MinSegmentTree): min tree for min prior to get max weight</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">obs_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> 
+        <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">n_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> 
+        <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        
+        <span class="nb">super</span><span class="p">(</span><span class="n">PrioritizedReplayBuffer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">obs_dim</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">n_step</span><span class="p">,</span> <span class="n">gamma</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_priority</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_ptr</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        
+        <span class="c1"># capacity must be positive and a power of 2.</span>
+        <span class="n">tree_capacity</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">tree_capacity</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span><span class="p">:</span>
+            <span class="n">tree_capacity</span> <span class="o">*=</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span> <span class="o">=</span> <span class="n">SumSegmentTree</span><span class="p">(</span><span class="n">tree_capacity</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_tree</span> <span class="o">=</span> <span class="n">MinSegmentTree</span><span class="p">(</span><span class="n">tree_capacity</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+        <span class="n">act</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">rew</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+        <span class="n">next_obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+        <span class="n">done</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Store experience and priority.&quot;&quot;&quot;</span>
+        <span class="n">transition</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">act</span><span class="p">,</span> <span class="n">rew</span><span class="p">,</span> <span class="n">next_obs</span><span class="p">,</span> <span class="n">done</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">transition</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_ptr</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_priority</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_tree</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_ptr</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_priority</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tree_ptr</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_ptr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_size</span>
+        
+        <span class="k">return</span> <span class="n">transition</span>
+
+    <span class="k">def</span> <span class="nf">sample_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Sample a batch of experiences.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
+        <span class="k">assert</span> <span class="n">beta</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        
+        <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_proportional</span><span class="p">()</span>
+        
+        <span class="n">obs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_buf</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="n">next_obs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_buf</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="n">acts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">acts_buf</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="n">rews</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rews_buf</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_buf</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_calculate_weight</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span>
+            <span class="n">next_obs</span><span class="o">=</span><span class="n">next_obs</span><span class="p">,</span>
+            <span class="n">acts</span><span class="o">=</span><span class="n">acts</span><span class="p">,</span>
+            <span class="n">rews</span><span class="o">=</span><span class="n">rews</span><span class="p">,</span>
+            <span class="n">done</span><span class="o">=</span><span class="n">done</span><span class="p">,</span>
+            <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+            <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+        <span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">update_priorities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">priorities</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update priorities of sampled transitions.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">priorities</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">priority</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">priorities</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">priority</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">priority</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_tree</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">priority</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_priority</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_priority</span><span class="p">,</span> <span class="n">priority</span><span class="p">)</span>
+            
+    <span class="k">def</span> <span class="nf">_sample_proportional</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Sample indices based on proportions.&quot;&quot;&quot;</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">p_total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">segment</span> <span class="o">=</span> <span class="n">p_total</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">segment</span> <span class="o">*</span> <span class="n">i</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">segment</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">upperbound</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">upperbound</span><span class="p">)</span>
+            <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">indices</span>
+    
+    <span class="k">def</span> <span class="nf">_calculate_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the weight of the experience at idx.&quot;&quot;&quot;</span>
+        <span class="c1"># get max weight</span>
+        <span class="n">p_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_tree</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">max_weight</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_min</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span>
+        
+        <span class="c1"># calculate weights</span>
+        <span class="n">p_sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_tree</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_sample</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">/</span> <span class="n">max_weight</span>
+        
+        <span class="k">return</span> <span class="n">weight</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="noisy-layer">
+<h2>Noisy Layer<a class="headerlink" href="#noisy-layer" title="Permalink to this heading">#</a></h2>
+<p>Please see <em>05.noisy_net.ipynb</em> for detailed description.</p>
+<p><strong>References:</strong></p>
+<ul class="simple">
+<li><p>https://github.com/higgsfield/RL-Adventure/blob/master/5.noisy%20dqn.ipynb</p></li>
+<li><p>https://github.com/Kaixhin/Rainbow/blob/master/model.py</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NoisyLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Noisy linear module for NoisyNet.</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">        </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        in_features (int): input size of linear module</span>
+<span class="sd">        out_features (int): output size of linear module</span>
+<span class="sd">        std_init (float): initial std value</span>
+<span class="sd">        weight_mu (nn.Parameter): mean value weight parameter</span>
+<span class="sd">        weight_sigma (nn.Parameter): std value weight parameter</span>
+<span class="sd">        bias_mu (nn.Parameter): mean value bias parameter</span>
+<span class="sd">        bias_sigma (nn.Parameter): std value bias parameter</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">in_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">out_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">std_init</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NoisyLinear</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_features</span> <span class="o">=</span> <span class="n">in_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_features</span> <span class="o">=</span> <span class="n">out_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">std_init</span> <span class="o">=</span> <span class="n">std_init</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_mu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_sigma</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span>
+            <span class="s2">&quot;weight_epsilon&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_mu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">out_features</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_sigma</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">out_features</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;bias_epsilon&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">out_features</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_noise</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset trainable network parameters (factorized gaussian noise).&quot;&quot;&quot;</span>
+        <span class="n">mu_range</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_mu</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="o">-</span><span class="n">mu_range</span><span class="p">,</span> <span class="n">mu_range</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_sigma</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">std_init</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_mu</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="o">-</span><span class="n">mu_range</span><span class="p">,</span> <span class="n">mu_range</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_sigma</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">std_init</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reset_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make new noise.&quot;&quot;&quot;</span>
+        <span class="n">epsilon_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_noise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="p">)</span>
+        <span class="n">epsilon_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_noise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="p">)</span>
+
+        <span class="c1"># outer product</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_epsilon</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">epsilon_out</span><span class="o">.</span><span class="n">ger</span><span class="p">(</span><span class="n">epsilon_in</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_epsilon</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">epsilon_out</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward method implementation.</span>
+<span class="sd">        </span>
+<span class="sd">        We don&#39;t use separate statements on train / eval mode.</span>
+<span class="sd">        It doesn&#39;t show remarkable difference of performance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight_mu</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_sigma</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_epsilon</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_mu</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_sigma</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_epsilon</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">scale_noise</span><span class="p">(</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set scale to make noise (factorized gaussian noise).&quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sign</span><span class="p">()</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">sqrt</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="noisynet-duelingnet-categorical-dqn">
+<h2>NoisyNet + DuelingNet + Categorical DQN<a class="headerlink" href="#noisynet-duelingnet-categorical-dqn" title="Permalink to this heading">#</a></h2>
+<section id="noisynet-duelingnet">
+<h3>NoisyNet + DuelingNet<a class="headerlink" href="#noisynet-duelingnet" title="Permalink to this heading">#</a></h3>
+<p>NoisyLinear is employed for the last two layers of advantage and value layers. The noise should be reset at evey update step.</p>
+</section>
+<section id="duelingnet-categorical-dqn">
+<h3>DuelingNet + Categorical DQN<a class="headerlink" href="#duelingnet-categorical-dqn" title="Permalink to this heading">#</a></h3>
+<p>The dueling network architecture is adapted for use with return distributions. The network has a shared representation, which is then fed into a value stream with atom_size outputs, and into an advantage stream with atom_size × out_dim outputs. For each atom, the value and advantage streams are aggregated, as in dueling DQN, and then passed through a softmax layer to obtain the normalized parametric distributions used to estimate the returns’ distributions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="n">advantage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">advantage_layer</span><span class="p">(</span><span class="n">adv_hid</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_layer</span><span class="p">(</span><span class="n">val_hid</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span><span class="p">)</span>
+        <span class="n">q_atoms</span> <span class="o">=</span> <span class="n">value</span> <span class="o">+</span> <span class="n">advantage</span> <span class="o">-</span> <span class="n">advantage</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">q_atoms</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(Please see <em>04.dueling.ipynb</em>, <em>05.noisy_net.ipynb</em>, <em>06.categorical_dqn.ipynb</em> for detailed description of each component’s network architecture.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">atom_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">support</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">support</span> <span class="o">=</span> <span class="n">support</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span> <span class="o">=</span> <span class="n">atom_size</span>
+
+        <span class="c1"># set common feature layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> 
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># set advantage layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">advantage_hidden_layer</span> <span class="o">=</span> <span class="n">NoisyLinear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">advantage_layer</span> <span class="o">=</span> <span class="n">NoisyLinear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">out_dim</span> <span class="o">*</span> <span class="n">atom_size</span><span class="p">)</span>
+
+        <span class="c1"># set value layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_hidden_layer</span> <span class="o">=</span> <span class="n">NoisyLinear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_layer</span> <span class="o">=</span> <span class="n">NoisyLinear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">atom_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward method implementation.&quot;&quot;&quot;</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dist</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">q</span>
+    
+    <span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get distribution for atoms.&quot;&quot;&quot;</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">adv_hid</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">advantage_hidden_layer</span><span class="p">(</span><span class="n">feature</span><span class="p">))</span>
+        <span class="n">val_hid</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_hidden_layer</span><span class="p">(</span><span class="n">feature</span><span class="p">))</span>
+        
+        <span class="n">advantage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">advantage_layer</span><span class="p">(</span><span class="n">adv_hid</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span>
+        <span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_layer</span><span class="p">(</span><span class="n">val_hid</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span><span class="p">)</span>
+        <span class="n">q_atoms</span> <span class="o">=</span> <span class="n">value</span> <span class="o">+</span> <span class="n">advantage</span> <span class="o">-</span> <span class="n">advantage</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">q_atoms</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>  <span class="c1"># for avoiding nans</span>
+        
+        <span class="k">return</span> <span class="n">dist</span>
+    
+    <span class="k">def</span> <span class="nf">reset_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset all noisy layers.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">advantage_hidden_layer</span><span class="o">.</span><span class="n">reset_noise</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">advantage_layer</span><span class="o">.</span><span class="n">reset_noise</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_hidden_layer</span><span class="o">.</span><span class="n">reset_noise</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_layer</span><span class="o">.</span><span class="n">reset_noise</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="rainbow-agent">
+<h2>Rainbow Agent<a class="headerlink" href="#rainbow-agent" title="Permalink to this heading">#</a></h2>
+<p>Here is a summary of DQNAgent class.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>select_action</p></td>
+<td><p>select an action from the input state.</p></td>
+</tr>
+<tr class="row-odd"><td><p>step</p></td>
+<td><p>take an action and return the response of the env.</p></td>
+</tr>
+<tr class="row-even"><td><p>compute_dqn_loss</p></td>
+<td><p>return dqn loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p>update_model</p></td>
+<td><p>update the model by gradient descent.</p></td>
+</tr>
+<tr class="row-even"><td><p>target_hard_update</p></td>
+<td><p>hard update from the local model to the target model.</p></td>
+</tr>
+<tr class="row-odd"><td><p>train</p></td>
+<td><p>train the agent during num_frames.</p></td>
+</tr>
+<tr class="row-even"><td><p>test</p></td>
+<td><p>test the agent (1 episode).</p></td>
+</tr>
+<tr class="row-odd"><td><p>plot</p></td>
+<td><p>plot the training progresses.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="categorical-dqn-double-dqn">
+<h3>Categorical DQN + Double DQN<a class="headerlink" href="#categorical-dqn-double-dqn" title="Permalink to this heading">#</a></h3>
+<p>The idea of Double Q-learning is to reduce overestimations by decomposing the max operation in the target into action selection and action evaluation. Here, we use <code class="docutils literal notranslate"><span class="pre">self.dqn</span></code> instead of <code class="docutils literal notranslate"><span class="pre">self.dqn_target</span></code> to obtain the target actions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="c1"># Categorical DQN + Double DQN</span>
+        <span class="c1"># target_dqn is used when we don&#39;t employ double DQN</span>
+        <span class="n">next_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">next_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+        <span class="n">next_dist</span> <span class="o">=</span> <span class="n">next_dist</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">next_action</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DQNAgent</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;DQN Agent interacting with environment.</span>
+<span class="sd">    </span>
+<span class="sd">    Attribute:</span>
+<span class="sd">        env (gym.Env): openAI Gym environment</span>
+<span class="sd">        memory (PrioritizedReplayBuffer): replay memory to store transitions</span>
+<span class="sd">        batch_size (int): batch size for sampling</span>
+<span class="sd">        target_update (int): period for target model&#39;s hard update</span>
+<span class="sd">        gamma (float): discount factor</span>
+<span class="sd">        dqn (Network): model to train and select actions</span>
+<span class="sd">        dqn_target (Network): target model to update</span>
+<span class="sd">        optimizer (torch.optim): optimizer for training dqn</span>
+<span class="sd">        transition (list): transition information including </span>
+<span class="sd">                           state, action, reward, next_state, done</span>
+<span class="sd">        v_min (float): min value of support</span>
+<span class="sd">        v_max (float): max value of support</span>
+<span class="sd">        atom_size (int): the unit number of support</span>
+<span class="sd">        support (torch.Tensor): support for categorical dqn</span>
+<span class="sd">        use_n_step (bool): whether to use n_step memory</span>
+<span class="sd">        n_step (int): step number to calculate n-step td error</span>
+<span class="sd">        memory_n (ReplayBuffer): n-step replay buffer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">env</span><span class="p">:</span> <span class="n">gym</span><span class="o">.</span><span class="n">Env</span><span class="p">,</span>
+        <span class="n">memory_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">target_update</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span>
+        <span class="c1"># PER parameters</span>
+        <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">prior_eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
+        <span class="c1"># Categorical DQN parameters</span>
+        <span class="n">v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">v_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">200.0</span><span class="p">,</span>
+        <span class="n">atom_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">51</span><span class="p">,</span>
+        <span class="c1"># N-step Learning</span>
+        <span class="n">n_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            env (gym.Env): openAI Gym environment</span>
+<span class="sd">            memory_size (int): length of memory</span>
+<span class="sd">            batch_size (int): batch size for sampling</span>
+<span class="sd">            target_update (int): period for target model&#39;s hard update</span>
+<span class="sd">            lr (float): learning rate</span>
+<span class="sd">            gamma (float): discount factor</span>
+<span class="sd">            alpha (float): determines how much prioritization is used</span>
+<span class="sd">            beta (float): determines how much importance sampling is used</span>
+<span class="sd">            prior_eps (float): guarantees every transition can be sampled</span>
+<span class="sd">            v_min (float): min value of support</span>
+<span class="sd">            v_max (float): max value of support</span>
+<span class="sd">            atom_size (int): the unit number of support</span>
+<span class="sd">            n_step (int): step number to calculate n-step td error</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obs_dim</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">action_dim</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_update</span> <span class="o">=</span> <span class="n">target_update</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="c1"># NoisyNet: All attributes related to epsilon are removed</span>
+        
+        <span class="c1"># device: cpu / gpu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span>
+            <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        
+        <span class="c1"># PER</span>
+        <span class="c1"># memory for 1-step Learning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prior_eps</span> <span class="o">=</span> <span class="n">prior_eps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="n">PrioritizedReplayBuffer</span><span class="p">(</span>
+            <span class="n">obs_dim</span><span class="p">,</span> <span class="n">memory_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># memory for N-step Learning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_n_step</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">n_step</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_n_step</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span> <span class="o">=</span> <span class="n">n_step</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory_n</span> <span class="o">=</span> <span class="n">ReplayBuffer</span><span class="p">(</span>
+                <span class="n">obs_dim</span><span class="p">,</span> <span class="n">memory_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">n_step</span><span class="o">=</span><span class="n">n_step</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span>
+            <span class="p">)</span>
+            
+        <span class="c1"># Categorical DQN parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_min</span> <span class="o">=</span> <span class="n">v_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_max</span> <span class="o">=</span> <span class="n">v_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span> <span class="o">=</span> <span class="n">atom_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">support</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">v_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># networks: dqn, dqn_target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span>
+            <span class="n">obs_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span>
+            <span class="n">obs_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        
+        <span class="c1"># optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
+
+        <span class="c1"># transition to store in memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        
+        <span class="c1"># mode: train / test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">select_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Select an action from the input state.&quot;&quot;&quot;</span>
+        <span class="c1"># NoisyNet: no epsilon greedy action selection</span>
+        <span class="n">selected_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+        <span class="n">selected_action</span> <span class="o">=</span> <span class="n">selected_action</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">selected_action</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">selected_action</span>
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Take an action and return the response of the env.&quot;&quot;&quot;</span>
+        <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transition</span> <span class="o">+=</span> <span class="p">[</span><span class="n">reward</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">done</span><span class="p">]</span>
+            
+            <span class="c1"># N-step transition</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_n_step</span><span class="p">:</span>
+                <span class="n">one_step_transition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory_n</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">transition</span><span class="p">)</span>
+            <span class="c1"># 1-step transition</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">one_step_transition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transition</span>
+
+            <span class="c1"># add a single step transition</span>
+            <span class="k">if</span> <span class="n">one_step_transition</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="o">*</span><span class="n">one_step_transition</span><span class="p">)</span>
+    
+        <span class="k">return</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span>
+
+    <span class="k">def</span> <span class="nf">update_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Update the model by gradient descent.&quot;&quot;&quot;</span>
+        <span class="c1"># PER needs beta to calculate weights</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">sample_batch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span>
+            <span class="n">samples</span><span class="p">[</span><span class="s2">&quot;weights&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="s2">&quot;indices&quot;</span><span class="p">]</span>
+        
+        <span class="c1"># 1-step Learning loss</span>
+        <span class="n">elementwise_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_dqn_loss</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+        
+        <span class="c1"># PER: importance sampling before average</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">elementwise_loss</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span>
+        
+        <span class="c1"># N-step Learning loss</span>
+        <span class="c1"># we are gonna combine 1-step loss and n-step loss so as to</span>
+        <span class="c1"># prevent high-variance. The original rainbow employs n-step loss only.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_n_step</span><span class="p">:</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory_n</span><span class="o">.</span><span class="n">sample_batch_from_idxs</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+            <span class="n">elementwise_loss_n_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_dqn_loss</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+            <span class="n">elementwise_loss</span> <span class="o">+=</span> <span class="n">elementwise_loss_n_loss</span>
+            
+            <span class="c1"># PER: importance sampling before average</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">elementwise_loss</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">clip_grad_norm_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="mf">10.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        
+        <span class="c1"># PER: update priorities</span>
+        <span class="n">loss_for_prior</span> <span class="o">=</span> <span class="n">elementwise_loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">new_priorities</span> <span class="o">=</span> <span class="n">loss_for_prior</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">prior_eps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">update_priorities</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">new_priorities</span><span class="p">)</span>
+        
+        <span class="c1"># NoisyNet: reset noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">reset_noise</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">reset_noise</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">plotting_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Train the agent.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">update_cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">frame_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_frames</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+            <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="n">reward</span>
+            
+            <span class="c1"># NoisyNet: removed decrease of epsilon</span>
+            
+            <span class="c1"># PER: increase beta</span>
+            <span class="n">fraction</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">frame_idx</span> <span class="o">/</span> <span class="n">num_frames</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">+</span> <span class="n">fraction</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+
+            <span class="c1"># if episode ends</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+                <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># if training is ready</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span>
+                <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_model</span><span class="p">()</span>
+                <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+                <span class="n">update_cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+                
+                <span class="c1"># if hard update is needed</span>
+                <span class="k">if</span> <span class="n">update_cnt</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_update</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_target_hard_update</span><span class="p">()</span>
+
+            <span class="c1"># plotting</span>
+            <span class="k">if</span> <span class="n">frame_idx</span> <span class="o">%</span> <span class="n">plotting_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span><span class="p">(</span><span class="n">frame_idx</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
+                
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Test the agent.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_test</span> <span class="o">=</span> <span class="kc">True</span>
+        
+        <span class="c1"># for recording a video</span>
+        <span class="n">naive_env</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">RecordVideo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">video_folder</span><span class="o">=</span><span class="n">video_folder</span><span class="p">)</span>
+        
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+            <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="n">reward</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;score: &quot;</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="c1"># reset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">naive_env</span>
+
+    <span class="k">def</span> <span class="nf">_compute_dqn_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samples</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return categorical dqn loss.&quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>  <span class="c1"># for shortening the following lines</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">next_state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;next_obs&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;acts&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">reward</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;rews&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;done&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        
+        <span class="c1"># Categorical DQN algorithm</span>
+        <span class="n">delta_z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_max</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="c1"># Double DQN</span>
+            <span class="n">next_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">next_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+            <span class="n">next_dist</span> <span class="o">=</span> <span class="n">next_dist</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">next_action</span><span class="p">]</span>
+
+            <span class="n">t_z</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">done</span><span class="p">)</span> <span class="o">*</span> <span class="n">gamma</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span>
+            <span class="n">t_z</span> <span class="o">=</span> <span class="n">t_z</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">v_min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">v_max</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">t_z</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_min</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta_z</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">floor</span><span class="p">()</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">ceil</span><span class="p">()</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+
+            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+                    <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_size</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">proj_dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">next_dist</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">proj_dist</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index_add_</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">next_dist</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">proj_dist</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index_add_</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">u</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">next_dist</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">l</span><span class="o">.</span><span class="n">float</span><span class="p">()))</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">log_p</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">action</span><span class="p">])</span>
+        <span class="n">elementwise_loss</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">proj_dist</span> <span class="o">*</span> <span class="n">log_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">elementwise_loss</span>
+
+    <span class="k">def</span> <span class="nf">_target_hard_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Hard update: target &lt;- local.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dqn_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dqn</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+                
+    <span class="k">def</span> <span class="nf">_plot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">frame_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">scores</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> 
+        <span class="n">losses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot the training progresses.&quot;&quot;&quot;</span>
+        <span class="n">clear_output</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;frame </span><span class="si">%s</span><span class="s1">. score: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">frame_idx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:])))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Permalink to this heading">#</a></h2>
+<p>You can see the <a class="reference external" href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/cartpole.py">code</a> and <a class="reference external" href="https://github.com/openai/gym/blob/master/gym/envs/__init__.py#L53">configurations</a> of CartPole-v0 from OpenAI’s repository.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># environment</span>
+<span class="n">env_id</span> <span class="o">=</span> <span class="s2">&quot;CartPole-v0&quot;</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">env_id</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">Monitor</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;videos&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-random-seed">
+<h2>Set random seed<a class="headerlink" href="#set-random-seed" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seed</span> <span class="o">=</span> <span class="mi">777</span>
+
+<span class="k">def</span> <span class="nf">seed_torch</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">deterministic</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">seed_torch</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">env</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[777]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initialize">
+<h2>Initialize<a class="headerlink" href="#initialize" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters</span>
+<span class="n">num_frames</span> <span class="o">=</span> <span class="mi">20000</span>
+<span class="n">memory_size</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">target_update</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># train</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">DQNAgent</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">memory_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">target_update</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cpu
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train">
+<h2>Train<a class="headerlink" href="#train" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">agent</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">num_frames</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9fed4b3787e20552694c654c09efd6899a712831e7133c1d3c35bdc538be17cf.png" src="../_images/9fed4b3787e20552694c654c09efd6899a712831e7133c1d3c35bdc538be17cf.png" />
+</div>
+</div>
+</section>
+<section id="test">
+<h2>Test<a class="headerlink" href="#test" title="Permalink to this heading">#</a></h2>
+<p>Run the trained agent (1 episode).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">video_folder</span><span class="o">=</span><span class="s2">&quot;videos/rainbow&quot;</span>
+<span class="n">agent</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">video_folder</span><span class="o">=</span><span class="n">video_folder</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>score:  200.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="render">
+<h2>Render<a class="headerlink" href="#render" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+
+
+<span class="k">def</span> <span class="nf">ipython_show_video</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Show a video at `path` within IPython Notebook.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Cannot access: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+    <span class="n">video</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r+b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">video</span><span class="p">)</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;video width=&quot;320&quot; height=&quot;240&quot; alt=&quot;test&quot; controls&gt;</span>
+<span class="s2">        &lt;source src=&quot;data:video/mp4;base64,</span><span class="si">{0}</span><span class="s2">&quot; type=&quot;video/mp4&quot;/&gt;</span>
+<span class="s2">        &lt;/video&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoded</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">))</span>
+    <span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">show_latest_video</span><span class="p">(</span><span class="n">video_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Show the most recently recorded video from video folder.&quot;&quot;&quot;</span>
+    <span class="n">list_of_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">video_folder</span><span class="p">,</span> <span class="s2">&quot;*.mp4&quot;</span><span class="p">))</span>
+    <span class="n">latest_file</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">list_of_files</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">)</span>
+    <span class="n">ipython_show_video</span><span class="p">(</span><span class="n">latest_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">latest_file</span>
+
+
+<span class="n">latest_file</span> <span class="o">=</span> <span class="n">show_latest_video</span><span class="p">(</span><span class="n">video_folder</span><span class="o">=</span><span class="n">video_folder</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Played:&quot;</span><span class="p">,</span> <span class="n">latest_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <video width="320" height="240" alt="test" controls>
+        <source src="data:video/mp4;base64,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AAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAAAEAAAUAAAAAAQAAAgAAAAABAAAAAAAAAAEAAAEAAAAAAQAABQAAAAABAAACAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAFAAAAAAEAAAIAAAAAAQAAAAAAAAABAAABAAAAABxzdHNjAAAAAAAAAAEAAAABAAAAyQAAAAEAAAM4c3RzegAAAAAAAAAAAAAAyQAABk4AAAEbAAAA3wAAAIAAAACAAAABKQAAAJ4AAACIAAAAVQAAALUAAAB1AAAAVAAAAEQAAACQAAAAbwAAAE4AAABYAAAAgQAAAGsAAAA1AAAAPAAAAHYAAABQAAAAPAAAADcAAABdAAAAWQAAADsAAABKAAAAbwAAAGYAAAA5AAAASwAAAHEAAABXAAAASwAAADsAAABuAAAAVgAAAEkAAABGAAAAUQAAAFwAAABAAAAAUwAAAH4AAABmAAAAPgAAAEcAAACYAAAAWAAAAEgAAAA8AAAAYwAAAFQAAABaAAAAQQAAAHIAAABoAAAATwAAADgAAABYAAAAbgAAAEEAAABRAAAAfgAAAG0AAAA4AAAAUAAAAGwAAABTAAAAUQAAADkAAABSAAAAegAAAEIAAABBAAAAUQAAAG0AAAA7AAAAQAAAAKkAAABQAAAALQAAADsAAACSAAAATwAAAH0AAAA4AAAAUAAAAHUAAABCAAAASwAAAHYAAABsAAAAOQAAAFEAAAB4AAAAUAAAAFAAAAA5AAAAYAAAAFAAAAA8AAAATAAAAEsAAABzAAAAOgAAAD4AAAB3AAAAUAAAACsAAAA8AAAAbAAAAFEAAABIAAAANQAAAFcAAABvAAAAQQAAAF8AAAB3AAAAZwAAADgAAABOAAAAjwAAAFAAAABVAAAAOQAAAFQAAABNAAAASAAAAEkAAABFAAAAhQAAADoAAABRAAAAigAAAE0AAAAvAAAAOQAAAHwAAABSAAAAYwAAADgAAABUAAAAUgAAAD8AAABLAAAAagAAAFoAAAA5AAAATwAAAJEAAABRAAAAUgAAADoAAABUAAAATgAAAEkAAABNAAAARAAAAH0AAAA8AAAATQAAAIgAAABOAAAALgAAADsAAABkAAAATwAAAE0AAAA4AAAATgAAAIYAAABCAAAATgAAAG8AAABjAAAAOQAAAFMAAABvAAAAUQAAAFsAAAA7AAAAUwAAAE8AAAB/AAAARAAAADsAAAByAAAAPQAAAEsAAAByAAAATQAAADAAAAA6AAAAWQAAAE8AAABQAAAANwAAABRzdGNvAAAAAAAAAAEAAAAwAAAAYnVkdGEAAABabWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAbWRpcmFwcGwAAAAAAAAAAAAAAAAtaWxzdAAAACWpdG9vAAAAHWRhdGEAAAABAAAAAExhdmY1OC43Ni4xMDA=" type="video/mp4"/>
+        </video>
+        </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Played: videos/rainbow/rl-video-episode-0.mp4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+<div class="section">
+   
+</div>
+
+            
+            
+        </article>
+        
+        
+        
+        <footer class="bd-footer-article">
+            
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="n_step_learning.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">07. N-Step Learning</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../science/index.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">科学计算</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+            
+        </footer>
+        
+    </div>
+    
+    
+    
+    <div class="bd-sidebar-secondary bd-toc">
+        
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fas fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#replay-buffer">
+   Replay buffer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prioritized-replay-buffer">
+   Prioritized replay Buffer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#noisy-layer">
+   Noisy Layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#noisynet-duelingnet-categorical-dqn">
+   NoisyNet + DuelingNet + Categorical DQN
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noisynet-duelingnet">
+     NoisyNet + DuelingNet
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#duelingnet-categorical-dqn">
+     DuelingNet + Categorical DQN
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rainbow-agent">
+   Rainbow Agent
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#categorical-dqn-double-dqn">
+     Categorical DQN + Double DQN
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#environment">
+   Environment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#set-random-seed">
+   Set random seed
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize">
+   Initialize
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train">
+   Train
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test">
+   Test
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#render">
+   Render
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/zclab/notebook/edit/main/docs/reinforcement/rainbow.ipynb">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../_sources/reinforcement/rainbow.ipynb.txt">
+        <i class="fas fa-file-alt"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+    </div>
+    
+    
+</div>
+<footer class="bd-footer-content">
+    <div class="bd-footer-content__inner">
+        
+    </div>
+</footer>
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+    
+    
+    <img src="https://img.shields.io/badge/Copyright-2021--2022 子川-blue" />
+    <br>
+    
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+    
+    <a href="http://sphinx-doc.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Sphinx-5.2.2-blue" />
+    </a>
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/latest/" target="_blank">
+        <img src="https://img.shields.io/badge/Theme-Pydata%20Sphinx%20Theme-blue" />
+    </a>
+    <br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

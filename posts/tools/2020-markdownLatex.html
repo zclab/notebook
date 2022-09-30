@@ -1,0 +1,1419 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18: http://docutils.sourceforge.net/" />
+
+    <title>Markdown中Latex常用语法 &#8212; ZC Notebook</title>
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+
+  
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'posts/tools/2020-markdownLatex';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/logo-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+    <p class="title logo__title">ZC's Notebook</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">  
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+         <i class="fa fa-calendar"></i>
+        16 October 2020 
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+<li id="author">
+  <span
+    ><i class="fa-fw fa fa-user"></i></span
+  >
+   
+  <a href="../../blog/author/%E5%AD%90%E5%B7%9D.html">子川</a>  
+</li>
+ 
+<li id="location">
+  <span
+    ><i class="fa-fw fa fa-location-arrow"></i></span
+  >
+   
+  <a href="../../blog/location/%E5%8C%97%E4%BA%AC.html">北京</a>  
+</li>
+ 
+<li id="language">
+  <span
+    ><i class="fa-fw fa fa-language"></i></span
+  >
+   
+  <a href="../../blog/language/%E4%B8%AD%E6%96%87.html">中文</a>  
+</li>
+ 
+<li id="category">
+  <span
+    ><i class="fa-fw fa fa-folder-open"></i></span
+  >
+   
+  <a href="../../blog/category/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7.html">软件工具</a>  
+</li>
+ 
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../../blog/tag/markdown.html">markdown</a>   
+  <a href="../../blog/tag/latex.html">latex</a>  
+</li>
+ 
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+        <a href="../../blog/category.html">Categories</a>
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+            <li>
+                <a href="../../blog/category/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80.html">程序语言 (3)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/category/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7.html">软件工具 (2)</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils"><a href="../../blog/tag.html">Tags</a></h5>
+    <style type="text/css">
+        ul.ablog-cloud {
+            list-style: none;
+            overflow: auto;
+        }
+
+        ul.ablog-cloud li {
+            float: left;
+            height: 20pt;
+            line-height: 18pt;
+            margin-right: 5px;
+        }
+
+        ul.ablog-cloud a {
+            text-decoration: none;
+            vertical-align: middle;
+        }
+
+        li.ablog-cloud-1 {
+            font-size: 80%;
+        }
+
+        li.ablog-cloud-2 {
+            font-size: 95%;
+        }
+
+        li.ablog-cloud-3 {
+            font-size: 110%;
+        }
+
+        li.ablog-cloud-4 {
+            font-size: 125%;
+        }
+
+        li.ablog-cloud-5 {
+            font-size: 140%;
+        }
+    </style>
+    <div class="sd-card-body docutils">
+        <ul class="ablog-cloud">
+             
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/git.html">Git</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-5">
+                <a href="../../blog/tag/python.html">Python</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/latex.html">latex</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/markdown.html">markdown</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/pathlib.html">pathlib</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/pytest.html">pytest</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/rebase.html">rebase</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/typing.html">typing</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+        <a href="../../blog/archive.html">Archives</a>
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+            <li>
+                <a href="../../blog/2022.html">2022 (3)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/2021.html">2021 (1)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/2020.html">2020 (1)</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+<div class="bd-content">
+    <div class="bd-article-container">
+        
+        <div class="bd-header-article">
+            
+        </div>
+        
+        
+        <article class="bd-article" role="main">
+             <section class="tex2jax_ignore mathjax_ignore" id="markdownlatex">
+<h1>Markdown中Latex常用语法<a class="headerlink" href="#markdownlatex" title="Permalink to this heading">#</a></h1>
+<p>这里介绍了latex常用的公式方法和符号以便参考。</p>
+<section id="id1">
+<h2>常用希腊字母表<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head text-center"><p>Display</p></th>
+<th class="head"><p>Capital Case</p></th>
+<th class="head text-center"><p>Display</p></th>
+<th class="head"><p>Var Case</p></th>
+<th class="head text-center"><p>Display</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\alpha</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\alpha\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\beta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\beta\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\gamma</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\gamma\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Gamma</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Gamma\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\theta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\theta\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Theta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Theta\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\vartheta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\vartheta\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\mu</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\mu\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\delta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\delta\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Delta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Delta\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\epsilon</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\epsilon\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\varepsilon</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\varepsilon\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\sigma</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\sigma\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Sigma</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Sigma\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\varsigma</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\varsigma\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\pi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\pi\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Pi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Pi\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\varpi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\varpi\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\omega</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\omega\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Omega</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Omega\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\xi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\xi\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Xi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Xi\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\zeta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\zeta\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\chi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\chi\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\rho</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\rho\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\varrho</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\varrho\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\phi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\phi\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Phi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Phi\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\varphi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\varphi\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\eta</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\eta\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\lambda</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\lambda\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Lambda</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Lambda\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\kappa</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\kappa\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\nu</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\nu\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\upsilon</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\upsilon\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Upsilon</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Upsilon\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\psi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\psi\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Psi</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Psi\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\tau</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\tau\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\iota</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\iota\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">o</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(o\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h2>常用特殊字符表<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head text-center"><p>Display</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head text-center"><p>Display</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head text-center"><p>Display</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head text-center"><p>Display</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\times</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\times\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\div</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\div\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\pm</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\mp</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\mp\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\otimes</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\otimes\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ominus</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ominus\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\oplus</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\oplus\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\odot</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\odot\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\oslash</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\oslash\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\triangleq</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\triangleq\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ne</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ne\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\equiv</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\equiv\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\lt</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\lt\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\gt</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\gt\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\le</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\le\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ge</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ge\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\cup</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\cup\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\cap</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\cap\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Cup</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Cup\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Cap</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Cap\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\bigcup</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigcup\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\bigcap</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigcap\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ast</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ast\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\star</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\star\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\bigotimes</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigotimes\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\bigoplus</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigoplus\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\circ</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\bullet</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\bigcirc</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigcirc\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\amalg</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\amalg\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\to</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\to\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\infty</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\vee</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\vee\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\wedge</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\wedge\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\lhd</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\lhd\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\rhd</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\rhd\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\bigvee</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigvee\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\bigwedge</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigwedge\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\unlhd</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\unlhd\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\unrhd</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\unrhd\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\sqcap</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\sqcap\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\sqcup</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\sqcup\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\prec</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\prec\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\succ</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\succ\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\subset</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\subset\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\supset</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\supset\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\sim</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\sim\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\approx</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\approx\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\subseteq</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\subseteq\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\supseteq</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\supseteq\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\cong</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\cong\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\doteq</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\doteq\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\setminus</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\setminus\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\mid</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\mid\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ll</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ll\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\gg</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\gg\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\parallel</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\parallel\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Join</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Join\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\in</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\in\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\notin</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\notin\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\propto</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\propto\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\neg</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\neg\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ldots</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ldots\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\cdots</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\cdots\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\forall</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\forall\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\exists</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\exists\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\vdots</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\vdots\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ddots</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ddots\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\aleph</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\aleph\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\nabla</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\nabla\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\imath</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\imath\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\jmath</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\jmath\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\ell</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ell\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\partial</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\partial\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\int</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\int\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\oint</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\oint\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\uplus</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\uplus\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\biguplus</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\biguplus\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+</tbody>
+</table>
+<section id="id3">
+<h3>其他<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head text-center"><p>Display</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head text-center"><p>Display</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\triangleleft</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\triangleleft\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\triangleright</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\triangleright\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\bigtriangleup</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigtriangleup\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\bigtriangledown</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\bigtriangledown\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\uparrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\downarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\downarrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\leftarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\leftarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\rightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\rightarrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\Leftarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Leftarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Rightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Rightarrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\longleftarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\longleftarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\longrightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\longrightarrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\Longleftarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Longleftarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Longrightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Longrightarrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\leftrightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\leftrightarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\longleftrightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\longleftrightarrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\Leftrightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Leftrightarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\Longleftrightarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\leftharpoonup</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\leftharpoonup\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\rightharpoonup</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\rightharpoonup\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\leftharpoondown</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\leftharpoondown\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\rightharpoondown</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\rightharpoondown\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\rightleftharpoons</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\rightleftharpoons\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\S</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\S\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\nwarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\nwarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\nearrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\nearrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\swarrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\swarrow\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\searrow</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\searrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\triangle</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\triangle\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\box</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\Box\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\diamond</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\diamond\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\diamondsuit</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\diamondsuit\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\heartsuit</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\heartsuit\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\clubsuit</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\clubsuit\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\spadesuit</span></code></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\spadesuit\)</span></p></td>
+<td><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id4">
+<h2>公式语法<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<ul>
+<li><p>上下标<code class="docutils literal notranslate"><span class="pre">_</span> <span class="pre">^</span> <span class="pre">,</span> <span class="pre">_{}^{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ y = x_i^{a_1^2} \]</div>
+</li>
+<li><p>公式中插入文本<code class="docutils literal notranslate"><span class="pre">\mbox{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ y = x^2 \; \mbox{(二次函数)} \]</div>
+</li>
+<li><p>公式中插入空格<code class="docutils literal notranslate"><span class="pre">\,</span>&#160; <span class="pre">\;</span>&#160; <span class="pre">\quad</span>&#160; <span class="pre">\qquad</span></code>间隔依次变宽：</p>
+<div class="math notranslate nohighlight">
+\[ ab $$ $$ a\,b $$ $$ a\;b $$ $$ a\quad b $$ $$ a\qquad b \]</div>
+</li>
+<li><p>字母上方横线<code class="docutils literal notranslate"><span class="pre">\overline{},</span> <span class="pre">\bar{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \overline{xyz} \mbox{ 或 } \bar{x} \]</div>
+</li>
+<li><p>字母下方横线<code class="docutils literal notranslate"><span class="pre">\underline{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \underline{ABC} \]</div>
+</li>
+<li><p>字母上方波浪线<code class="docutils literal notranslate"><span class="pre">\tilde{},</span> <span class="pre">\widetilde{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \tilde{A} \mbox{ 或 } \widetilde{ABC} \]</div>
+</li>
+<li><p>字母上方尖号^<code class="docutils literal notranslate"><span class="pre">\hat{},</span> <span class="pre">\widehat{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \hat{A} \mbox{ 或 } \widehat{ABC} \]</div>
+</li>
+<li><p>字母上方箭头<code class="docutils literal notranslate"><span class="pre">\vec{},</span> <span class="pre">\overleftarrow{},</span> <span class="pre">\overrightarrow{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \vec{ab} \mbox{ 或 } \overleftarrow{ab} \mbox{ 或 } \overrightarrow{ab} \]</div>
+</li>
+<li><p>字母上方花括号<code class="docutils literal notranslate"><span class="pre">\overbrace{}</span></code>，或下方花括号<code class="docutils literal notranslate"><span class="pre">\underbrace{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \overbrace{1+2+3} \mbox{ 或 } \underbrace{1+2+3} \]</div>
+</li>
+<li><p>字母上方点号<code class="docutils literal notranslate"><span class="pre">\dot{},</span> <span class="pre">\ddot{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \dot{a} \mbox{ 或 } \ddot{a} \]</div>
+</li>
+<li><p>省略号<code class="docutils literal notranslate"><span class="pre">\dots,</span> <span class="pre">\cdots</span></code></p>
+<div class="math notranslate nohighlight">
+\[ 1,2,\dots  \qquad  1,2,\cdots \]</div>
+</li>
+<li><p>积分<code class="docutils literal notranslate"><span class="pre">\int_{}^{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \int_{-\infty}^{+\infty} f(x) \mathrm{d}x \]</div>
+<p>双重积分<code class="docutils literal notranslate"><span class="pre">\iint</span></code>：<span class="math notranslate nohighlight">\(\iint_{-\infty}^{+\infty} f(x,y) \mathrm{d}x \mathrm{d}y\)</span>
+行内积分：<span class="math notranslate nohighlight">\(\int_{-\infty}^{+\infty} f(x) \mathrm{d}x\)</span>
+行内积分limits模式<code class="docutils literal notranslate"><span class="pre">\int\limits_{}^{}</span></code>：<span class="math notranslate nohighlight">\(\int\limits_{-\infty}^{+\infty} f(x) \mathrm{d}x\)</span>
+行内积分display模式<code class="docutils literal notranslate"><span class="pre">\displaystyle</span> <span class="pre">\int_{}^{}</span></code>：<span class="math notranslate nohighlight">\(\displaystyle \int_{-\infty}^{+\infty} f(x) \mathrm{d}x\)</span></p>
+<p>圆圈积分<code class="docutils literal notranslate"><span class="pre">\oint</span></code>：<span class="math notranslate nohighlight">\(\oint_{-\infty}^{+\infty}\)</span></p>
+</li>
+<li><p>求和<code class="docutils literal notranslate"><span class="pre">\sum_{}^{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{i=1}^{n} i^2 \]</div>
+<p>行内求和：<span class="math notranslate nohighlight">\(\sum_{i=1}^{n} i^2\)</span>
+行内求和limits模式<code class="docutils literal notranslate"><span class="pre">\sum\limits_{}^{}</span></code>：<span class="math notranslate nohighlight">\(\sum\limits_{i=1}^{n} i^2\)</span>
+行内求和display模式<code class="docutils literal notranslate"><span class="pre">\displaystyle</span> <span class="pre">\sum_{}^{}</span></code>：<span class="math notranslate nohighlight">\(\displaystyle \sum_{i=1}^{n} i^2\)</span></p>
+</li>
+<li><p>求乘积<code class="docutils literal notranslate"><span class="pre">\prod_{}^{}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ \prod_{i=1}^{n} a_i \]</div>
+</li>
+<li><p>分数<code class="docutils literal notranslate"><span class="pre">\frac{up}{down}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ x_1,x_2 = \frac{b^2 \pm 4ac}{2a} \]</div>
+</li>
+<li><p>根号<code class="docutils literal notranslate"><span class="pre">\sqrt</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ r = \sqrt{x^2+y^2} \]</div>
+<p>多次根号<code class="docutils literal notranslate"><span class="pre">\sqrt[n]</span></code>： <span class="math notranslate nohighlight">\(x^{2/3} = \sqrt[3]{x^2}\)</span></p>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h2>编号<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<ul>
+<li><p>插入编号：
+使用<code class="docutils literal notranslate"><span class="pre">\tag</span></code>指令指定公式的具体编号，并使用<code class="docutils literal notranslate"><span class="pre">\label</span></code>指令埋下锚点。如<code class="docutils literal notranslate"><span class="pre">y=x^2</span> <span class="pre">\tag{1.5a}</span> <span class="pre">\label{eq:test}</span></code>：</p>
+<div class="math notranslate nohighlight">
+\[ y=x^2 \tag{1.5a}\label{eq:test} \]</div>
+</li>
+<li><p>引用编号：
+使用<code class="docutils literal notranslate"><span class="pre">\eqref</span></code>指令引用前面埋下的锚点，<code class="docutils literal notranslate"><span class="pre">\eqref{eq:test}</span></code>将显示为：</p>
+<div class="math notranslate nohighlight">
+\[ \eqref{eq:test} \]</div>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h2>方程组<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<ul>
+<li><p>左侧花括号</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+<span class="c">% \begin{equation*} 加&#39;*&#39;去掉公式编号</span>
+<span class="k">\left\{</span>
+<span class="k">\begin</span><span class="nb">{</span>aligned<span class="nb">}</span>     <span class="c">%请使用&#39;aligned&#39;或&#39;align*&#39;</span>
+2x + y <span class="nb">&amp;</span>= 1  <span class="k">\\</span>     <span class="c">%加&#39;&amp;&#39;指定对齐位置</span>
+2x + 2y <span class="nb">&amp;</span>= 2
+<span class="k">\end</span><span class="nb">{</span>aligned<span class="nb">}</span>
+<span class="k">\right</span>.
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+<span class="c">% \end{equation*}   加&#39;*&#39;去掉公式编号</span>
+
+<span class="c">% 注意：在 markdown 环境下，某些特殊字符，如&#39;\&#39;, &#39;*&#39;等，会首先被 markdown 语法转义，然后再被 Latex 转义。</span>
+<span class="c">% 因此有时候 &#39;\{&#39;需要写作&#39;\\{&#39;，&#39;*&#39;需要写作&#39;\*&#39;，&#39;\\&#39;需要写作&#39;\\\\&#39;等，视不同的解释环境而定</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{equation}
+    \left\{
+    \begin{aligned}
+    2x + y &amp;= 1 \\\\
+    2x + 2y &amp;= 2
+    \end{aligned}
+    \right.
+    \end{equation} \end{split}\]</div>
+<p><strong>注</strong>：如果各个方程需要在某个字符处对齐（如等号对齐），只需在所有要对齐的字符前加上 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> 符号。如果不需要公式编号，只需在宏包名称后加上 <code class="docutils literal notranslate"><span class="pre">*</span></code> 号。</p>
+</li>
+<li><p>分情况讨论方程式</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>f(x) =
+<span class="k">\begin</span><span class="nb">{</span>cases<span class="nb">}</span>
+x<span class="nb">^</span>2 <span class="k">\qquad</span> <span class="nb">&amp;</span> a <span class="k">\gt</span> 0 <span class="k">\\</span>
+e<span class="nb">^</span>x <span class="k">\qquad</span> <span class="nb">&amp;</span> a <span class="k">\le</span> 0
+<span class="k">\end</span><span class="nb">{</span>cases<span class="nb">}</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} f(x) = \begin{cases}
+    x^2 \qquad &amp; a \gt 0 \\\\
+    e^x \qquad &amp; a \le 0
+    \end{cases} \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned}
+    a &amp;= 1 \\\\
+    bcd &amp;= 2
+    \end{aligned} \end{split}\]</div>
+</li>
+<li><p>含目标函数方程组</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+ <span class="k">\begin</span><span class="nb">{</span>aligned<span class="nb">}</span>
+     <span class="nb">&amp;</span><span class="k">\mathrm</span><span class="nb">{</span>P<span class="nb">}</span>: <span class="nb">&amp;</span> <span class="k">\min\limits</span><span class="nb">_{</span><span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>,<span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}}</span> <span class="k">\quad</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>c<span class="nb">}^{</span><span class="k">\mathrm</span><span class="nb">{</span>T<span class="nb">}}</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>+<span class="k">\mathbf</span><span class="nb">{</span>d<span class="nb">}^{</span><span class="k">\mathrm</span><span class="nb">{</span>T<span class="nb">}}</span> <span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span> <span class="k">\\</span>
+     <span class="nb">&amp;&amp;</span><span class="k">\mbox</span><span class="nb">{</span>s.t.<span class="nb">}</span><span class="k">\quad</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>D<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span> <span class="k">\geq</span> <span class="k">\mathbf</span><span class="nb">{</span>e<span class="nb">}</span>  <span class="k">\\</span>
+     <span class="nb">&amp;&amp;&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>F<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span> <span class="k">\leq</span> <span class="k">\mathbf</span><span class="nb">{</span>g<span class="nb">}</span>  <span class="k">\\</span>
+     <span class="nb">&amp;&amp;&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>A<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span> + <span class="k">\mathbf</span><span class="nb">{</span>B<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span> <span class="k">\geq</span> <span class="k">\mathbf</span><span class="nb">{</span>b<span class="nb">}</span> <span class="k">\\</span>
+     <span class="nb">&amp;&amp;&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>,<span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span> <span class="k">\in</span> <span class="k">\mathcal</span><span class="nb">{</span>Z<span class="nb">}^{</span>+<span class="nb">}</span>
+ <span class="k">\end</span><span class="nb">{</span>aligned<span class="nb">}</span>
+ <span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{equation}
+    \begin{aligned}
+    &amp;\mathrm{P}: &amp; \min\limits_{\mathbf{x},\mathbf{y}} \quad &amp; \mathbf{c}^{\mathrm{T}} \mathbf{x}+\mathbf{d}^{\mathrm{T}} \mathbf{y} \\\\
+    &amp;&amp;\mbox{s.t.}\quad &amp; \mathbf{D} \mathbf{y} \geq \mathbf{e}  \\\\
+    &amp;&amp;&amp; \mathbf{F} \mathbf{x} \leq \mathbf{g}  \\\\
+    &amp;&amp;&amp; \mathbf{A} \mathbf{x} + \mathbf{B} \mathbf{y} \geq \mathbf{b} \\\\
+    &amp;&amp;&amp; \mathbf{x},\mathbf{y} \in \mathcal{Z}^{+}
+    \end{aligned}
+    \end{equation} \end{split}\]</div>
+</li>
+<li><p>含目标函数方程组2</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>alignat<span class="nb">}{</span>2<span class="nb">}</span>
+<span class="k">\min\quad</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>c<span class="nb">}^{</span><span class="k">\mathrm</span><span class="nb">{</span>T<span class="nb">}}</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>+<span class="k">\mathbf</span><span class="nb">{</span>d<span class="nb">}^{</span><span class="k">\mathrm</span><span class="nb">{</span>T<span class="nb">}}</span> <span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span>   <span class="nb">&amp;{}&amp;</span> <span class="k">\tag</span><span class="nb">{</span>P<span class="nb">}</span> <span class="k">\\</span>
+<span class="k">\mbox</span><span class="nb">{</span>s.t.<span class="nb">}</span><span class="k">\quad</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>D<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span> <span class="k">\geq</span> <span class="k">\mathbf</span><span class="nb">{</span>e<span class="nb">}</span>, <span class="nb">&amp;</span><span class="k">\quad</span><span class="nb">&amp;</span> <span class="k">\forall</span> y <span class="k">\\</span>
+<span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>F<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span> <span class="k">\leq</span> <span class="k">\mathbf</span><span class="nb">{</span>g<span class="nb">}</span>, <span class="nb">&amp;{}&amp;</span> <span class="k">\forall</span> x <span class="k">\\</span>
+<span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>A<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span> + <span class="k">\mathbf</span><span class="nb">{</span>B<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span> <span class="k">\geq</span> <span class="k">\mathbf</span><span class="nb">{</span>b<span class="nb">}</span> , <span class="nb">&amp;{}&amp;</span> <span class="k">\forall</span> x,y<span class="k">\\</span>
+<span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>,<span class="k">\mathbf</span><span class="nb">{</span>y<span class="nb">}</span> <span class="k">\in</span> <span class="k">\mathcal</span><span class="nb">{</span>Z<span class="nb">}^{</span>+<span class="nb">}</span>, <span class="nb">&amp;{}&amp;</span> <span class="k">\forall</span> x,y 
+<span class="k">\end</span><span class="nb">{</span>alignat<span class="nb">}</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{alignat}{2}
+    \min\quad &amp; \mathbf{c}^{\mathrm{T}} \mathbf{x}+\mathbf{d}^{\mathrm{T}} \mathbf{y}   &amp;{}&amp; \tag{P} \\\\
+    \mbox{s.t.}\quad &amp; \mathbf{D} \mathbf{y} \geq \mathbf{e}, &amp;\quad&amp; \forall y \\\\
+    &amp; \mathbf{F} \mathbf{x} \leq \mathbf{g}, &amp;{}&amp; \forall x \\\\
+    &amp; \mathbf{A} \mathbf{x} + \mathbf{B} \mathbf{y} \geq \mathbf{b} , &amp;{}&amp; \forall x,y\\\\
+    &amp; \mathbf{x},\mathbf{y} \in \mathcal{Z}^{+}, &amp;{}&amp; \forall x,y 
+    \end{alignat} \end{split}\]</div>
+</li>
+</ul>
+</section>
+</section>
+
+<div class="section">
+    
+  
+</div>
+
+            
+            
+<div class="section ablog__blog_comments">
+    <div class="section ablog__comments">
+        <hr class="hr-comment-style" data-content="分隔线" />
+        <h3><i class="fa-fw fa fa-comments"></i> 评论</h3>
+        <div id="disqus_thread"></div>
+        <script src="https://giscus.app/client.js" data-repo="zclab/notebook" data-repo-id="R_kgDOIGSvAQ"
+    data-category="General" data-category-id="DIC_kwDOIGSvAc4CRttt" data-mapping="pathname" data-strict="0"
+    data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+    data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    </div>
+</div>
+
+            
+        </article>
+        
+        
+        
+        <footer class="bd-footer-article">
+            
+             
+
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="../programming/2021-python-pathlib.html"
+        title="next post">
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">next</p>
+            <p class="prev-next-title">An introduction to Python pathlib module</p>
+        </div>
+        <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+
+            
+        </footer>
+        
+    </div>
+    
+    
+    
+    <div class="bd-sidebar-secondary bd-toc">
+        
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fas fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   常用希腊字母表
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   常用特殊字符表
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     其他
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   公式语法
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   编号
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   方程组
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/zclab/notebook/edit/main/docs/posts/tools/2020-markdownLatex.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/posts/tools/2020-markdownLatex.md.txt">
+        <i class="fas fa-file-alt"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+    </div>
+    
+    
+</div>
+<footer class="bd-footer-content">
+    <div class="bd-footer-content__inner">
+        
+    </div>
+</footer>
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+    
+    
+    <img src="https://img.shields.io/badge/Copyright-2021--2022 子川-blue" />
+    <br>
+    
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+    
+    <a href="http://sphinx-doc.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Sphinx-5.2.2-blue" />
+    </a>
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/latest/" target="_blank">
+        <img src="https://img.shields.io/badge/Theme-Pydata%20Sphinx%20Theme-blue" />
+    </a>
+    <br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

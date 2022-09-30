@@ -1,0 +1,1670 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18: http://docutils.sourceforge.net/" />
+
+    <title>Sympy - Symbolic algebra in Python &#8212; ZC Notebook</title>
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+
+  
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/6.1.2/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'science/sympy';</script>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tools for high-performance computing applications" href="HPC.html" />
+    <link rel="prev" title="SciPy - Library of scientific algorithms for Python" href="scipy.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/logo-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+    <p class="title logo__title">ZC's Notebook</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item current active">
+                    <a class="nav-link" href="index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item current active">
+                    <a class="nav-link" href="index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python 科学计算
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="numpy.html">
+   Numpy -  multidimensional data arrays
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="matplotlib.html">
+   matplotlib - 2D and 3D plotting in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="scipy.html">
+   SciPy - Library of scientific algorithms for Python
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Sympy - Symbolic algebra in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="HPC.html">
+   Tools for high-performance computing applications
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="monte-carlo.html">
+   Learn Monte Carlo
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+<div class="bd-content">
+    <div class="bd-article-container">
+        
+        <div class="bd-header-article">
+            
+        </div>
+        
+        
+        <article class="bd-article" role="main">
+             <section class="tex2jax_ignore mathjax_ignore" id="sympy-symbolic-algebra-in-python">
+<h1>Sympy - Symbolic algebra in Python<a class="headerlink" href="#sympy-symbolic-algebra-in-python" title="Permalink to this heading">#</a></h1>
+<p>J.R. Johansson (jrjohansson at gmail.com)</p>
+<p>The latest version of this <a class="reference external" href="http://ipython.org/notebook.html">IPython notebook</a> lecture is available at <a class="reference external" href="http://github.com/jrjohansson/scientific-python-lectures">http://github.com/jrjohansson/scientific-python-lectures</a>.</p>
+<p>The other notebooks in this lecture series are indexed at <a class="reference external" href="http://jrjohansson.github.io">http://jrjohansson.github.io</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<p>There are two notable Computer Algebra Systems (CAS) for Python:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://sympy.org/en/index.html">SymPy</a> - A python module that can be used in any Python program, or in an IPython session, that provides powerful CAS features.</p></li>
+<li><p><a class="reference external" href="http://www.sagemath.org/">Sage</a> - Sage is a full-featured and very powerful CAS enviroment that aims to provide an open source system that competes with Mathematica and Maple. Sage is not a regular Python module, but rather a CAS environment that uses Python as its programming language.</p></li>
+</ul>
+<p>Sage is in some aspects more powerful than SymPy, but both offer very comprehensive CAS functionality. The advantage of SymPy is that it is a regular Python module and integrates well with the IPython notebook.</p>
+<p>In this lecture we will therefore look at how to use SymPy with IPython notebooks. If you are interested in an open source CAS environment I also recommend to read more about Sage.</p>
+<p>To get started using SymPy in a Python program or notebook, import the module <code class="docutils literal notranslate"><span class="pre">sympy</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To get nice-looking <span class="math notranslate nohighlight">\(\LaTeX\)</span> formatted output run:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">init_printing</span><span class="p">()</span>
+
+<span class="c1"># or with older versions of sympy/ipython, load the IPython extension</span>
+<span class="c1">#%load_ext sympy.interactive.ipythonprinting</span>
+<span class="c1"># or</span>
+<span class="c1">#%load_ext sympyprinting</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="symbolic-variables">
+<h2>Symbolic variables<a class="headerlink" href="#symbolic-variables" title="Permalink to this heading">#</a></h2>
+<p>In SymPy we need to create symbols for the variables we want to work with. We can create a new symbol using the <code class="docutils literal notranslate"><span class="pre">Symbol</span></code> class:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pi</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/adcc553faa307d4ceef8687541312cf19093dd5c3bf15e99c4fbceaa7f55ca91.png" src="../_images/adcc553faa307d4ceef8687541312cf19093dd5c3bf15e99c4fbceaa7f55ca91.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># alternative way of defining symbols</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;a, b, c&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sympy.core.symbol.Symbol
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can add assumptions to symbols when we create them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">is_imaginary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c1eeb5121c3634b16a645a335098a8916552d3de62345c8a4f532d2e055d414a.png" src="../_images/c1eeb5121c3634b16a645a335098a8916552d3de62345c8a4f532d2e055d414a.png" />
+</div>
+</div>
+<section id="complex-numbers">
+<h3>Complex numbers<a class="headerlink" href="#complex-numbers" title="Permalink to this heading">#</a></h3>
+<p>The imaginary unit is denoted <code class="docutils literal notranslate"><span class="pre">I</span></code> in Sympy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="o">*</span><span class="n">I</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c350b5c3ee8dba837aecde1c524a433ad3155dccc229b00f17ea500f1420ab43.png" src="../_images/c350b5c3ee8dba837aecde1c524a433ad3155dccc229b00f17ea500f1420ab43.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6250eb377b874315dde0976ed7d986d2bcea564a58619a4b994d917e498e4792.png" src="../_images/6250eb377b874315dde0976ed7d986d2bcea564a58619a4b994d917e498e4792.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">I</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e01d71d748175d0679f35a184bbdcd31e404189ba1cd1ade9f68d108d4998f5e.png" src="../_images/e01d71d748175d0679f35a184bbdcd31e404189ba1cd1ade9f68d108d4998f5e.png" />
+</div>
+</div>
+</section>
+<section id="rational-numbers">
+<h3>Rational numbers<a class="headerlink" href="#rational-numbers" title="Permalink to this heading">#</a></h3>
+<p>There are three different numerical types in SymPy: <code class="docutils literal notranslate"><span class="pre">Real</span></code>, <code class="docutils literal notranslate"><span class="pre">Rational</span></code>, <code class="docutils literal notranslate"><span class="pre">Integer</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/09539072ff91652096525d0e36784588034b5e915c736b60e0e6a0cb58cf0b37.png" src="../_images/09539072ff91652096525d0e36784588034b5e915c736b60e0e6a0cb58cf0b37.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">+</span><span class="n">r2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2a0430234d40d7d5bf0776e2ad9184c3fe6e35cf790d1b5b59be31698a4c126b.png" src="../_images/2a0430234d40d7d5bf0776e2ad9184c3fe6e35cf790d1b5b59be31698a4c126b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">/</span><span class="n">r2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4345d6337e50ece17fdba4fa790f6133ef5798e2a86ee570ba18e174f1f4aaac.png" src="../_images/4345d6337e50ece17fdba4fa790f6133ef5798e2a86ee570ba18e174f1f4aaac.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="numerical-evaluation">
+<h2>Numerical evaluation<a class="headerlink" href="#numerical-evaluation" title="Permalink to this heading">#</a></h2>
+<p>SymPy uses a library for artitrary precision as numerical backend, and has predefined SymPy expressions for a number of mathematical constants, such as: <code class="docutils literal notranslate"><span class="pre">pi</span></code>, <code class="docutils literal notranslate"><span class="pre">e</span></code>, <code class="docutils literal notranslate"><span class="pre">oo</span></code> for infinity.</p>
+<p>To evaluate an expression numerically we can use the <code class="docutils literal notranslate"><span class="pre">evalf</span></code> function (or <code class="docutils literal notranslate"><span class="pre">N</span></code>). It takes an argument <code class="docutils literal notranslate"><span class="pre">n</span></code> which specifies the number of significant digits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pi</span><span class="o">.</span><span class="n">evalf</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0aaa67c1c416d15e61d52e099e0d7aadfd417a7fa1b6c33975a2f9ab577bea3d.png" src="../_images/0aaa67c1c416d15e61d52e099e0d7aadfd417a7fa1b6c33975a2f9ab577bea3d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># same as evalf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/afc8396703d635457958e888a3c9999ef7ffff6f5bfdfe59e5893bb8193ab45b.png" src="../_images/afc8396703d635457958e888a3c9999ef7ffff6f5bfdfe59e5893bb8193ab45b.png" />
+</div>
+</div>
+<p>When we numerically evaluate algebraic expressions we often want to substitute a symbol with a numerical value. In SymPy we do that using the <code class="docutils literal notranslate"><span class="pre">subs</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6b6f3af4e74ae587fec49a0a60d389ced0f3425490eea9d3b719d10d72ff3efa.png" src="../_images/6b6f3af4e74ae587fec49a0a60d389ced0f3425490eea9d3b719d10d72ff3efa.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9f46ebbf1091369f945aeae2e24e4eb5da30f84976e77b940498d94680ef1441.png" src="../_images/9f46ebbf1091369f945aeae2e24e4eb5da30f84976e77b940498d94680ef1441.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">subs</span></code> function can of course also be used to substitute Symbols and expressions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b7d06edbdc21344d3aea399985ce9184ca9a9d8192ca85396f2518e38088452b.png" src="../_images/b7d06edbdc21344d3aea399985ce9184ca9a9d8192ca85396f2518e38088452b.png" />
+</div>
+</div>
+<p>We can also combine numerical evolution of expressions with NumPy arrays:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_vec</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_vec</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">N</span><span class="p">(((</span><span class="n">x</span> <span class="o">+</span> <span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">xx</span><span class="p">))</span> <span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">x_vec</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vec</span><span class="p">,</span> <span class="n">y_vec</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ba2862e94dff84b8b3fbe8a0ff0fe1a6ca8faf7a6c3d68ab40a509e1e918cf4d.png" src="../_images/ba2862e94dff84b8b3fbe8a0ff0fe1a6ca8faf7a6c3d68ab40a509e1e918cf4d.png" />
+</div>
+</div>
+<p>However, this kind of numerical evolution can be very slow, and there is a much more efficient way to do it: Use the function <code class="docutils literal notranslate"><span class="pre">lambdify</span></code> to “compile” a Sympy expression into a function that is much more efficient to evaluate numerically:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">([</span><span class="n">x</span><span class="p">],</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;numpy&#39;</span><span class="p">)</span>  <span class="c1"># the first argument is a list of variables that</span>
+                                         <span class="c1"># f will be a function of: in this case only x -&gt; f(x)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_vec</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_vec</span><span class="p">)</span>  <span class="c1"># now we can directly pass a numpy array and f(x) is efficiently evaluated</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The speedup when using “lambdified” functions instead of direct numerical evaluation can be significant, often several orders of magnitude. Even in this simple example we get a significant speed up:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+
+<span class="n">y_vec</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">N</span><span class="p">(((</span><span class="n">x</span> <span class="o">+</span> <span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">xx</span><span class="p">))</span> <span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">x_vec</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13.9 ms ± 208 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+
+<span class="n">y_vec</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_vec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.57 µs ± 7.08 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="algebraic-manipulations">
+<h2>Algebraic manipulations<a class="headerlink" href="#algebraic-manipulations" title="Permalink to this heading">#</a></h2>
+<p>One of the main uses of an CAS is to perform algebraic manipulations of expressions. For example, we might want to expand a product, factor an expression, or simply an expression. The functions for doing these basic operations in SymPy are demonstrated in this section.</p>
+<section id="expand-and-factor">
+<h3>Expand and factor<a class="headerlink" href="#expand-and-factor" title="Permalink to this heading">#</a></h3>
+<p>The first steps in an algebraic manipulation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d54d52930cdbc2d7d141a65647dfed5da06575c707396376a24c57f6edd0dd22.png" src="../_images/d54d52930cdbc2d7d141a65647dfed5da06575c707396376a24c57f6edd0dd22.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expand</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6e509d255bd1fb957fc3a4fd60c4183398cb806f944107e0d3c76bf7e4859790.png" src="../_images/6e509d255bd1fb957fc3a4fd60c4183398cb806f944107e0d3c76bf7e4859790.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">expand</span></code> function takes a number of keywords arguments which we can tell the functions what kind of expansions we want to have performed. For example, to expand trigonometric expressions, use the <code class="docutils literal notranslate"><span class="pre">trig=True</span></code> keyword argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6cd4d7a74b95ad4948882a6e713daf4e58fbe39916f1b1499d0ac20688d2969b.png" src="../_images/6cd4d7a74b95ad4948882a6e713daf4e58fbe39916f1b1499d0ac20688d2969b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expand</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">),</span> <span class="n">trig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/80f8c85052ffbb20887f60b6df65266f01e2388df9f024d0c2f3d0d310b93407.png" src="../_images/80f8c85052ffbb20887f60b6df65266f01e2388df9f024d0c2f3d0d310b93407.png" />
+</div>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">help(expand)</span></code> for a detailed explanation of the various types of expansions the <code class="docutils literal notranslate"><span class="pre">expand</span></code> functions can perform.</p>
+<p>The opposite a product expansion is of course factoring. The factor an expression in SymPy use the <code class="docutils literal notranslate"><span class="pre">factor</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">11</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d54d52930cdbc2d7d141a65647dfed5da06575c707396376a24c57f6edd0dd22.png" src="../_images/d54d52930cdbc2d7d141a65647dfed5da06575c707396376a24c57f6edd0dd22.png" />
+</div>
+</div>
+</section>
+<section id="simplify">
+<h3>Simplify<a class="headerlink" href="#simplify" title="Permalink to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">simplify</span></code> tries to simplify an expression into a nice looking expression, using various techniques. More specific alternatives to the <code class="docutils literal notranslate"><span class="pre">simplify</span></code> functions also exists: <code class="docutils literal notranslate"><span class="pre">trigsimp</span></code>, <code class="docutils literal notranslate"><span class="pre">powsimp</span></code>, <code class="docutils literal notranslate"><span class="pre">logcombine</span></code>, etc.</p>
+<p>The basic usages of these functions are as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># simplify expands a product</span>
+<span class="n">simplify</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d54d52930cdbc2d7d141a65647dfed5da06575c707396376a24c57f6edd0dd22.png" src="../_images/d54d52930cdbc2d7d141a65647dfed5da06575c707396376a24c57f6edd0dd22.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># simplify uses trigonometric identities</span>
+<span class="n">simplify</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/72a546dbb6f3802c0e27bbc4af98acd50fca310880673b7534dfb5f7634d258f.png" src="../_images/72a546dbb6f3802c0e27bbc4af98acd50fca310880673b7534dfb5f7634d258f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simplify</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b6ecdea173b8ceb520df4b2efe04a50b064003655687a2870cb9509fd3dcef6e.png" src="../_images/b6ecdea173b8ceb520df4b2efe04a50b064003655687a2870cb9509fd3dcef6e.png" />
+</div>
+</div>
+</section>
+<section id="apart-and-together">
+<h3>apart and together<a class="headerlink" href="#apart-and-together" title="Permalink to this heading">#</a></h3>
+<p>To manipulate symbolic expressions of fractions, we can use the <code class="docutils literal notranslate"><span class="pre">apart</span></code> and <code class="docutils literal notranslate"><span class="pre">together</span></code> functions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">((</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/183db3b07fe8324606be7d5b0de33c94bf17ca6b40210714c963d5ae086bcf0d.png" src="../_images/183db3b07fe8324606be7d5b0de33c94bf17ca6b40210714c963d5ae086bcf0d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">apart</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bc798b601a93e78d3780351b1ee0eb541244b30622d1312019b199fefb9bf785.png" src="../_images/bc798b601a93e78d3780351b1ee0eb541244b30622d1312019b199fefb9bf785.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f2</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/61d64e77a05acf121542663671e042e15f5e58a7bc7e5c66d19c84a17d19547b.png" src="../_images/61d64e77a05acf121542663671e042e15f5e58a7bc7e5c66d19c84a17d19547b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">together</span><span class="p">(</span><span class="n">f2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0a25d6e20a546dec14246869dd238c1c6cee5673cc09bebf4e17a1b2d9f88a07.png" src="../_images/0a25d6e20a546dec14246869dd238c1c6cee5673cc09bebf4e17a1b2d9f88a07.png" />
+</div>
+</div>
+<p>Simplify usually combines fractions but does not factor:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simplify</span><span class="p">(</span><span class="n">f2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0a25d6e20a546dec14246869dd238c1c6cee5673cc09bebf4e17a1b2d9f88a07.png" src="../_images/0a25d6e20a546dec14246869dd238c1c6cee5673cc09bebf4e17a1b2d9f88a07.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="calculus">
+<h2>Calculus<a class="headerlink" href="#calculus" title="Permalink to this heading">#</a></h2>
+<p>In addition to algebraic manipulations, the other main use of CAS is to do calculus, like derivatives and integrals of algebraic expressions.</p>
+<section id="differentiation">
+<h3>Differentiation<a class="headerlink" href="#differentiation" title="Permalink to this heading">#</a></h3>
+<p>Differentiation is usually simple. Use the <code class="docutils literal notranslate"><span class="pre">diff</span></code> function. The first argument is the expression to take the derivative of, and the second argument is the symbol by which to take the derivative:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/adcc553faa307d4ceef8687541312cf19093dd5c3bf15e99c4fbceaa7f55ca91.png" src="../_images/adcc553faa307d4ceef8687541312cf19093dd5c3bf15e99c4fbceaa7f55ca91.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a7a6f3a0e57ccc9a11194e723258cc1edaf3dd9680f71ebbc0c0b2a552f36eaf.png" src="../_images/a7a6f3a0e57ccc9a11194e723258cc1edaf3dd9680f71ebbc0c0b2a552f36eaf.png" />
+</div>
+</div>
+<p>For higher order derivatives we can do:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ebb6d7b7129297dd344ebc8c76c8ff4f7543b8a6db43c861b965dfce054627ba.png" src="../_images/ebb6d7b7129297dd344ebc8c76c8ff4f7543b8a6db43c861b965dfce054627ba.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># same as above</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ebb6d7b7129297dd344ebc8c76c8ff4f7543b8a6db43c861b965dfce054627ba.png" src="../_images/ebb6d7b7129297dd344ebc8c76c8ff4f7543b8a6db43c861b965dfce054627ba.png" />
+</div>
+</div>
+<p>To calculate the derivative of a multivariate expression, we can do:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;x,y,z&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\frac{d^3f}{dxdy^2}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fad1c1e9856d18dad60f26de04b4e80261ea6d66d9e4406997e6654f327945a7.png" src="../_images/fad1c1e9856d18dad60f26de04b4e80261ea6d66d9e4406997e6654f327945a7.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="integration">
+<h2>Integration<a class="headerlink" href="#integration" title="Permalink to this heading">#</a></h2>
+<p>Integration is done in a similar fashion:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1f757796962ee246046db53d98c95e3644532c4db19ba946fe527f9d39a2a5a8.png" src="../_images/1f757796962ee246046db53d98c95e3644532c4db19ba946fe527f9d39a2a5a8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/80e59214ef637b1abb32acdd3e0bd4ebca27aa34b0685d69f441e27cf01a9661.png" src="../_images/80e59214ef637b1abb32acdd3e0bd4ebca27aa34b0685d69f441e27cf01a9661.png" />
+</div>
+</div>
+<p>By providing limits for the integration variable we can evaluate definite integrals:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/659f3041720f336e747d5075f2e8c42c7684f2e1a4f63cfea414a61c9882116b.png" src="../_images/659f3041720f336e747d5075f2e8c42c7684f2e1a4f63cfea414a61c9882116b.png" />
+</div>
+</div>
+<p>and also improper integrals</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">integrate</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">oo</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/65f32c75d68d09f4dbbf8867556a07ac1a13a5b1087bb62f6d4041930ee98cbc.png" src="../_images/65f32c75d68d09f4dbbf8867556a07ac1a13a5b1087bb62f6d4041930ee98cbc.png" />
+</div>
+</div>
+<p>Remember, <code class="docutils literal notranslate"><span class="pre">oo</span></code> is the SymPy notation for inifinity.</p>
+<section id="sums-and-products">
+<h3>Sums and products<a class="headerlink" href="#sums-and-products" title="Permalink to this heading">#</a></h3>
+<p>We can evaluate sums and products using the functions: ‘Sum’</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sum</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/40977ab717a779aae4b4b8ecf7dcb6fc60a097e98b056b26199e287101f82964.png" src="../_images/40977ab717a779aae4b4b8ecf7dcb6fc60a097e98b056b26199e287101f82964.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sum</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ed6b46d2f108fff000e3e63aa2d248e0b547f9cc85e934cffbfccb868be1310e.png" src="../_images/ed6b46d2f108fff000e3e63aa2d248e0b547f9cc85e934cffbfccb868be1310e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sum</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d2024532f1c452f754d2164ed26d2ccfbaecd0ace96e82098d459a8f49630ca9.png" src="../_images/d2024532f1c452f754d2164ed26d2ccfbaecd0ace96e82098d459a8f49630ca9.png" />
+</div>
+</div>
+<p>Products work much the same way:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Product</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="c1"># 10!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2a8621b4755815407c3e31faccf96de6a768d60f5012fd4b23a6ba1ad67e9e0a.png" src="../_images/2a8621b4755815407c3e31faccf96de6a768d60f5012fd4b23a6ba1ad67e9e0a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="limits">
+<h2>Limits<a class="headerlink" href="#limits" title="Permalink to this heading">#</a></h2>
+<p>Limits can be evaluated using the <code class="docutils literal notranslate"><span class="pre">limit</span></code> function. For example,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">limit</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/72a546dbb6f3802c0e27bbc4af98acd50fca310880673b7534dfb5f7634d258f.png" src="../_images/72a546dbb6f3802c0e27bbc4af98acd50fca310880673b7534dfb5f7634d258f.png" />
+</div>
+</div>
+<p>We can use ‘limit’ to check the result of derivation using the <code class="docutils literal notranslate"><span class="pre">diff</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1f757796962ee246046db53d98c95e3644532c4db19ba946fe527f9d39a2a5a8.png" src="../_images/1f757796962ee246046db53d98c95e3644532c4db19ba946fe527f9d39a2a5a8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fc3f1f571fb6041c9fd30504c64238e05e0969d82653a97d6cb550303bc2d659.png" src="../_images/fc3f1f571fb6041c9fd30504c64238e05e0969d82653a97d6cb550303bc2d659.png" />
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\displaystyle \frac{\mathrm{d}f(x,y)}{\mathrm{d}x} = \frac{f(x+h,y)-f(x,y)}{h}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">limit</span><span class="p">((</span><span class="n">f</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fc3f1f571fb6041c9fd30504c64238e05e0969d82653a97d6cb550303bc2d659.png" src="../_images/fc3f1f571fb6041c9fd30504c64238e05e0969d82653a97d6cb550303bc2d659.png" />
+</div>
+</div>
+<p>OK!</p>
+<p>We can change the direction from which we approach the limiting point using the <code class="docutils literal notranslate"><span class="pre">dir</span></code> keywork argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a8a78b2f7050fa7189ca32c99d498b9a64b3ca4a04a08f071fde14e1de2fafd1.png" src="../_images/a8a78b2f7050fa7189ca32c99d498b9a64b3ca4a04a08f071fde14e1de2fafd1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/893e33d88cca24f0faf8a213f5c4e625870a94b488e3ea85676273e434d43e0f.png" src="../_images/893e33d88cca24f0faf8a213f5c4e625870a94b488e3ea85676273e434d43e0f.png" />
+</div>
+</div>
+</section>
+<section id="series">
+<h2>Series<a class="headerlink" href="#series" title="Permalink to this heading">#</a></h2>
+<p>Series expansion is also one of the most useful features of a CAS. In SymPy we can perform a series expansion of an expression using the <code class="docutils literal notranslate"><span class="pre">series</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">series</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/23bce0a0e3c9f17784fc83596dac4da3593c89a1127eb3766fbff80c62671211.png" src="../_images/23bce0a0e3c9f17784fc83596dac4da3593c89a1127eb3766fbff80c62671211.png" />
+</div>
+</div>
+<p>By default it expands the expression around <span class="math notranslate nohighlight">\(x=0\)</span>, but we can expand around any value of <span class="math notranslate nohighlight">\(x\)</span> by explicitly include a value in the function call:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">series</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/676510b793b79bda9a97fc6b744da264829325841ac952a1d9c4041f79ff80a1.png" src="../_images/676510b793b79bda9a97fc6b744da264829325841ac952a1d9c4041f79ff80a1.png" />
+</div>
+</div>
+<p>And we can explicitly define to which order the series expansion should be carried out:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">series</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/90926fb02134eb77b3c500672a048cdd6245901ecdb7d8baf550571ed17ff33c.png" src="../_images/90926fb02134eb77b3c500672a048cdd6245901ecdb7d8baf550571ed17ff33c.png" />
+</div>
+</div>
+<p>The series expansion includes the order of the approximation, which is very useful for keeping track of the order of validity when we do calculations with series expansions of different order:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">series</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">s1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d8b0c95a884d1550c8772abaaa8291071e502bfe5ec6b7fffbc5bda9eef8eb8a.png" src="../_images/d8b0c95a884d1550c8772abaaa8291071e502bfe5ec6b7fffbc5bda9eef8eb8a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s2</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">series</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">s2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/41bba9152c0e9b9f5c4f12cadce4a012b63b769a6dc2063bb2dca849a929e155.png" src="../_images/41bba9152c0e9b9f5c4f12cadce4a012b63b769a6dc2063bb2dca849a929e155.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expand</span><span class="p">(</span><span class="n">s1</span> <span class="o">*</span> <span class="n">s2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/41bba9152c0e9b9f5c4f12cadce4a012b63b769a6dc2063bb2dca849a929e155.png" src="../_images/41bba9152c0e9b9f5c4f12cadce4a012b63b769a6dc2063bb2dca849a929e155.png" />
+</div>
+</div>
+<p>If we want to get rid of the order information we can use the <code class="docutils literal notranslate"><span class="pre">removeO</span></code> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expand</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">removeO</span><span class="p">()</span> <span class="o">*</span> <span class="n">s2</span><span class="o">.</span><span class="n">removeO</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0502ed51f0092183f502da85047e6e845db2fa0d9d9a4f7540f17195a5e20197.png" src="../_images/0502ed51f0092183f502da85047e6e845db2fa0d9d9a4f7540f17195a5e20197.png" />
+</div>
+</div>
+<p>But note that this is not the correct expansion of <span class="math notranslate nohighlight">\(\cos(x)\sin(x)\)</span> to <span class="math notranslate nohighlight">\(5\)</span>th order:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">series</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fb9eed467b7509f73b2f1ec7dba6aa4b7350b6ed4863f1e1ab332a7797f74f36.png" src="../_images/fb9eed467b7509f73b2f1ec7dba6aa4b7350b6ed4863f1e1ab332a7797f74f36.png" />
+</div>
+</div>
+</section>
+<section id="linear-algebra">
+<h2>Linear algebra<a class="headerlink" href="#linear-algebra" title="Permalink to this heading">#</a></h2>
+<section id="matrices">
+<h3>Matrices<a class="headerlink" href="#matrices" title="Permalink to this heading">#</a></h3>
+<p>Matrices are defined using the <code class="docutils literal notranslate"><span class="pre">Matrix</span></code> class:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m11</span><span class="p">,</span> <span class="n">m12</span><span class="p">,</span> <span class="n">m21</span><span class="p">,</span> <span class="n">m22</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;m11, m12, m21, m22&quot;</span><span class="p">)</span>
+<span class="n">b1</span><span class="p">,</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;b1, b2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">m11</span><span class="p">,</span> <span class="n">m12</span><span class="p">],[</span><span class="n">m21</span><span class="p">,</span> <span class="n">m22</span><span class="p">]])</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/96c9dacc87937f21aca13a5b4e8989b53dfad01a215acca9a3790c0afa07dab8.png" src="../_images/96c9dacc87937f21aca13a5b4e8989b53dfad01a215acca9a3790c0afa07dab8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">b1</span><span class="p">],</span> <span class="p">[</span><span class="n">b2</span><span class="p">]])</span>
+<span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2a3aac2b5308f6abbaa751e54cc5b9d82ceaeb19302db47f74e2c36d3cd81767.png" src="../_images/2a3aac2b5308f6abbaa751e54cc5b9d82ceaeb19302db47f74e2c36d3cd81767.png" />
+</div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">Matrix</span></code> class instances we can do the usual matrix algebra operations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0ddd9765e5568008023b77cd2358ed2e3ee297b0d88036a3c13c21bd3858db80.png" src="../_images/0ddd9765e5568008023b77cd2358ed2e3ee297b0d88036a3c13c21bd3858db80.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/df1a836348d97aacc2a6e468ce1aac6159e856543bdb83c387e92a4bcdc16367.png" src="../_images/df1a836348d97aacc2a6e468ce1aac6159e856543bdb83c387e92a4bcdc16367.png" />
+</div>
+</div>
+<p>And calculate determinants and inverses, and the like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">det</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4817cba7c89f6904efc4adaea4f14311cb1ee84dc57c079f741866b0cf067012.png" src="../_images/4817cba7c89f6904efc4adaea4f14311cb1ee84dc57c079f741866b0cf067012.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9ab5b1f87fbd81c9fb5ddf7aa0e5cf78681806883939033365875aeb4152f29f.png" src="../_images/9ab5b1f87fbd81c9fb5ddf7aa0e5cf78681806883939033365875aeb4152f29f.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="solving-equations">
+<h2>Solving equations<a class="headerlink" href="#solving-equations" title="Permalink to this heading">#</a></h2>
+<p>For solving equations and systems of equations we can use the <code class="docutils literal notranslate"><span class="pre">solve</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/aaa4a6d160d1975e26a094f470b14dba292dbfc210a7a0d3f9756228018bbaf2.png" src="../_images/aaa4a6d160d1975e26a094f470b14dba292dbfc210a7a0d3f9756228018bbaf2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f845e460b5868e486c8353315b27c1daa67ec5d6d77c99700e61373bb7ce6dec.png" src="../_images/f845e460b5868e486c8353315b27c1daa67ec5d6d77c99700e61373bb7ce6dec.png" />
+</div>
+</div>
+<p>System of equations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/00a38a2e119665c915d14f727164ec34f544c68f6a58d45765290bf6432cab3e.png" src="../_images/00a38a2e119665c915d14f727164ec34f544c68f6a58d45765290bf6432cab3e.png" />
+</div>
+</div>
+<p>In terms of other symbolic expressions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">-</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/267ce8732e4007ae1b2165f538809682d6d4b773189c277e1d5924ccded01bfa.png" src="../_images/267ce8732e4007ae1b2165f538809682d6d4b773189c277e1d5924ccded01bfa.png" />
+</div>
+</div>
+</section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>http://sympy.org/en/index.html - The SymPy projects web page.</p></li>
+<li><p>https://github.com/sympy/sympy - The source code of SymPy.</p></li>
+<li><p>http://live.sympy.org - Online version of SymPy for testing and demonstrations.</p></li>
+</ul>
+</section>
+<section id="versions">
+<h2>Versions<a class="headerlink" href="#versions" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> version_information
+
+<span class="o">%</span><span class="k">version_information</span> numpy, matplotlib, sympy
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.7.6 64bit [Clang 12.0.0 (clang-1200.0.32.21)]</td></tr><tr><td>IPython</td><td>7.19.0</td></tr><tr><td>OS</td><td>Darwin 20.3.0 x86_64 i386 64bit</td></tr><tr><td>numpy</td><td>1.18.5</td></tr><tr><td>matplotlib</td><td>3.3.2</td></tr><tr><td>sympy</td><td>1.8</td></tr><tr><td colspan='2'>Tue Apr 27 13:52:06 2021 CST</td></tr></table></div></div>
+</div>
+</section>
+</section>
+
+<div class="section">
+   
+</div>
+
+            
+            
+        </article>
+        
+        
+        
+        <footer class="bd-footer-article">
+            
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="scipy.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">SciPy - Library of scientific algorithms for Python</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="HPC.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Tools for high-performance computing applications</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+            
+        </footer>
+        
+    </div>
+    
+    
+    
+    <div class="bd-sidebar-secondary bd-toc">
+        
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fas fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#symbolic-variables">
+   Symbolic variables
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complex-numbers">
+     Complex numbers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rational-numbers">
+     Rational numbers
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#numerical-evaluation">
+   Numerical evaluation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#algebraic-manipulations">
+   Algebraic manipulations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#expand-and-factor">
+     Expand and factor
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simplify">
+     Simplify
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apart-and-together">
+     apart and together
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculus">
+   Calculus
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#differentiation">
+     Differentiation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#integration">
+   Integration
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sums-and-products">
+     Sums and products
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#limits">
+   Limits
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#series">
+   Series
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-algebra">
+   Linear algebra
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#matrices">
+     Matrices
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-equations">
+   Solving equations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-reading">
+   Further reading
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#versions">
+   Versions
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/zclab/notebook/edit/main/docs/science/sympy.ipynb">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../_sources/science/sympy.ipynb.txt">
+        <i class="fas fa-file-alt"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+    </div>
+    
+    
+</div>
+<footer class="bd-footer-content">
+    <div class="bd-footer-content__inner">
+        
+    </div>
+</footer>
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+    
+    
+    <img src="https://img.shields.io/badge/Copyright-2021--2022 子川-blue" />
+    <br>
+    
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+    
+    <a href="http://sphinx-doc.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Sphinx-5.2.2-blue" />
+    </a>
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/latest/" target="_blank">
+        <img src="https://img.shields.io/badge/Theme-Pydata%20Sphinx%20Theme-blue" />
+    </a>
+    <br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

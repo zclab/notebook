@@ -1,0 +1,1265 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18: http://docutils.sourceforge.net/" />
+
+    <title>pytest 使用总结笔记 &#8212; ZC Notebook</title>
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+
+  
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'posts/programming/2022-pytest-tutorial';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/logo-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+    <p class="title logo__title">ZC's Notebook</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">  
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+         <i class="fa fa-calendar"></i>
+        17 August 2022 
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+<li id="author">
+  <span
+    ><i class="fa-fw fa fa-user"></i></span
+  >
+   
+  <a href="../../blog/author/%E5%AD%90%E5%B7%9D.html">子川</a>  
+</li>
+ 
+<li id="location">
+  <span
+    ><i class="fa-fw fa fa-location-arrow"></i></span
+  >
+   
+  <a href="../../blog/location/%E5%8C%97%E4%BA%AC.html">北京</a>  
+</li>
+ 
+<li id="language">
+  <span
+    ><i class="fa-fw fa fa-language"></i></span
+  >
+   
+  <a href="../../blog/language/%E4%B8%AD%E6%96%87.html">中文</a>  
+</li>
+ 
+<li id="category">
+  <span
+    ><i class="fa-fw fa fa-folder-open"></i></span
+  >
+   
+  <a href="../../blog/category/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80.html">程序语言</a>  
+</li>
+ 
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../../blog/tag/pytest.html">pytest</a>   
+  <a href="../../blog/tag/python.html">Python</a>  
+</li>
+ 
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+        <a href="../../blog/category.html">Categories</a>
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+            <li>
+                <a href="../../blog/category/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80.html">程序语言 (3)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/category/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7.html">软件工具 (2)</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils"><a href="../../blog/tag.html">Tags</a></h5>
+    <style type="text/css">
+        ul.ablog-cloud {
+            list-style: none;
+            overflow: auto;
+        }
+
+        ul.ablog-cloud li {
+            float: left;
+            height: 20pt;
+            line-height: 18pt;
+            margin-right: 5px;
+        }
+
+        ul.ablog-cloud a {
+            text-decoration: none;
+            vertical-align: middle;
+        }
+
+        li.ablog-cloud-1 {
+            font-size: 80%;
+        }
+
+        li.ablog-cloud-2 {
+            font-size: 95%;
+        }
+
+        li.ablog-cloud-3 {
+            font-size: 110%;
+        }
+
+        li.ablog-cloud-4 {
+            font-size: 125%;
+        }
+
+        li.ablog-cloud-5 {
+            font-size: 140%;
+        }
+    </style>
+    <div class="sd-card-body docutils">
+        <ul class="ablog-cloud">
+             
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/git.html">Git</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-5">
+                <a href="../../blog/tag/python.html">Python</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/latex.html">latex</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/markdown.html">markdown</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/pathlib.html">pathlib</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/pytest.html">pytest</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/rebase.html">rebase</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/typing.html">typing</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+        <a href="../../blog/archive.html">Archives</a>
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+            <li>
+                <a href="../../blog/2022.html">2022 (3)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/2021.html">2021 (1)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/2020.html">2020 (1)</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+<div class="bd-content">
+    <div class="bd-article-container">
+        
+        <div class="bd-header-article">
+            
+        </div>
+        
+        
+        <article class="bd-article" role="main">
+             <section class="tex2jax_ignore mathjax_ignore" id="pytest">
+<h1><code class="docutils literal notranslate"><span class="pre">pytest</span></code> 使用总结笔记<a class="headerlink" href="#pytest" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pytest</span></code> 是 python 的一种单元测试框架，与python自带的 <code class="docutils literal notranslate"><span class="pre">unittest</span></code> 测试框架类似，但是比 <code class="docutils literal notranslate"><span class="pre">unittest</span></code> 框架使用起来更简洁，效率更高。并且 <code class="docutils literal notranslate"><span class="pre">pytest</span></code> 兼容 <code class="docutils literal notranslate"><span class="pre">unittest</span></code> 的用例，支持的插件也更多 <a class="footnote-reference brackets" href="#id14" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p><strong>安装</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install pytest
+</pre></div>
+</div>
+<p>简单上手，创建个 <code class="docutils literal notranslate"><span class="pre">test_sample.py</span></code> 文件</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">test_answer</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">func</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>运行测试，直接在当前文件夹运行 <code class="docutils literal notranslate"><span class="pre">pytest</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>collected <span class="m">1</span> item
+
+test_sample.py F                                                     <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+
+<span class="o">=================================</span> <span class="nv">FAILURES</span> <span class="o">=================================</span>
+_______________________________ test_answer ________________________________
+
+    def test_answer<span class="o">()</span>:
+&gt;       assert func<span class="o">(</span><span class="m">3</span><span class="o">)</span> <span class="o">==</span> <span class="m">5</span>
+E       assert <span class="nv">4</span> <span class="o">==</span> <span class="m">5</span>
+E        +  where <span class="nv">4</span> <span class="o">=</span> func<span class="o">(</span><span class="m">3</span><span class="o">)</span>
+
+test_sample.py:6: <span class="nv">AssertionError</span>
+<span class="o">============================</span> <span class="m">1</span> failed <span class="k">in</span> <span class="m">0</span>.12s <span class="o">=============================</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pytest</span></code> 运行规则：查找当前目录及其子目录下以 <code class="docutils literal notranslate"><span class="pre">test_*.py</span></code> 或 <code class="docutils literal notranslate"><span class="pre">*_test.py</span></code> 文件，找到文件后，在文件中找到以 test 开头函数并执行。</p>
+<p><strong>以类来封装用例</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># content of test_class.py</span>
+<span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">test_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;this&quot;</span>
+        <span class="k">assert</span> <span class="s2">&quot;h&quot;</span> <span class="ow">in</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;check&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>运行可以使用 <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">[file_path]</span></code> 指定文件，<code class="docutils literal notranslate"><span class="pre">-q</span></code> 是静默模式，不会打印用例输出</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pytest -q test_class.py
+.F                                                                   <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+<span class="o">=================================</span> <span class="nv">FAILURES</span> <span class="o">=================================</span>
+____________________________ TestClass.test_two ____________________________
+
+<span class="nv">self</span> <span class="o">=</span> &lt;test_class.TestClass object at 0xdeadbeef&gt;
+
+    def test_two<span class="o">(</span>self<span class="o">)</span>:
+        <span class="nv">x</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+&gt;       assert hasattr<span class="o">(</span>x, <span class="s2">&quot;check&quot;</span><span class="o">)</span>
+E       AssertionError: assert False
+E        +  where <span class="nv">False</span> <span class="o">=</span> hasattr<span class="o">(</span><span class="s1">&#39;hello&#39;</span>, <span class="s1">&#39;check&#39;</span><span class="o">)</span>
+
+test_class.py:8: AssertionError
+<span class="m">1</span> failed, <span class="m">1</span> passed <span class="k">in</span> <span class="m">0</span>.12s
+</pre></div>
+</div>
+<p>用例设计原则</p>
+<ul class="simple">
+<li><p>文件名以 <code class="docutils literal notranslate"><span class="pre">test_*.py</span></code> 文件和 <code class="docutils literal notranslate"><span class="pre">*_test.py</span></code></p></li>
+<li><p>以 <code class="docutils literal notranslate"><span class="pre">test_</span></code> 开头的函数</p></li>
+<li><p>以 <code class="docutils literal notranslate"><span class="pre">Test</span></code> 开头的类</p></li>
+<li><p>以 <code class="docutils literal notranslate"><span class="pre">test_</span></code> 开头的方法</p></li>
+<li><p>所有的包 pakege 必须要有 <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> 文件</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>执行用例<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>执行某个目录下所有的用例</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest 文件名/
+</pre></div>
+</div>
+</li>
+<li><p>执行某一个py文件下用例</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest 脚本名称.py
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-k</span></code> 按关键字匹配</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest -k <span class="s2">&quot;MyClass and not method&quot;</span>
+</pre></div>
+</div>
+<p>这将运行包含与给定字符串表达式匹配的名称的测试，其中包括Python使用文件名，类名和函数名作为变量的运算符。 上面的例子将运行 <code class="docutils literal notranslate"><span class="pre">TestMyClass.test_something</span></code> 但不运行 <code class="docutils literal notranslate"><span class="pre">TestMyClass.test_method_simple</span></code></p>
+</li>
+<li><p>按节点运行
+每个收集的测试都分配了一个唯一的 <code class="docutils literal notranslate"><span class="pre">nodeid</span></code>，它由模块文件名和后跟说明符组成来自参数化的类名，函数名和参数，由 <code class="docutils literal notranslate"><span class="pre">::</span> <span class="pre">characters</span></code> 分隔。</p>
+<p>运行 <code class="docutils literal notranslate"><span class="pre">.py</span></code> 模块里面的某个函数</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest test_mod.py::test_func
+</pre></div>
+</div>
+<p>运行.py模块里面,测试类里面的某个方法</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest test_mod.py::TestClass::test_method
+</pre></div>
+</div>
+</li>
+<li><p>标记表达式</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest -m slow
+</pre></div>
+</div>
+<p>将运行用 <code class="docutils literal notranslate"><span class="pre">&#64;</span> <span class="pre">pytest.mark.slow</span></code> 装饰器修饰的所有测试，slow是自己命名的标记，可以自定义</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
+
+ <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">finished</span>
+ <span class="k">def</span> <span class="nf">test_send_http</span><span class="p">():</span>
+     <span class="k">pass</span>  
+
+
+ <span class="k">def</span> <span class="nf">test_something_quick</span><span class="p">():</span>
+     <span class="k">pass</span>
+</pre></div>
+</div>
+<p>运行测试时使用 <code class="docutils literal notranslate"><span class="pre">-m</span></code> 选项可以加上逻辑</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;pytest -m &quot;finished and commit&quot;   //匹配finished和commit运行
+
+&gt;pytest -m &quot;finished and not merged&quot;  //finished运行，merged不运行
+</pre></div>
+</div>
+</li>
+<li><p>从包里面运行</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest --pyargs pkg.testing
+</pre></div>
+</div>
+<p>这将导入pkg.testing并使用其文件系统位置来查找和运行测试。</p>
+</li>
+<li><p>在第一个（或N个）失败后停止</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">-</span><span class="n">x</span>            <span class="c1"># stop after first failure</span>
+<span class="n">pytest</span> <span class="o">--</span><span class="n">maxfail</span><span class="o">=</span><span class="mi">2</span>    <span class="c1"># stop after two failures</span>
+</pre></div>
+</div>
+</li>
+<li><p>跳过测试
+使用 <code class="docutils literal notranslate"><span class="pre">pytest.mark.skip</span></code> 标记需要跳过的用例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s2">&quot;not finished&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_send_http</span><span class="p">():</span>
+    <span class="k">pass</span> 
+</pre></div>
+</div>
+<p>也支持使用 <code class="docutils literal notranslate"><span class="pre">pytest.mark.skipif</span></code> 为测试函数指定被忽略的条件</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="n">finishflag</span><span class="o">==</span><span class="n">Fasle</span><span class="p">,</span><span class="n">reason</span><span class="o">=</span><span class="s2">&quot;not finished&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_send_http</span><span class="p">():</span>
+    <span class="k">pass</span> 
+</pre></div>
+</div>
+</li>
+<li><p>脚本调用执行
+直接使用</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest.main<span class="o">()</span>
+</pre></div>
+</div>
+<p>像命令行一样传递参数</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest.main<span class="o">([</span><span class="s2">&quot;-x&quot;</span>, <span class="s2">&quot;mytestdir&quot;</span><span class="o">])</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="id4">
+<h2>用例编写<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<section id="id5">
+<h3>断言<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>pytest 直接使用 python assert 语法来写</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">test_function</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">f</span><span class="p">()</span> <span class="o">==</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p>断言中添加消息</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;value was odd, should be even&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>预设与清理<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>与 <code class="docutils literal notranslate"><span class="pre">unittest</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">setup</span></code> 和 <code class="docutils literal notranslate"><span class="pre">teardown</span></code> 类似，<code class="docutils literal notranslate"><span class="pre">pytest</span></code> 也有这样的环境清理方法，主要有</p>
+<ul class="simple">
+<li><p>模块级（<code class="docutils literal notranslate"><span class="pre">setup_module/teardown_module</span></code>）开始于模块始末，全局的</p></li>
+<li><p>函数级（<code class="docutils literal notranslate"><span class="pre">setup_function/teardown_function</span></code>）只对函数用例生效（不在类中）</p></li>
+<li><p>类级（<code class="docutils literal notranslate"><span class="pre">setup_class/teardown_class</span></code>）只在类中前后运行一次(在类中)</p></li>
+<li><p>方法级（<code class="docutils literal notranslate"><span class="pre">setup_method/teardown_method</span></code>）开始于方法始末（在类中）</p></li>
+<li><p>类里面的（<code class="docutils literal notranslate"><span class="pre">setup/teardown</span></code>）运行在调用方法的前后</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="nf">setup_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setup_class：类中所有用例执行之前&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">teardown_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;teardown_class：类中所有用例执行之前&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setup_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setup_method:  每个用例开始前执行&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">teardown_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;teardown_method:  每个用例结束后执行&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setup: 每个用例开始前执行&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;teardown: 每个用例结束后执行&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">setup_module</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setup_module：整个.py模块只执行一次&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">teardown_module</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;teardown_module：整个.py模块只执行一次&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">setup_function</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setup_function：每个方法用例开始前都会执行&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">teardown_function</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;teardown_function：每个方法用例结束前都会执行&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_three</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第三个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">-s</span> <span class="pre">test_sample.py</span></code> 运行，<code class="docutils literal notranslate"><span class="pre">-s</span></code> 参数是为了显示用例的打印信息，下面是输出，可以看出几个方法之间的优先级</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>test_sample.py setup_module：整个.py模块只执行一次
+setup_class：类中所有用例执行之前
+setup_method:  每个用例开始前执行
+setup: 每个用例开始前执行
+执行第一个用例
+.teardown: 每个用例结束后执行
+teardown_method:  每个用例结束后执行
+setup_method:  每个用例开始前执行
+setup: 每个用例开始前执行
+执行第二个用例
+.teardown: 每个用例结束后执行
+teardown_method:  每个用例结束后执行
+teardown_class：类中所有用例执行之前
+setup_function：每个方法用例开始前都会执行
+执行第三个用例
+.teardown_function：每个方法用例结束前都会执行
+teardown_module：整个.py模块只执行一次
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">setup_method</span></code> 和 <code class="docutils literal notranslate"><span class="pre">teardown_method</span></code> 的功能和 <code class="docutils literal notranslate"><span class="pre">setup/teardown</span></code> 功能是一样的，一般二者用其中一个即可；函数里面用到的 <code class="docutils literal notranslate"><span class="pre">setup_function/teardown_function</span></code> 与类里面的 <code class="docutils literal notranslate"><span class="pre">setup_class/teardown_class</span></code> 互不干涉</p>
+</div>
+</section>
+<section id="id7">
+<h3>参数化<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">pytest.mark.parametrize(argnames,</span> <span class="pre">argvalues)</span></code> 可以实现函数的参数化</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,[</span><span class="s1">&#39;test1&#39;</span><span class="p">,</span><span class="s1">&#39;test2&#39;</span><span class="p">,</span><span class="s1">&#39;test3&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_one</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">argnames</span></code> 就是形参名称，<code class="docutils literal notranslate"><span class="pre">argvalues</span></code> 就是待测的一组数据.</p>
+</section>
+</section>
+<section id="fixture">
+<h2>固件 <code class="docutils literal notranslate"><span class="pre">fixture</span></code><a class="headerlink" href="#fixture" title="Permalink to this heading">#</a></h2>
+<section id="id8">
+<h3>基本使用<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>固件Fixture是一些函数，pytest 会在执行测试函数之前（或之后）加载运行它们。主要是为一些单独测试用例需要预先设置与清理的情况下使用的。</p>
+<p>不同于上面的 <code class="docutils literal notranslate"><span class="pre">setup</span></code> 和 <code class="docutils literal notranslate"><span class="pre">teardown</span></code> 的就是，可以自定义函数，可以指定用例运行，使用方法如下</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">text</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始执行&quot;</span><span class="p">)</span>          <span class="c1">#使用pytest.fixture()装饰一个函数成为fixture</span>
+
+<span class="k">def</span> <span class="nf">test_one</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>          <span class="c1">#用例传入fixture函数名，以此来确认执行</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">yield</span></code> 可以实现固件的拆分运行，<code class="docutils literal notranslate"><span class="pre">yield</span></code> 前在用例前执行，<code class="docutils literal notranslate"><span class="pre">yield</span></code> 后再用例后执行</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">text</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始执行&quot;</span><span class="p">)</span>
+    <span class="k">yield</span>                 <span class="c1">#yield 关键词将固件分为两部分，yield 之前的代码属于预处理，会在测试前执行；yield 之后的代码属于后处理，将在测试完成后执行</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行完毕&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_one</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>统一管理<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>固件可以直接定义在各测试脚本中，就像上面的例子。更多时候，我们希望一个固件可以在更大程度上复用，这就需要对固件进行集中管理。Pytest 使用文件 <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code> 集中管理固件。</p>
+<p>不用显式调用 <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code>，<code class="docutils literal notranslate"><span class="pre">pytest</span></code> 会自动调用，可以把 <code class="docutils literal notranslate"><span class="pre">conftest</span></code> 当做插件来理解</p>
+<p><code class="docutils literal notranslate"><span class="pre">./conftest.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">text</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始执行&quot;</span><span class="p">)</span>
+    <span class="k">yield</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行完毕&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">./test_sample.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_one</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>作用域<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fixture</span></code> 可以通过 <code class="docutils literal notranslate"><span class="pre">scope</span></code> 参数声明作用域，比如</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">function</span></code>: 函数级，每个测试函数都会执行一次固件；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class</span></code>: 类级别，每个测试类执行一次，所有方法都可以使用；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">module</span></code>: 模块级，每个模块执行一次，模块内函数和方法都可使用；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">session</span></code>: 会话级，一次测试只执行一次，所有被找到的函数和方法都可用。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">./conftest.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">text</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始执行&quot;</span><span class="p">)</span>
+    <span class="k">yield</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行完毕&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">./test_sample.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_one</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>执行情况</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test_sample</span><span class="o">.</span><span class="n">py</span> <span class="n">开始执行</span>
+<span class="n">执行第一个用例</span>
+<span class="o">.</span><span class="n">执行第二个用例</span>
+<span class="o">.</span><span class="n">执行完毕</span>
+</pre></div>
+</div>
+<p>如果对于类使用作用域，需要使用 <code class="docutils literal notranslate"><span class="pre">pytest.mark.usefixtures</span></code>（对函数和方法也适用）</p>
+<p><code class="docutils literal notranslate"><span class="pre">./conftest.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">text</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始执行&quot;</span><span class="p">)</span>
+    <span class="k">yield</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行完毕&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">./test_sample.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">usefixtures</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">test_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>自动运行<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>将 <code class="docutils literal notranslate"><span class="pre">fixture</span></code> 的 <code class="docutils literal notranslate"><span class="pre">autouse</span></code> 参数设置为 True 时，可以不用传入函数，自动运行</p>
+<p><code class="docutils literal notranslate"><span class="pre">./conftest.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">,</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">text</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始执行&quot;</span><span class="p">)</span>
+    <span class="k">yield</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行完毕&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">./test_sample.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_one</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_two</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>参数化<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">fixture</span></code> 的 params 参数可以实现参数化</p>
+<p><code class="docutils literal notranslate"><span class="pre">./conftest.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">,</span><span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test1&#39;</span><span class="p">,</span><span class="s1">&#39;test2&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始执行&quot;</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行完毕&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">./test_sample.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_one</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第一个用例&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_two</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;执行第二个用例&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>固件参数化需要使用 <code class="docutils literal notranslate"><span class="pre">pytest</span></code> 内置的固件 <code class="docutils literal notranslate"><span class="pre">request</span></code>，并通过 <code class="docutils literal notranslate"><span class="pre">request.param</span></code> 获取参数。</p>
+<p>结果如下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test_sample</span><span class="o">.</span><span class="n">py</span> <span class="n">开始执行</span>
+<span class="n">执行第一个用例</span>
+<span class="n">test1</span>
+<span class="o">.</span><span class="n">执行第二个用例</span>
+<span class="o">.</span><span class="n">执行完毕</span>
+<span class="n">开始执行</span>
+<span class="n">执行第一个用例</span>
+<span class="n">test2</span>
+<span class="o">.</span><span class="n">执行第二个用例</span>
+<span class="o">.</span><span class="n">执行完毕</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id13">
+<h2>生成报告<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<section id="html">
+<h3>HTML报告<a class="headerlink" href="#html" title="Permalink to this heading">#</a></h3>
+<p>安装 <code class="docutils literal notranslate"><span class="pre">pytest-html</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install pytest-html
+</pre></div>
+</div>
+<p>使用方法是，直接在命令行pytest命令后面加–html=&lt;文件名字或者路径&gt;.html参数就可以了</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest --html<span class="o">=</span>report.html
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="../../_images/2022-08-17-22-12-39.png" src="../../_images/2022-08-17-22-12-39.png" />
+</figure>
+<p>上面生成的报告包括html和一个assets文件（里面是报告CSS样式），如果要合成一个文件可以添加下面的参数</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest --html<span class="o">=</span>report.html --self-contained-html
+</pre></div>
+</div>
+</section>
+<section id="xml">
+<h3>XML报告<a class="headerlink" href="#xml" title="Permalink to this heading">#</a></h3>
+<p>使用命令可以生成XML格式报告</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest --junitxml<span class="o">=</span>report.xml
+</pre></div>
+</div>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id14" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>pytest使用总结笔记, <a class="reference external" href="https://www.cnblogs.com/fengf233/p/11850188.html">https://www.cnblogs.com/fengf233/p/11850188.html</a></p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+<div class="section">
+    
+  
+</div>
+
+            
+            
+<div class="section ablog__blog_comments">
+    <div class="section ablog__comments">
+        <hr class="hr-comment-style" data-content="分隔线" />
+        <h3><i class="fa-fw fa fa-comments"></i> 评论</h3>
+        <div id="disqus_thread"></div>
+        <script src="https://giscus.app/client.js" data-repo="zclab/notebook" data-repo-id="R_kgDOIGSvAQ"
+    data-category="General" data-category-id="DIC_kwDOIGSvAc4CRttt" data-mapping="pathname" data-strict="0"
+    data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+    data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    </div>
+</div>
+
+            
+        </article>
+        
+        
+        
+        <footer class="bd-footer-article">
+            
+             
+
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../tools/2022-git-rebase.html"
+        title="previous post">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">git rebase 简要使用方法介绍</p>
+        </div>
+    </a>
+</div>
+
+            
+        </footer>
+        
+    </div>
+    
+    
+    
+    <div class="bd-sidebar-secondary bd-toc">
+        
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fas fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   简介
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   执行用例
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   用例编写
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     断言
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     预设与清理
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     参数化
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fixture">
+   固件
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     fixture
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     基本使用
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     统一管理
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     作用域
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     自动运行
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     参数化
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   生成报告
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#html">
+     HTML报告
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xml">
+     XML报告
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/zclab/notebook/edit/main/docs/posts/programming/2022-pytest-tutorial.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/posts/programming/2022-pytest-tutorial.md.txt">
+        <i class="fas fa-file-alt"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+    </div>
+    
+    
+</div>
+<footer class="bd-footer-content">
+    <div class="bd-footer-content__inner">
+        
+    </div>
+</footer>
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+    
+    
+    <img src="https://img.shields.io/badge/Copyright-2021--2022 子川-blue" />
+    <br>
+    
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+    
+    <a href="http://sphinx-doc.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Sphinx-5.2.2-blue" />
+    </a>
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/latest/" target="_blank">
+        <img src="https://img.shields.io/badge/Theme-Pydata%20Sphinx%20Theme-blue" />
+    </a>
+    <br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

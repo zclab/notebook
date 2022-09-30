@@ -1,0 +1,1122 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18: http://docutils.sourceforge.net/" />
+
+    <title>Python 中 typing 模块和类型注解的使用 &#8212; ZC Notebook</title>
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+
+  
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'posts/programming/2022-python-typing';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/logo-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+    <p class="title logo__title">ZC's Notebook</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="../../reinforcement/index.html">
+                        强化学习
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../science/index.html">
+                        科学计算
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../blog.html">
+                        博客
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../../collection.html">
+                        网页收藏
+                    </a>
+                </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                <li class="nav-item">
+                    <a class="nav-link" href="../../about.html">
+                        关于本站
+                    </a>
+                </li>
+                
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://course.rs/about-book.html">Rust语言圣经<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://rust-book.junmajinlong.com/">Rust入门秘籍<i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-external" href="https://nomicon.purewhite.io/intro.html">Rust 秘典<i class="fas fa-external-link-alt"></i></a>
+            </li>
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">  
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+         <i class="fa fa-calendar"></i>
+        15 January 2022 
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+<li id="author">
+  <span
+    ><i class="fa-fw fa fa-user"></i></span
+  >
+   
+  <a href="../../blog/author/%E5%AD%90%E5%B7%9D.html">子川</a>  
+</li>
+ 
+<li id="location">
+  <span
+    ><i class="fa-fw fa fa-location-arrow"></i></span
+  >
+   
+  <a href="../../blog/location/%E5%8C%97%E4%BA%AC.html">北京</a>  
+</li>
+ 
+<li id="language">
+  <span
+    ><i class="fa-fw fa fa-language"></i></span
+  >
+   
+  <a href="../../blog/language/%E4%B8%AD%E6%96%87.html">中文</a>  
+</li>
+ 
+<li id="category">
+  <span
+    ><i class="fa-fw fa fa-folder-open"></i></span
+  >
+   
+  <a href="../../blog/category/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80.html">程序语言</a>  
+</li>
+ 
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../../blog/tag/typing.html">typing</a>   
+  <a href="../../blog/tag/python.html">Python</a>  
+</li>
+ 
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+        <a href="../../blog/category.html">Categories</a>
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+            <li>
+                <a href="../../blog/category/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80.html">程序语言 (3)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/category/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7.html">软件工具 (2)</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils"><a href="../../blog/tag.html">Tags</a></h5>
+    <style type="text/css">
+        ul.ablog-cloud {
+            list-style: none;
+            overflow: auto;
+        }
+
+        ul.ablog-cloud li {
+            float: left;
+            height: 20pt;
+            line-height: 18pt;
+            margin-right: 5px;
+        }
+
+        ul.ablog-cloud a {
+            text-decoration: none;
+            vertical-align: middle;
+        }
+
+        li.ablog-cloud-1 {
+            font-size: 80%;
+        }
+
+        li.ablog-cloud-2 {
+            font-size: 95%;
+        }
+
+        li.ablog-cloud-3 {
+            font-size: 110%;
+        }
+
+        li.ablog-cloud-4 {
+            font-size: 125%;
+        }
+
+        li.ablog-cloud-5 {
+            font-size: 140%;
+        }
+    </style>
+    <div class="sd-card-body docutils">
+        <ul class="ablog-cloud">
+             
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/git.html">Git</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-5">
+                <a href="../../blog/tag/python.html">Python</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/latex.html">latex</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/markdown.html">markdown</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/pathlib.html">pathlib</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/pytest.html">pytest</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/rebase.html">rebase</a>
+            </li>
+              
+            <li class="ablog-cloud ablog-cloud-1">
+                <a href="../../blog/tag/typing.html">typing</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+
+    </div>
+    <div class="sidebar-start-items__item">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+    <h5 class="sd-card-header docutils">
+        <a href="../../blog/archive.html">Archives</a>
+    </h5>
+    <div class="sd-card-body docutils">
+        <ul class="list-group list-group-flush list-unstyled quicklinks">
+             
+            <li>
+                <a href="../../blog/2022.html">2022 (3)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/2021.html">2021 (1)</a>
+            </li>
+              
+            <li>
+                <a href="../../blog/2020.html">2020 (1)</a>
+            </li>
+             
+        </ul>
+    </div>
+</div>
+
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+<div class="bd-content">
+    <div class="bd-article-container">
+        
+        <div class="bd-header-article">
+            
+        </div>
+        
+        
+        <article class="bd-article" role="main">
+             <section class="tex2jax_ignore mathjax_ignore" id="python-typing">
+<h1>Python 中 typing 模块和类型注解的使用<a class="headerlink" href="#python-typing" title="Permalink to this heading">#</a></h1>
+<p>Python 运行时不强制执行函数和变量类型注解，但这些注解可用于类型检查器、IDE、静态检查器等第三方工具。<code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块提供对类型提示的运行时支持。最基本的支持包括 <code class="docutils literal notranslate"><span class="pre">Any</span></code> , <code class="docutils literal notranslate"><span class="pre">Union</span></code> , <code class="docutils literal notranslate"><span class="pre">Callable</span></code> , <code class="docutils literal notranslate"><span class="pre">TypeVar</span></code> , 和 <code class="docutils literal notranslate"><span class="pre">Generic</span></code> 。</p>
+<section id="id1">
+<h2>实例引入<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>我们知道 Python 是一种动态语言，在声明一个变量时我们不需要显式地声明它的类型，例如下面的例子：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1 + a =&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>运行结果：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>这里我们首先声明了一个变量 a，并将其赋值为了 2，然后将最后的结果打印出来，程序输出来了正确的结果。但在这个过程中，我们没有声明它到底是什么类型。 但如果这时候我们将 a 变成一个字符串类型，结果会是怎样的呢？改写如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1 + a =&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>运行结果：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">+</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span> <span class="ow">and</span> <span class="s1">&#39;str&#39;</span>
+</pre></div>
+</div>
+<p>直接报错了，错误原因是我们进行了字符串类型的变量和数值类型变量的加和，两种数据类型不同，是无法进行相加的。 如果我们将上面的语句改写成一个方法定义：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>这里定义了一个方法，传入一个参数，然后将其加 1 并返回。 如果这时候如果用下面的方式调用，传入的参数是一个数值类型：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>则可以正常输出结果 3。但如果我们传入的参数并不是我们期望的类型，比如传入一个字符类型，那么就会同样报刚才类似的错误。 但又由于 Python 的特性，很多情况下我们并不用去声明它的类型，因此从方法定义上面来看，我们实际上是不知道一个方法的参数到底应该传入什么类型的。 这样其实就造成了很多不方便的地方，在某些情况下一些复杂的方法，如果不借助于一些额外的说明，我们是不知道参数到底是什么类型的。 因此，Python 中的类型注解就显得比较重要了。</p>
+</section>
+<section id="id2">
+<h2>类型注解<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>在 Python 3.5 中，Python PEP 484 引入了类型注解（type hints），在 Python 3.6 中，PEP 526 又进一步引入了变量注解（Variable Annotations），所以上面的代码我们改写成如下写法：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;5 + a =&#39;</span><span class="p">,</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>具体的语法是可以归纳为两点：</p>
+<ul class="simple">
+<li><p>在声明变量时，变量的后面可以加一个冒号，后面再写上变量的类型，如 int、list 等等。</p></li>
+<li><p>在声明方法返回值的时候，可以在方法的后面加一个箭头，后面加上返回值的类型，如 int、list 等等。</p></li>
+</ul>
+<p>在 PEP 8 中，具体的格式是这样规定的：</p>
+<ul class="simple">
+<li><p>在声明变量类型时，变量后方紧跟一个冒号，冒号后面跟一个空格，再跟上变量的类型。</p></li>
+<li><p>在声明方法返回值的时候，箭头左边是方法定义，箭头右边是返回值的类型，箭头左右两边都要留有空格。</p></li>
+</ul>
+<p>有了这样的声明，以后我们如果看到这个方法的定义，我们就知道传入的参数类型了，如调用 add 方法的时候，我们就知道传入的需要是一个数值类型的变量，而不是字符串类型，非常直观。 但值得注意的是，这种类型和变量注解实际上只是一种类型提示，对运行实际上是没有影响的，比如调用 add 方法的时候，我们传入的不是 int 类型，而是一个 float 类型，它也不会报错，也不会对参数进行类型转换，如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">add</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>我们传入的是一个 float 类型的数值 1.5，看下运行结果：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">2.5</span>
+</pre></div>
+</div>
+<p>可以看到，运行结果正常输出，而且 1.5 并没有经过强制类型转换变成 1，否则结果会变成 2。 因此，类型和变量注解只是提供了一种提示，对于运行实际上没有任何影响。 不过有了类型注解，一些 IDE 是可以识别出来并提示的，比如 PyCharm 就可以识别出来在调用某个方法的时候参数类型不一致，会提示 WARNING。 比如上面的调用，如果在 PyCharm 中，就会有如下提示内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Expected</span> <span class="nb">type</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="n">got</span> <span class="s1">&#39;float&#39;</span> <span class="n">instead</span>
+<span class="n">This</span> <span class="n">inspection</span> <span class="n">detects</span> <span class="nb">type</span> <span class="n">errors</span> <span class="ow">in</span> <span class="n">function</span> <span class="n">call</span> <span class="n">expressions</span><span class="o">.</span> <span class="n">Due</span> <span class="n">to</span> <span class="n">dynamic</span> <span class="n">dispatch</span> <span class="ow">and</span> <span class="n">duck</span> <span class="n">typing</span><span class="p">,</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">possible</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">limited</span> <span class="n">but</span> <span class="n">useful</span> <span class="n">number</span> <span class="n">of</span> <span class="n">cases</span><span class="o">.</span> <span class="n">Types</span> <span class="n">of</span> <span class="n">function</span> <span class="n">parameters</span> <span class="n">can</span> <span class="n">be</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">docstrings</span> <span class="ow">or</span> <span class="ow">in</span> <span class="n">Python</span> <span class="mi">3</span> <span class="n">function</span> <span class="n">annotations</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>另外也有一些库是支持类型检查的，比如 mypy，安装之后，利用 mypy 即可检查出 Python 脚本中不符合类型注解的调用情况。 上面只是用一个简单的 int 类型做了实例，下面我们再看下一些相对复杂的数据结构，例如列表、元组、字典等类型怎么样来声明。 可想而知了，列表用 list 表示，元组用 tuple 表示，字典用 dict 来表示，那么很自然地，在声明的时候我们就很自然地写成这样了：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">names</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Germey&#39;</span><span class="p">,</span> <span class="s1">&#39;Guido&#39;</span><span class="p">]</span>
+<span class="n">version</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">operations</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;show&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>这么看上去没有问题，确实声明为了对应的类型，但实际上并不能反映整个列表、元组的结构，比如我们只通过类型注解是不知道 <code class="docutils literal notranslate"><span class="pre">names</span></code> 里面的元素是什么类型的，只知道 <code class="docutils literal notranslate"><span class="pre">names</span></code> 是一个列表 <code class="docutils literal notranslate"><span class="pre">list</span></code> 类型，实际上里面都是字符串 <code class="docutils literal notranslate"><span class="pre">str</span></code> 类型。我们也不知道 <code class="docutils literal notranslate"><span class="pre">version</span></code> 这个元组的每一个元素是什么类型的，实际上是 <code class="docutils literal notranslate"><span class="pre">int</span></code> 类型。但这些信息我们都无从得知。因此说，仅仅凭借 <code class="docutils literal notranslate"><span class="pre">list</span></code>、<code class="docutils literal notranslate"><span class="pre">tuple</span></code> 这样的声明是非常 “弱” 的，我们需要一种更强的类型声明。 这时候我们就需要借助于 <code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块了，它提供了非常 “强 “的类型支持，比如 <code class="docutils literal notranslate"><span class="pre">List[str]</span></code>、<code class="docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int,</span> <span class="pre">int]</span></code> 则可以表示由 <code class="docutils literal notranslate"><span class="pre">str</span></code> 类型的元素组成的列表和由 <code class="docutils literal notranslate"><span class="pre">int</span></code> 类型的元素组成的长度为 3 的元组。所以上文的声明写法可以改写成下面的样子：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Germey&#39;</span><span class="p">,</span> <span class="s1">&#39;Guido&#39;</span><span class="p">]</span>
+<span class="n">version</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">operations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;show&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>这样一来，变量的类型便可以非常直观地体现出来了。 目前 <code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块也已经被加入到 Python 标准库中，不需要安装第三方模块，我们就可以直接使用了。</p>
+</section>
+<section id="typing">
+<h2>typing<a class="headerlink" href="#typing" title="Permalink to this heading">#</a></h2>
+<p>下面我们再来详细看下<code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块的具体用法，这里主要会介绍一些常用的注解类型，如 <code class="docutils literal notranslate"><span class="pre">List</span></code>、<code class="docutils literal notranslate"><span class="pre">Tuple</span></code>、<code class="docutils literal notranslate"><span class="pre">Dict</span></code>、<code class="docutils literal notranslate"><span class="pre">Sequence</span></code> 等等，了解了每个类型的具体使用方法，我们可以得心应手的对任何变量进行声明了。 在引入的时候就直接通过 <code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块引入就好了，例如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+</pre></div>
+</div>
+<section id="list">
+<h3>List<a class="headerlink" href="#list" title="Permalink to this heading">#</a></h3>
+<p>List、列表，是 list 的泛型，基本等同于 list，其后紧跟一个方括号，里面代表了构成这个列表的元素类型，如由数字构成的列表可以声明为：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>另外还可以嵌套声明都是可以的：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+</pre></div>
+</div>
+</section>
+<section id="tuplenamedtuple">
+<h3>Tuple、NamedTuple<a class="headerlink" href="#tuplenamedtuple" title="Permalink to this heading">#</a></h3>
+<p>Tuple、元组，是 tuple 的泛型，其后紧跟一个方括号，方括号中按照顺序声明了构成本元组的元素类型，如 Tuple[X, Y] 代表了构成元组的第一个元素是 X 类型，第二个元素是 Y 类型。 比如想声明一个元组，分别代表姓名、年龄、身高，三个数据类型分别为 str、int、float，那么可以这么声明：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">person</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>同样地也可以使用类型嵌套。 NamedTuple，是 collections.namedtuple 的泛型，实际上就和 namedtuple 用法完全一致，但个人其实并不推荐使用 NamedTuple，推荐使用 attrs 这个库来声明一些具有表征意义的类。</p>
+</section>
+<section id="dictmappingmutablemapping">
+<h3>Dict、Mapping、MutableMapping<a class="headerlink" href="#dictmappingmutablemapping" title="Permalink to this heading">#</a></h3>
+<p>Dict、字典，是 dict 的泛型；Mapping，映射，是 collections.abc.Mapping 的泛型。根据官方文档，Dict 推荐用于注解返回类型，Mapping 推荐用于注解参数。它们的使用方法都是一样的，其后跟一个中括号，中括号内分别声明键名、键值的类型，如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="n">rect</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">rect</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">rect</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">100</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>这里将 Dict 用作了返回值类型注解，将 Mapping 用作了参数类型注解。 MutableMapping 则是 Mapping 对象的子类，在很多库中也经常用 MutableMapping 来代替 Mapping。</p>
+</section>
+<section id="setabstractset">
+<h3>Set、AbstractSet<a class="headerlink" href="#setabstractset" title="Permalink to this heading">#</a></h3>
+<p>Set、集合，是 set 的泛型；AbstractSet、是 collections.abc.Set 的泛型。根据官方文档，Set 推荐用于注解返回类型，AbstractSet 用于注解参数。它们的使用方法都是一样的，其后跟一个中括号，里面声明集合中元素的类型，如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">describe</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">AbstractSet</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这里将 Set 用作了返回值类型注解，将 AbstractSet 用作了参数类型注解。</p>
+</section>
+<section id="sequence">
+<h3>Sequence<a class="headerlink" href="#sequence" title="Permalink to this heading">#</a></h3>
+<p>Sequence，是 collections.abc.Sequence 的泛型，在某些情况下，我们可能并不需要严格区分一个变量或参数到底是列表 list 类型还是元组 tuple 类型，我们可以使用一个更为泛化的类型，叫做 Sequence，其用法类似于 List，如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">elements</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="noreturn">
+<h3>NoReturn<a class="headerlink" href="#noreturn" title="Permalink to this heading">#</a></h3>
+<p>NoReturn，当一个方法没有返回结果时，为了注解它的返回类型，我们可以将其注解为 NoReturn，例如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="any">
+<h3>Any<a class="headerlink" href="#any" title="Permalink to this heading">#</a></h3>
+<p>Any，是一种特殊的类型，它可以代表所有类型，静态类型检查器的所有类型都与 Any 类型兼容，所有的无参数类型注解和返回类型注解的都会默认使用 Any 类型，也就是说，下面两个方法的声明是完全等价的：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>原理类似于 object，所有的类型都是 object 的子类。但如果我们将参数声明为 object 类型，静态参数类型检查便会抛出错误，而 Any 则不会，具体可以参考官方文档的说明：https://docs.python.org/zh-cn/3/library/typing.html?highlight=typing#the-any-type。</p>
+</section>
+<section id="typevar">
+<h3>TypeVar<a class="headerlink" href="#typevar" title="Permalink to this heading">#</a></h3>
+<p>TypeVar，我们可以借助它来自定义兼容特定类型的变量，比如有的变量声明为 int、float、None 都是符合要求的，实际就是代表任意的数字或者空内容都可以，其他的类型则不可以，比如列表 list、字典 dict 等等，像这样的情况，我们可以使用 TypeVar 来表示。 例如一个人的身高，便可以使用 int 或 float 或 None 来表示，但不能用 dict 来表示，所以可以这么声明：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">height</span> <span class="o">=</span> <span class="mf">1.75</span>
+<span class="n">Height</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_height</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Height</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">height</span>
+</pre></div>
+</div>
+<p>这里我们使用 TypeVar 声明了一个 Height 类型，然后将其用于注解方法的返回结果。</p>
+</section>
+<section id="newtype">
+<h3>NewType<a class="headerlink" href="#newtype" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">NewType</span></code>，我们可以借助于它来声明一些具有特殊含义的类型，例如像 <code class="docutils literal notranslate"><span class="pre">Tuple</span></code> 的例子一样，我们需要将它表示为 <code class="docutils literal notranslate"><span class="pre">Person</span></code>，即一个人的含义，但但从表面上声明为 <code class="docutils literal notranslate"><span class="pre">Tuple</span></code> 并不直观，所以我们可以使用 <code class="docutils literal notranslate"><span class="pre">NewType</span></code> 为其声明一个类型，如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Person</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;Person&#39;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">((</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>这里实际上 person 就是一个 tuple 类型，我们可以对其像 tuple 一样正常操作。</p>
+</section>
+<section id="callable">
+<h3>Callable<a class="headerlink" href="#callable" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Callable</span></code>，可调用类型，它通常用来注解一个方法，比如我们刚才声明了一个 <code class="docutils literal notranslate"><span class="pre">add</span></code> 方法，它就是一个 <code class="docutils literal notranslate"><span class="pre">Callable</span></code> 类型：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">add</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">Callable</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>运行结果：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>typing.Callable &lt;class &#39;function&#39;&gt; True
+</pre></div>
+</div>
+<p>在这里虽然二者 <code class="docutils literal notranslate"><span class="pre">add</span></code> 利用 <code class="docutils literal notranslate"><span class="pre">type</span></code> 方法得到的结果是 function，但实际上利用 <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> 方法判断确实是 <code class="docutils literal notranslate"><span class="pre">True</span></code>。 <code class="docutils literal notranslate"><span class="pre">Callable</span></code> 在声明的时候需要使用 <code class="docutils literal notranslate"><span class="pre">Callable[[Arg1Type,</span> <span class="pre">Arg2Type,</span> <span class="pre">...],</span> <span class="pre">ReturnType]</span></code> 这样的类型注解，将参数类型和返回值类型都要注解出来，例如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">date</span><span class="p">(</span><span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="k">def</span> <span class="nf">get_date_fn</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">date</span>
+</pre></div>
+</div>
+<p>这里首先声明了一个方法 date，接收三个 int 参数，返回一个 str 结果，get_date_fn 方法返回了这个方法本身，它的返回值类型就可以标记为 Callable，中括号内分别标记了返回的方法的参数类型和返回值类型。</p>
+</section>
+<section id="union">
+<h3>Union<a class="headerlink" href="#union" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Union</span></code>，联合类型，<code class="docutils literal notranslate"><span class="pre">Union[X,</span> <span class="pre">Y]</span></code> 代表要么是 <code class="docutils literal notranslate"><span class="pre">X</span></code> 类型，要么是 <code class="docutils literal notranslate"><span class="pre">Y</span></code> 类型。 联合类型的联合类型等价于展平后的类型：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Union</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span> <span class="o">==</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>仅有一个参数的联合类型会坍缩成参数自身，比如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p>多余的参数会被跳过，比如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">==</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>在比较联合类型的时候，参数顺序会被忽略，比如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">==</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>这个在一些方法参数声明的时候比较有用，比如一个方法，要么传一个字符串表示的方法名，要么直接把方法传过来：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># str2fn and process</span>
+        <span class="k">pass</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">Callable</span><span class="p">):</span>
+        <span class="n">fn</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这样的声明在一些类库方法定义的时候十分常见。</p>
+</section>
+<section id="optional">
+<h3>Optional<a class="headerlink" href="#optional" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Optional</span></code>，意思是说这个参数可以为空或已经声明的类型，即 <code class="docutils literal notranslate"><span class="pre">Optional[X]</span></code> 等价于 <code class="docutils literal notranslate"><span class="pre">Union[X,</span> <span class="pre">None]</span></code>。 但值得注意的是，这个并不等价于可选参数，当它作为参数类型注解的时候，不代表这个参数可以不传递了，而是说这个参数可以传为 <code class="docutils literal notranslate"><span class="pre">None</span></code>。 如当一个方法执行结果，如果执行完毕就不返回错误信息， 如果发生问题就返回错误信息，则可以这么声明：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">judge</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">:</span> <span class="k">return</span> <span class="s1">&#39;Error Occurred&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="generator">
+<h3>Generator<a class="headerlink" href="#generator" title="Permalink to this heading">#</a></h3>
+<p>如果想代表一个生成器类型，可以使用 Generator，它的声明比较特殊，其后的中括号紧跟着三个参数，分别代表 YieldType、SendType、ReturnType，如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">echo_round</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="n">sent</span> <span class="o">=</span> <span class="k">yield</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">sent</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sent</span> <span class="o">=</span> <span class="k">yield</span> <span class="nb">round</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;Done&#39;</span>
+</pre></div>
+</div>
+<p>在这里 yield 关键字后面紧跟的变量的类型就是 YieldType，yield 返回的结果的类型就是 SendType，最后生成器 return 的内容就是 ReturnType。 当然很多情况下，生成器往往只需要 yield 内容就够了，我们是不需要 SendType 和 ReturnType 的，可以将其设置为空，如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">infinite_stream</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">start</span>
+        <span class="n">start</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>案例实战<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>接下来让我们看一个实际的项目，看看经常用到的类型一般是怎么使用的。 这里我们看的库是 requests-html，是由 Kenneth Reitz 所开发的，其 GitHub 地址为：https://github.com/psf/requests-html，下面我们主要看看它的源代码中一些类型是如何声明的。 这个库的源代码其实就一个文件，那就是 https://github.com/psf/requests-html/blob/master/requests_html.py，我们看一下它里面的一些 typing 的定义和方法定义。 首先 Typing 的定义部分如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">_Find</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;Element&#39;</span><span class="p">],</span> <span class="s1">&#39;Element&#39;</span><span class="p">]</span>
+<span class="n">_XPath</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;Element&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;Element&#39;</span><span class="p">]</span>
+<span class="n">_Result</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;Result&#39;</span><span class="p">],</span> <span class="s1">&#39;Result&#39;</span><span class="p">]</span>
+<span class="n">_HTML</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]</span>
+<span class="n">_BaseHTML</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">_UserAgent</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">_DefaultEncoding</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">_URL</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">_RawHTML</span> <span class="o">=</span> <span class="nb">bytes</span>
+<span class="n">_Encoding</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">_LXML</span> <span class="o">=</span> <span class="n">HtmlElement</span>
+<span class="n">_Text</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">_Search</span> <span class="o">=</span> <span class="n">Result</span>
+<span class="n">_Containing</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="n">_Links</span> <span class="o">=</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">_Attrs</span> <span class="o">=</span> <span class="n">MutableMapping</span>
+<span class="n">_Next</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="s1">&#39;HTML&#39;</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="n">_NextSymbol</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>这里可以看到主要用到的类型有 <code class="docutils literal notranslate"><span class="pre">Set</span></code>、<code class="docutils literal notranslate"><span class="pre">Union</span></code>、<code class="docutils literal notranslate"><span class="pre">List</span></code>、<code class="docutils literal notranslate"><span class="pre">MutableMapping</span></code>、<code class="docutils literal notranslate"><span class="pre">Optional</span></code>，这些在上文都已经做了解释，另外这里使用了多次 <code class="docutils literal notranslate"><span class="pre">Union</span></code> 来声明了一些新的类型，如 <code class="docutils literal notranslate"><span class="pre">_Find</span></code> 则要么是是 Element 对象的列表，要么是单个 Element 对象，<code class="docutils literal notranslate"><span class="pre">_Result</span></code> 则要么是 Result 对象的列表，要么是单个 Result 对象。另外 <code class="docutils literal notranslate"><span class="pre">_Attrs</span></code> 其实就是字典类型，这里用 MutableMapping 来表示了，没有用 <code class="docutils literal notranslate"><span class="pre">Dict</span></code>，也没有用 <code class="docutils literal notranslate"><span class="pre">Mapping</span></code>。 接下来再看一个 <code class="docutils literal notranslate"><span class="pre">Element</span></code> 类的声明：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Element</span><span class="p">(</span><span class="n">BaseParser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An element of HTML.</span>
+<span class="sd">    :param element: The element from which to base the parsing upon.</span>
+<span class="sd">    :param url: The URL from which the HTML originated, used for ``absolute_links``.</span>
+<span class="sd">    :param default_encoding: Which encoding to default to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;skip_anchors&#39;</span><span class="p">,</span> <span class="s1">&#39;default_encoding&#39;</span><span class="p">,</span> <span class="s1">&#39;_encoding&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_html&#39;</span><span class="p">,</span> <span class="s1">&#39;_lxml&#39;</span><span class="p">,</span> <span class="s1">&#39;_pq&#39;</span><span class="p">,</span> <span class="s1">&#39;_attrs&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="n">_URL</span><span class="p">,</span> <span class="n">default_encoding</span><span class="p">:</span> <span class="n">_DefaultEncoding</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">default_encoding</span><span class="o">=</span><span class="n">default_encoding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="o">=</span> <span class="n">element</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lineno</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">sourceline</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]))</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;Element </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="p">),</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrs</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Attrs</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dictionary of the attributes of the :class:`Element &lt;Element&gt;`</span>
+<span class="sd">        (`learn more &lt;https://www.w3schools.com/tags/ref_attributes.asp&gt;`_).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+            <span class="c1"># Split class and rel up, as there are ussually many of them:</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;rel&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span>
+</pre></div>
+</div>
+<p>这里 <code class="docutils literal notranslate"><span class="pre">__init__</span></code> 方法接收非常多的参数，同时使用 <code class="docutils literal notranslate"><span class="pre">_URL</span></code> 、<code class="docutils literal notranslate"><span class="pre">_DefaultEncoding</span></code> 进行了参数类型注解，另外 <code class="docutils literal notranslate"><span class="pre">attrs</span></code> 方法使用了 <code class="docutils literal notranslate"><span class="pre">_Attrs</span></code> 进行了返回结果类型注解。 整体看下来，每个参数的类型、返回值都进行了清晰地注解，代码可读性大大提高。 以上便是类型注解和 <code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块的详细介绍。</p>
+</section>
+</section>
+
+<div class="section">
+    
+  
+</div>
+
+            
+            
+<div class="section ablog__blog_comments">
+    <div class="section ablog__comments">
+        <hr class="hr-comment-style" data-content="分隔线" />
+        <h3><i class="fa-fw fa fa-comments"></i> 评论</h3>
+        <div id="disqus_thread"></div>
+        <script src="https://giscus.app/client.js" data-repo="zclab/notebook" data-repo-id="R_kgDOIGSvAQ"
+    data-category="General" data-category-id="DIC_kwDOIGSvAc4CRttt" data-mapping="pathname" data-strict="0"
+    data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+    data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    </div>
+</div>
+
+            
+        </article>
+        
+        
+        
+        <footer class="bd-footer-article">
+            
+             
+
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="2021-python-pathlib.html"
+        title="previous post">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">An introduction to Python pathlib module</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../tools/2022-git-rebase.html"
+        title="next post">
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">next</p>
+            <p class="prev-next-title">git rebase 简要使用方法介绍</p>
+        </div>
+        <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+
+            
+        </footer>
+        
+    </div>
+    
+    
+    
+    <div class="bd-sidebar-secondary bd-toc">
+        
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fas fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   实例引入
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   类型注解
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#typing">
+   typing
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#list">
+     List
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tuplenamedtuple">
+     Tuple、NamedTuple
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dictmappingmutablemapping">
+     Dict、Mapping、MutableMapping
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setabstractset">
+     Set、AbstractSet
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequence">
+     Sequence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noreturn">
+     NoReturn
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#any">
+     Any
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#typevar">
+     TypeVar
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#newtype">
+     NewType
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#callable">
+     Callable
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#union">
+     Union
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#optional">
+     Optional
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generator">
+     Generator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   案例实战
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/zclab/notebook/edit/main/docs/posts/programming/2022-python-typing.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/posts/programming/2022-python-typing.md.txt">
+        <i class="fas fa-file-alt"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+    </div>
+    
+    
+</div>
+<footer class="bd-footer-content">
+    <div class="bd-footer-content__inner">
+        
+    </div>
+</footer>
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+    
+    
+    <img src="https://img.shields.io/badge/Copyright-2021--2022 子川-blue" />
+    <br>
+    
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+    
+    <a href="http://sphinx-doc.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Sphinx-5.2.2-blue" />
+    </a>
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/latest/" target="_blank">
+        <img src="https://img.shields.io/badge/Theme-Pydata%20Sphinx%20Theme-blue" />
+    </a>
+    <br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>
