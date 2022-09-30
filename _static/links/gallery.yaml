@@ -18,10 +18,6 @@
   website: https://pandas.pydata.org/docs/
   img-bottom: _images/links/gallery/pandas.png
   link: https://pandas.pydata.org/docs/
-- title: NetworkX
-  website: https://networkx.org/documentation/stable/
-  img-bottom: _images/links/gallery/networkx.png
-  link: https://networkx.org/documentation/stable/
 - title: scikit-learn
   website: https://scikit-learn.org/stable/
   img-bottom: _images/links/gallery/scikit-learn.png
