@@ -1,0 +1,208 @@
+@font-face {
+    font-family: "et-book";
+    src: url("./fonts/et-book/et-book-roman-line-figures/et-book-roman-line-figures.eot");
+    src: url("./fonts/et-book/et-book-roman-line-figures/et-book-roman-line-figures.eot?#iefix") format("embedded-opentype"), url("./fonts/et-book/et-book-roman-line-figures/et-book-roman-line-figures.woff") format("woff"), url("./fonts/et-book/et-book-roman-line-figures/et-book-roman-line-figures.ttf") format("truetype"), url("./fonts/et-book/et-book-roman-line-figures/et-book-roman-line-figures.svg#etbookromanosf") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "et-book";
+    src: url("./fonts/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.eot");
+    src: url("./fonts/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.eot?#iefix") format("embedded-opentype"), url("./fonts/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.woff") format("woff"), url("./fonts/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.ttf") format("truetype"), url("./fonts/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.svg#etbookromanosf") format("svg");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "et-book";
+    src: url("./fonts/et-book/et-book-bold-line-figures/et-book-bold-line-figures.eot");
+    src: url("./fonts/et-book/et-book-bold-line-figures/et-book-bold-line-figures.eot?#iefix") format("embedded-opentype"), url("./fonts/et-book/et-book-bold-line-figures/et-book-bold-line-figures.woff") format("woff"), url("./fonts/et-book/et-book-bold-line-figures/et-book-bold-line-figures.ttf") format("truetype"), url("./fonts/et-book/et-book-bold-line-figures/et-book-bold-line-figures.svg#etbookromanosf") format("svg");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "et-book-roman-old-style";
+    src: url("./fonts/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.eot");
+    src: url("./fonts/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.eot?#iefix") format("embedded-opentype"), url("./fonts/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.woff") format("woff"), url("./fonts/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.ttf") format("truetype"), url("./fonts/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.svg#etbookromanosf") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'blockdole';
+    font-weight: 400;
+    font-style: normal;
+    size-adjust: 98%;
+    font-display: swap;
+    src: url(./fonts/blockdole.woff2);
+    src: url(./fonts/blockdole.woff2) format('woff2');
+}
+
+@media (min-width:960px) {
+    .bd-page-width {
+        max-width: 92rem
+    }
+}
+
+:root {
+    --pst-font-size-base: 15px;
+    --pst-font-size-h1: 30px;
+    --pst-font-size-h2: 26px;
+    --pst-font-size-h3: 24px;
+    --pst-font-size-h4: 21px;
+    --pst-font-size-h5: 18px;
+    --pst-font-size-h6: 16px;
+    --pst-font-family-base: 'blockdole', var(--pst-font-family-base-system);
+    --pst-font-family-heading: 'blockdole', Cambria, Georgia, Times, var(--pst-font-family-base-system);
+    --pst-font-family-monospace: Courier, var(--pst-font-family-monospace-system), 'blockdole';
+    --pst-sidebar-primary-caption-font-size: 1.1em;
+    /* --pst-sidebar-secondary: 16rem; */
+}
+
+.bd-main .bd-content .bd-article-container {
+    width: 100%;
+    text-align: justify;
+}
+
+.bd-article h1,
+.bd-article h2,
+.bd-article h3,
+.bd-article h4,
+.bd-article h5 {
+    text-align: left;
+}
+
+a {
+    color: darkcyan;
+}
+
+.bd-sidebar-primary .sidebar-start-items .sd-card a,
+.bd-sidebar-primary .sidebar-start-items .sd-card>h3,
+.ablog-post-title a,
+.ablog-archive>li a {
+    color: var(--pst-color-primary);
+}
+
+.sd-card-text {
+    text-align: left;
+}
+
+h5.sd-card-header {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    /* background-color: var(--pst-sidebar-header-color); */
+}
+
+h5.sd-card-header::before {
+    height: 0px;
+    margin-top: 0px;
+}
+
+/*https://segmentfault.com/q/1010000005902727*/
+ul.ablog-cloud {
+    overflow: auto;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+
+
+/* Timeline CSS */
+div.timeline div.sd-card {
+    border: 0px;
+}
+
+div.timeline div.sd-w-50 {
+    width: 50.05% !important;
+}
+
+div.timeline div.sd-card div.sd-card-header {
+    background-color: var(--pst-timeline-header-color);
+}
+
+div.timeline div.left {
+    margin-right: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-right: 1px solid black;
+}
+
+div.timeline div.right {
+    margin-left: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-left: 1px solid black;
+}
+
+div.timeline div.left p.sd-card-text {
+    text-align: right;
+}
+
+div.timeline div.right p.sd-card-text {
+    text-align: left;
+}
+
+div.timeline div.entry::after {
+    width: 1em;
+    height: 1em;
+    background: white;
+    border-radius: 50%;
+    content: "";
+    top: 1em;
+    display: block;
+    position: absolute;
+    border: 1px black solid;
+    z-index: 999;
+}
+
+div.timeline div.entry.left::after {
+    right: -.5em;
+}
+
+div.timeline div.entry.right::after {
+    left: -.5em;
+}
+
+html[data-theme="light"] {
+    --pst-color-primary: rgb(9, 51, 123);
+    --pst-timeline-header-color: rgb(241, 249, 255);
+    --pst-sidebar-header-color: rgb(220, 220, 220);
+}
+
+html[data-theme="dark"] {
+
+    /* whatever you want to change */
+    --pst-timeline-header-color: black;
+    --pst-sidebar-header-color: black;
+}
+
+.hr-comment-style {
+    border: 0;
+    padding: 3px;
+    margin-top: 4rem;
+    background: repeating-linear-gradient(135deg, #3e3f40 0px, #323334 1px, transparent 1px, transparent 6px);
+}
+
+.ablog__comments h3 {
+    margin: 1.05rem 0 1.05rem;
+}
+
+table {
+    display: block;
+}
+
+table caption span.caption-number {
+    font-style: normal;
+}
+
+div.figure p.caption span.caption-number,
+figcaption span.caption-number {
+    font-style: normal;
+}

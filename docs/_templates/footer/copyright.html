@@ -1,0 +1,15 @@
+{% if show_copyright and copyright %}
+<p class="copyright">
+    {% if hasdoc('copyright') %}
+    {% trans path=pathto('copyright'), copyright=copyright|e %}
+    <a href="{{ path }}">
+        <img src="https://img.shields.io/badge/Copyright-{{ copyright }}-blue" />
+    </a>
+    {% endtrans %}<br>
+    {% else %}
+    {% trans copyright=copyright|e %}
+    <img src="https://img.shields.io/badge/Copyright-{{ copyright }}-blue" />
+    {% endtrans %}<br>
+    {% endif %}
+</p>
+{% endif %}

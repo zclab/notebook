@@ -1,0 +1,53 @@
+{%- extends "pydata_sphinx_theme/layout.html" %}
+{%- set comment_key = 'comment' %}
+{%- if meta is defined and meta is mapping %}
+{%- if comment_key in meta.keys() %}
+{%- set comment = meta.get(comment_key) %}
+{%- endif %}
+{%- endif %}
+
+{% block docs_main %}
+<div class="bd-content">
+    <div class="bd-article-container">
+        {# Article header #}
+        <div class="bd-header-article">
+            {% include "sections/header-article.html" %}
+        </div>
+        {# Article content #}
+        {% block docs_body %}
+        <article class="bd-article" role="main">
+            {% block body %} {% endblock %}
+            {% if ablog is defined and ablog[pagename] is defined and ablog[pagename].published %}
+            {% include "comments/ablog-giscus.html" %}
+            {% elif comment is defined and comment == 'True' %}
+            {% include "comments/docs-giscus.html" %}
+            {% else %}
+            {% endif %}
+        </article>
+        {% endblock %}
+        {# Article Footer #}
+        {% if theme_show_prev_next %}
+        <footer class="bd-footer-article">
+            {% if ablog is defined and ablog[pagename] is defined and ablog[pagename].published %}
+            {% include "components/ablog-postnavy.html" %}
+            {% else %}
+            {% include "sections/footer-article.html" %}
+            {% endif %}
+        </footer>
+        {% endif %}
+    </div>
+    {# Secondary sidebar #}
+    {% block docs_toc %}
+    {% if not remove_sidebar_secondary %}
+    <div class="bd-sidebar-secondary bd-toc">
+        {% include "sections/sidebar-secondary.html" %}
+    </div>
+    {% endif %}
+    {% endblock %}
+</div>
+<footer class="bd-footer-content">
+    <div class="bd-footer-content__inner">
+        {% include "sections/footer-content.html" %}
+    </div>
+</footer>
+{% endblock %}

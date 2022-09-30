@@ -1,0 +1,49 @@
+<style type="text/css">
+    div.profile-pic {
+        margin-top: 1em;
+    }
+
+    div.profile-pic img {
+        border-radius: 500px;
+        width: 40%;
+        max-width: 160px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .bio-info {
+        margin: 1em 0.5rem;
+        /* margin: 1em auto; */
+        /* max-width: 220px; */
+    }
+
+    .name {
+        font-size: 1.5em;
+    }
+
+    .focusareas {
+        font-size: .9em;
+        font-weight: bold;
+    }
+
+    .whatido {
+        margin-top: 0.8em;
+    }
+</style>
+
+<div class="profile-pic">
+    <a href="{{ pathto('blog.html', 1) }}"><img src="{{ pathto('_images/avatar.png', 1) }}" /></a>
+</div>
+
+<div class="bio-info">
+    <div class="name">
+        子川
+    </div>
+    <div class="focusareas">
+        Deep Learning | Combinatorial Optimization
+    </div>
+
+    <div class="whatido">
+        An amateur data analyst. Running enthusiast. Feel free to contact me!
+    </div>
+</div>

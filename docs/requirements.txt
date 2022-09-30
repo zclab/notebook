@@ -1,0 +1,8 @@
+docutils==0.18
+Sphinx
+ablog
+myst-nb
+sphinx_design
+sphinxcontrib-bibtex
+sphinx-copybutton
+pydata-sphinx-theme==0.10.1
