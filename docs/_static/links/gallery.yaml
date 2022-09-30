@@ -1,15 +1,12 @@
 - title: PyG
   website: https://www.pyg.org/
   img-bottom: _images/links/gallery/pyg.png
-  link: https://www.pyg.org/
 - title: NumPy
   website: https://numpy.org/doc/stable/
   img-bottom: _images/links/gallery/numpy.png
-  link: https://numpy.org/doc/stable/
 - title: SciPy
   website: https://docs.scipy.org/doc/scipy/
   img-bottom: _images/links/gallery/scipy.png
-  link: https://docs.scipy.org/doc/scipy/
 - title: Matplotlib
   website: https://matplotlib.org/stable/users/getting_started/
   img-bottom: _images/links/gallery/matplotlib.png
@@ -17,8 +14,6 @@
 - title: Pandas
   website: https://pandas.pydata.org/docs/
   img-bottom: _images/links/gallery/pandas.png
-  link: https://pandas.pydata.org/docs/
 - title: scikit-learn
   website: https://scikit-learn.org/stable/
   img-bottom: _images/links/gallery/scikit-learn.png
-  link: https://scikit-learn.org/stable/
