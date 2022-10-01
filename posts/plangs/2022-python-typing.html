@@ -656,14 +656,14 @@
 <p>这样一来，变量的类型便可以非常直观地体现出来了。 目前 <code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块也已经被加入到 Python 标准库中，不需要安装第三方模块，我们就可以直接使用了。</p>
 </section>
 <section id="typing">
-<h2>typing<a class="headerlink" href="#typing" title="Permalink to this heading">#</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">typing</span></code><a class="headerlink" href="#typing" title="Permalink to this heading">#</a></h2>
 <p>下面我们再来详细看下<code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块的具体用法，这里主要会介绍一些常用的注解类型，如 <code class="docutils literal notranslate"><span class="pre">List</span></code>、<code class="docutils literal notranslate"><span class="pre">Tuple</span></code>、<code class="docutils literal notranslate"><span class="pre">Dict</span></code>、<code class="docutils literal notranslate"><span class="pre">Sequence</span></code> 等等，了解了每个类型的具体使用方法，我们可以得心应手的对任何变量进行声明了。 在引入的时候就直接通过 <code class="docutils literal notranslate"><span class="pre">typing</span></code> 模块引入就好了，例如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 </pre></div>
 </div>
 <section id="list">
-<h3>List<a class="headerlink" href="#list" title="Permalink to this heading">#</a></h3>
-<p>List、列表，是 list 的泛型，基本等同于 list，其后紧跟一个方括号，里面代表了构成这个列表的元素类型，如由数字构成的列表可以声明为：</p>
+<h3><code class="docutils literal notranslate"><span class="pre">List</span></code><a class="headerlink" href="#list" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">List</span></code>、列表，是 list 的泛型，基本等同于 list，其后紧跟一个方括号，里面代表了构成这个列表的元素类型，如由数字构成的列表可以声明为：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -673,7 +673,7 @@
 </div>
 </section>
 <section id="tuplenamedtuple">
-<h3>Tuple、NamedTuple<a class="headerlink" href="#tuplenamedtuple" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">Tuple</span></code>、<code class="docutils literal notranslate"><span class="pre">NamedTuple</span></code><a class="headerlink" href="#tuplenamedtuple" title="Permalink to this heading">#</a></h3>
 <p>Tuple、元组，是 tuple 的泛型，其后紧跟一个方括号，方括号中按照顺序声明了构成本元组的元素类型，如 Tuple[X, Y] 代表了构成元组的第一个元素是 X 类型，第二个元素是 Y 类型。 比如想声明一个元组，分别代表姓名、年龄、身高，三个数据类型分别为 str、int、float，那么可以这么声明：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">person</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">)</span>
 </pre></div>
@@ -681,7 +681,7 @@
 <p>同样地也可以使用类型嵌套。 NamedTuple，是 collections.namedtuple 的泛型，实际上就和 namedtuple 用法完全一致，但个人其实并不推荐使用 NamedTuple，推荐使用 attrs 这个库来声明一些具有表征意义的类。</p>
 </section>
 <section id="dictmappingmutablemapping">
-<h3>Dict、Mapping、MutableMapping<a class="headerlink" href="#dictmappingmutablemapping" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">Dict</span></code>、<code class="docutils literal notranslate"><span class="pre">Mapping</span></code>、<code class="docutils literal notranslate"><span class="pre">MutableMapping</span></code><a class="headerlink" href="#dictmappingmutablemapping" title="Permalink to this heading">#</a></h3>
 <p>Dict、字典，是 dict 的泛型；Mapping，映射，是 collections.abc.Mapping 的泛型。根据官方文档，Dict 推荐用于注解返回类型，Mapping 推荐用于注解参数。它们的使用方法都是一样的，其后跟一个中括号，中括号内分别声明键名、键值的类型，如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="n">rect</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">rect</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">rect</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">100</span><span class="p">}</span>
@@ -690,7 +690,7 @@
 <p>这里将 Dict 用作了返回值类型注解，将 Mapping 用作了参数类型注解。 MutableMapping 则是 Mapping 对象的子类，在很多库中也经常用 MutableMapping 来代替 Mapping。</p>
 </section>
 <section id="setabstractset">
-<h3>Set、AbstractSet<a class="headerlink" href="#setabstractset" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">Set</span></code>、<code class="docutils literal notranslate"><span class="pre">AbstractSet</span></code><a class="headerlink" href="#setabstractset" title="Permalink to this heading">#</a></h3>
 <p>Set、集合，是 set 的泛型；AbstractSet、是 collections.abc.Set 的泛型。根据官方文档，Set 推荐用于注解返回类型，AbstractSet 用于注解参数。它们的使用方法都是一样的，其后跟一个中括号，里面声明集合中元素的类型，如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">describe</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">AbstractSet</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
     <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -699,24 +699,24 @@
 <p>这里将 Set 用作了返回值类型注解，将 AbstractSet 用作了参数类型注解。</p>
 </section>
 <section id="sequence">
-<h3>Sequence<a class="headerlink" href="#sequence" title="Permalink to this heading">#</a></h3>
-<p>Sequence，是 collections.abc.Sequence 的泛型，在某些情况下，我们可能并不需要严格区分一个变量或参数到底是列表 list 类型还是元组 tuple 类型，我们可以使用一个更为泛化的类型，叫做 Sequence，其用法类似于 List，如：</p>
+<h3><code class="docutils literal notranslate"><span class="pre">Sequence</span></code><a class="headerlink" href="#sequence" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Sequence</span></code>，是 <code class="docutils literal notranslate"><span class="pre">collections.abc.Sequence</span></code> 的泛型，在某些情况下，我们可能并不需要严格区分一个变量或参数到底是列表 list 类型还是元组 tuple 类型，我们可以使用一个更为泛化的类型，叫做 <code class="docutils literal notranslate"><span class="pre">Sequence</span></code>，其用法类似于 <code class="docutils literal notranslate"><span class="pre">List</span></code>，如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">elements</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="noreturn">
-<h3>NoReturn<a class="headerlink" href="#noreturn" title="Permalink to this heading">#</a></h3>
-<p>NoReturn，当一个方法没有返回结果时，为了注解它的返回类型，我们可以将其注解为 NoReturn，例如：</p>
+<h3><code class="docutils literal notranslate"><span class="pre">NoReturn</span></code><a class="headerlink" href="#noreturn" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">NoReturn</span></code>，当一个方法没有返回结果时，为了注解它的返回类型，我们可以将其注解为 <code class="docutils literal notranslate"><span class="pre">NoReturn</span></code>，例如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="any">
-<h3>Any<a class="headerlink" href="#any" title="Permalink to this heading">#</a></h3>
-<p>Any，是一种特殊的类型，它可以代表所有类型，静态类型检查器的所有类型都与 Any 类型兼容，所有的无参数类型注解和返回类型注解的都会默认使用 Any 类型，也就是说，下面两个方法的声明是完全等价的：</p>
+<h3><code class="docutils literal notranslate"><span class="pre">Any</span></code><a class="headerlink" href="#any" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Any</span></code>，是一种特殊的类型，它可以代表所有类型，静态类型检查器的所有类型都与 <code class="docutils literal notranslate"><span class="pre">Any</span></code> 类型兼容，所有的无参数类型注解和返回类型注解的都会默认使用 <code class="docutils literal notranslate"><span class="pre">Any</span></code> 类型，也就是说，下面两个方法的声明是完全等价的：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -724,30 +724,30 @@
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>原理类似于 object，所有的类型都是 object 的子类。但如果我们将参数声明为 object 类型，静态参数类型检查便会抛出错误，而 Any 则不会，具体可以参考官方文档的说明：https://docs.python.org/zh-cn/3/library/typing.html?highlight=typing#the-any-type。</p>
+<p>原理类似于 object，所有的类型都是 object 的子类。但如果我们将参数声明为 object 类型，静态参数类型检查便会抛出错误，而 Any 则不会，具体可以参考官方文档的说明：<a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html?highlight=typing#the-any-type">Any 类型</a>。</p>
 </section>
 <section id="typevar">
-<h3>TypeVar<a class="headerlink" href="#typevar" title="Permalink to this heading">#</a></h3>
-<p>TypeVar，我们可以借助它来自定义兼容特定类型的变量，比如有的变量声明为 int、float、None 都是符合要求的，实际就是代表任意的数字或者空内容都可以，其他的类型则不可以，比如列表 list、字典 dict 等等，像这样的情况，我们可以使用 TypeVar 来表示。 例如一个人的身高，便可以使用 int 或 float 或 None 来表示，但不能用 dict 来表示，所以可以这么声明：</p>
+<h3><code class="docutils literal notranslate"><span class="pre">TypeVar</span></code><a class="headerlink" href="#typevar" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TypeVar</span></code>，我们可以借助它来自定义兼容特定类型的变量，比如有的变量声明为 <code class="docutils literal notranslate"><span class="pre">int</span></code>、<code class="docutils literal notranslate"><span class="pre">float</span></code>、<code class="docutils literal notranslate"><span class="pre">None</span></code> 都是符合要求的，实际就是代表任意的数字或者空内容都可以，其他的类型则不可以，比如列表 list、字典 dict 等等，像这样的情况，我们可以使用 <code class="docutils literal notranslate"><span class="pre">TypeVar</span></code> 来表示。 例如一个人的身高，便可以使用 <code class="docutils literal notranslate"><span class="pre">int</span></code> 或 <code class="docutils literal notranslate"><span class="pre">float</span></code> 或 <code class="docutils literal notranslate"><span class="pre">None</span></code> 来表示，但不能用 <code class="docutils literal notranslate"><span class="pre">dict</span></code> 来表示，所以可以这么声明：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">height</span> <span class="o">=</span> <span class="mf">1.75</span>
 <span class="n">Height</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_height</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Height</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">height</span>
 </pre></div>
 </div>
-<p>这里我们使用 TypeVar 声明了一个 Height 类型，然后将其用于注解方法的返回结果。</p>
+<p>这里我们使用 <code class="docutils literal notranslate"><span class="pre">TypeVar</span></code> 声明了一个 Height 类型，然后将其用于注解方法的返回结果。</p>
 </section>
 <section id="newtype">
-<h3>NewType<a class="headerlink" href="#newtype" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">NewType</span></code><a class="headerlink" href="#newtype" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">NewType</span></code>，我们可以借助于它来声明一些具有特殊含义的类型，例如像 <code class="docutils literal notranslate"><span class="pre">Tuple</span></code> 的例子一样，我们需要将它表示为 <code class="docutils literal notranslate"><span class="pre">Person</span></code>，即一个人的含义，但但从表面上声明为 <code class="docutils literal notranslate"><span class="pre">Tuple</span></code> 并不直观，所以我们可以使用 <code class="docutils literal notranslate"><span class="pre">NewType</span></code> 为其声明一个类型，如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Person</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;Person&#39;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span>
 <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">((</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>这里实际上 person 就是一个 tuple 类型，我们可以对其像 tuple 一样正常操作。</p>
+<p>这里实际上 person 就是一个 <code class="docutils literal notranslate"><span class="pre">tuple</span></code> 类型，我们可以对其像 <code class="docutils literal notranslate"><span class="pre">tuple</span></code> 一样正常操作。</p>
 </section>
 <section id="callable">
-<h3>Callable<a class="headerlink" href="#callable" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">Callable</span></code><a class="headerlink" href="#callable" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Callable</span></code>，可调用类型，它通常用来注解一个方法，比如我们刚才声明了一个 <code class="docutils literal notranslate"><span class="pre">add</span></code> 方法，它就是一个 <code class="docutils literal notranslate"><span class="pre">Callable</span></code> 类型：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">add</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">Callable</span><span class="p">))</span>
 </pre></div>
@@ -764,10 +764,10 @@
     <span class="k">return</span> <span class="n">date</span>
 </pre></div>
 </div>
-<p>这里首先声明了一个方法 date，接收三个 int 参数，返回一个 str 结果，get_date_fn 方法返回了这个方法本身，它的返回值类型就可以标记为 Callable，中括号内分别标记了返回的方法的参数类型和返回值类型。</p>
+<p>这里首先声明了一个方法 date，接收三个 int 参数，返回一个 str 结果，<code class="docutils literal notranslate"><span class="pre">get_date_fn</span></code> 方法返回了这个方法本身，它的返回值类型就可以标记为 <code class="docutils literal notranslate"><span class="pre">Callable</span></code>，中括号内分别标记了返回的方法的参数类型和返回值类型。</p>
 </section>
 <section id="union">
-<h3>Union<a class="headerlink" href="#union" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">Union</span></code><a class="headerlink" href="#union" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Union</span></code>，联合类型，<code class="docutils literal notranslate"><span class="pre">Union[X,</span> <span class="pre">Y]</span></code> 代表要么是 <code class="docutils literal notranslate"><span class="pre">X</span></code> 类型，要么是 <code class="docutils literal notranslate"><span class="pre">Y</span></code> 类型。 联合类型的联合类型等价于展平后的类型：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Union</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span> <span class="o">==</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 </pre></div>
@@ -796,7 +796,7 @@
 <p>这样的声明在一些类库方法定义的时候十分常见。</p>
 </section>
 <section id="optional">
-<h3>Optional<a class="headerlink" href="#optional" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">Optional</span></code><a class="headerlink" href="#optional" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Optional</span></code>，意思是说这个参数可以为空或已经声明的类型，即 <code class="docutils literal notranslate"><span class="pre">Optional[X]</span></code> 等价于 <code class="docutils literal notranslate"><span class="pre">Union[X,</span> <span class="pre">None]</span></code>。 但值得注意的是，这个并不等价于可选参数，当它作为参数类型注解的时候，不代表这个参数可以不传递了，而是说这个参数可以传为 <code class="docutils literal notranslate"><span class="pre">None</span></code>。 如当一个方法执行结果，如果执行完毕就不返回错误信息， 如果发生问题就返回错误信息，则可以这么声明：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">judge</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">result</span><span class="p">:</span> <span class="k">return</span> <span class="s1">&#39;Error Occurred&#39;</span>
@@ -804,8 +804,8 @@
 </div>
 </section>
 <section id="generator">
-<h3>Generator<a class="headerlink" href="#generator" title="Permalink to this heading">#</a></h3>
-<p>如果想代表一个生成器类型，可以使用 Generator，它的声明比较特殊，其后的中括号紧跟着三个参数，分别代表 YieldType、SendType、ReturnType，如：</p>
+<h3><code class="docutils literal notranslate"><span class="pre">Generator</span></code><a class="headerlink" href="#generator" title="Permalink to this heading">#</a></h3>
+<p>如果想代表一个生成器类型，可以使用 <code class="docutils literal notranslate"><span class="pre">Generator</span></code>，它的声明比较特殊，其后的中括号紧跟着三个参数，分别代表 <code class="docutils literal notranslate"><span class="pre">YieldType</span></code>、<code class="docutils literal notranslate"><span class="pre">SendType</span></code>、<code class="docutils literal notranslate"><span class="pre">ReturnType</span></code>，如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">echo_round</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">sent</span> <span class="o">=</span> <span class="k">yield</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">sent</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -813,7 +813,7 @@
     <span class="k">return</span> <span class="s1">&#39;Done&#39;</span>
 </pre></div>
 </div>
-<p>在这里 yield 关键字后面紧跟的变量的类型就是 YieldType，yield 返回的结果的类型就是 SendType，最后生成器 return 的内容就是 ReturnType。 当然很多情况下，生成器往往只需要 yield 内容就够了，我们是不需要 SendType 和 ReturnType 的，可以将其设置为空，如：</p>
+<p>在这里 <code class="docutils literal notranslate"><span class="pre">yield</span></code> 关键字后面紧跟的变量的类型就是 <code class="docutils literal notranslate"><span class="pre">YieldType</span></code>，<code class="docutils literal notranslate"><span class="pre">yield</span></code> 返回的结果的类型就是 <code class="docutils literal notranslate"><span class="pre">SendType</span></code>，最后生成器 return 的内容就是 <code class="docutils literal notranslate"><span class="pre">ReturnType</span></code>。 当然很多情况下，生成器往往只需要 yield 内容就够了，我们是不需要 <code class="docutils literal notranslate"><span class="pre">SendType</span></code> 和 <code class="docutils literal notranslate"><span class="pre">ReturnType</span></code> 的，可以将其设置为空，如：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">infinite_stream</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="k">yield</span> <span class="n">start</span>
@@ -824,7 +824,7 @@
 </section>
 <section id="id3">
 <h2>案例实战<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<p>接下来让我们看一个实际的项目，看看经常用到的类型一般是怎么使用的。 这里我们看的库是 requests-html，是由 Kenneth Reitz 所开发的，其 GitHub 地址为：https://github.com/psf/requests-html，下面我们主要看看它的源代码中一些类型是如何声明的。 这个库的源代码其实就一个文件，那就是 https://github.com/psf/requests-html/blob/master/requests_html.py，我们看一下它里面的一些 typing 的定义和方法定义。 首先 Typing 的定义部分如下：</p>
+<p>接下来让我们看一个实际的项目，看看经常用到的类型一般是怎么使用的。 这里我们看的库是 requests-html，是由 Kenneth Reitz 所开发的，其 GitHub 地址为：<a class="reference external" href="https://github.com/psf/requests-html">requests-html</a>，下面我们主要看看它的源代码中一些类型是如何声明的。 这个库的源代码其实就一个文件，那就是 <a class="reference external" href="https://github.com/psf/requests-html/blob/master/requests_html.py">requests_html.py</a>，我们看一下它里面的一些 typing 的定义和方法定义。 首先 <code class="docutils literal notranslate"><span class="pre">Typing</span></code> 的定义部分如下：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="n">_Find</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;Element&#39;</span><span class="p">],</span> <span class="s1">&#39;Element&#39;</span><span class="p">]</span>
@@ -967,72 +967,152 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#typing">
-   typing
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     typing
+    </span>
+   </code>
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#list">
-     List
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       List
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#tuplenamedtuple">
-     Tuple、NamedTuple
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Tuple
+      </span>
+     </code>
+     、
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       NamedTuple
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#dictmappingmutablemapping">
-     Dict、Mapping、MutableMapping
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Dict
+      </span>
+     </code>
+     、
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Mapping
+      </span>
+     </code>
+     、
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MutableMapping
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#setabstractset">
-     Set、AbstractSet
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Set
+      </span>
+     </code>
+     、
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       AbstractSet
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#sequence">
-     Sequence
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Sequence
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#noreturn">
-     NoReturn
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       NoReturn
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#any">
-     Any
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Any
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#typevar">
-     TypeVar
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TypeVar
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#newtype">
-     NewType
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       NewType
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#callable">
-     Callable
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Callable
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#union">
-     Union
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Union
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#optional">
-     Optional
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Optional
+      </span>
+     </code>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#generator">
-     Generator
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Generator
+      </span>
+     </code>
     </a>
    </li>
   </ul>
@@ -1106,7 +1186,7 @@
 <p class="sphinx-version">
     
     <a href="http://sphinx-doc.org/" target="_blank">
-        <img src="https://img.shields.io/badge/Sphinx-5.2.2-blue" />
+        <img src="https://img.shields.io/badge/Sphinx-5.2.3-blue" />
     </a>
     <a href="https://pydata-sphinx-theme.readthedocs.io/en/latest/" target="_blank">
         <img src="https://img.shields.io/badge/Theme-Pydata%20Sphinx%20Theme-blue" />
