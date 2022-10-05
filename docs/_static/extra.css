@@ -206,3 +206,7 @@ div.figure p.caption span.caption-number,
 figcaption span.caption-number {
     font-style: normal;
 }
+
+footer.bd-footer-article .prev-next-area {
+    font-size: 88.5%;
+}
