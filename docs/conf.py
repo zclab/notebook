@@ -86,7 +86,7 @@ html_title = "ZC Notebook"
 html_favicon = "_static/favicon.svg"
 html_last_updated_fmt = ""
 html_sidebars = {
-    'index': ['search-field.html', 'components/sidebar-quicklinks.html'],
+    'index': ['search-field.html', 'sidebar/quicklinks.html'],
     "posts/**": ["ablog/postcard.html","ablog/categories.html","ablog/tagcloud.html","ablog/archives.html",],
     "blog": ["ablog/categories.html","ablog/tagcloud.html","ablog/archives.html",],
     "blog/**": ["ablog/postcard.html","ablog/categories.html","ablog/tagcloud.html","ablog/archives.html",],
@@ -134,7 +134,7 @@ html_theme_options = {
             "type": "fontawesome",
         },
     ],
-    "footer_items": ["footer/copyright", "footer/sphinx-version"],
+    "footer_items": ["components/copyright", "components/sphinx-version"],
 }
 
 # ---- Other documentation options -------------------------
