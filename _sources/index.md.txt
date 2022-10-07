@@ -5,7 +5,7 @@ This is a site used for recording some documentation or blogging involved in alg
 :::{toctree}
 :maxdepth: 1
 
-强化学习 <reinforcement/index>
+强化学习 <drlearn/index>
 science/index
 :::
 
