@@ -1,10 +1,11 @@
-docutils==0.18
 rich
 PyYAML
 Sphinx
 ablog
+myst-parser
 myst-nb
 sphinx_design
 sphinxcontrib-bibtex
 sphinx-copybutton
-pydata-sphinx-theme==0.10.1
+docutils==0.19
+pydata-sphinx-theme
