@@ -130,7 +130,7 @@ html_theme_options = {
         {
             "name": "GitHub",
             "url": "https://github.com/zclab",
-            "icon": "fab fa-github-square",
+            "icon": "fa-brands fa-square-github",
             "type": "fontawesome",
         },
     ],
