@@ -210,3 +210,9 @@ figcaption span.caption-number {
 footer.bd-footer-article .prev-next-area {
     font-size: 88.5%;
 }
+
+/*tmp bugfix for 0.11.0 */
+.bd-search i.fa-solid.fa-magnifying-glass {
+    position: absolute;
+    left: 1.5rem;
+}
