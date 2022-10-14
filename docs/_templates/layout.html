@@ -18,7 +18,7 @@ titles_only=True)
 
 {# Remove the page-toc from secondary sidebar if there are no links to show #}
 {% if generate_toc_html() | length == 0 %}
-{% if sidebar_nav_html | length == 0 and "posts" not in pagename and "blog" not in pagename %}
+{% if sidebar_nav_html | length == 0 and "posts" not in pagename %}
 {% set theme_page_sidebar_items = theme_page_sidebar_items | reject("in", ["page-toc.html", "searchbox.html",
 "edit-this-page.html", "sourcelink.html"]) | list %}
 {% else %}
@@ -131,7 +131,7 @@ or not theme_page_sidebar_items %}
                     </div>
                     {# Secondary sidebar #}
                     {% block docs_toc %}
-                    {% if not remove_sidebar_secondary %}
+                    {% if not remove_sidebar_secondary or "blog" in pagename %}
                     <div class="bd-sidebar-secondary bd-toc">
                         {% include "sections/sidebar-secondary.html" %}
                     </div>

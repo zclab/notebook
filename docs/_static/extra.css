@@ -52,10 +52,10 @@
 
 :root {
     --pst-font-size-base: 15px;
-    --pst-font-size-h1: 30px;
-    --pst-font-size-h2: 26px;
-    --pst-font-size-h3: 24px;
-    --pst-font-size-h4: 21px;
+    --pst-font-size-h1: 28px;
+    --pst-font-size-h2: 24px;
+    --pst-font-size-h3: 22px;
+    --pst-font-size-h4: 20px;
     --pst-font-size-h5: 18px;
     --pst-font-size-h6: 16px;
     --pst-font-family-base: 'blockdole', var(--pst-font-family-base-system);
@@ -66,7 +66,6 @@
 }
 
 .bd-main .bd-content .bd-article-container {
-    width: 100%;
     text-align: justify;
 }
 
@@ -216,4 +215,32 @@ footer.bd-footer-article .prev-next-area {
 .bd-search i.fa-solid.fa-magnifying-glass {
     position: absolute;
     left: 1.5rem;
+}
+
+
+/* social link css */
+
+.footer-social-nav {
+    margin-bottom: 0.25rem;
+}
+
+#footer-social i.fa-brands,
+#footer-social i.fa-regular,
+#footer-social i.fa-solid {
+    font-size: 1.45rem;
+    font-style: normal;
+    vertical-align: middle;
+}
+
+#footer-social a.footer-social-link {
+    color: var(--pst-color-text-muted);
+}
+
+#footer-social .footer-social-link {
+    padding-right: 0.4rem;
+}
+
+.footer-item img.footer-image-item {
+    border-radius: 0.2rem;
+    height: 1.45rem;
 }
