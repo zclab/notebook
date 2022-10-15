@@ -91,7 +91,7 @@ html_sidebars = {
     "blog": ["ablog/categories.html","ablog/tagcloud.html","ablog/archives.html",],
     "blog/**": ["ablog/postcard.html","ablog/categories.html","ablog/tagcloud.html","ablog/archives.html",],
 }
-
+html_show_sourcelink=False
 html_context = {
     # "github_url": "https://github.com", # or your GitHub Enterprise interprise
     "github_user": "zclab",
@@ -134,7 +134,7 @@ html_theme_options = {
             "type": "fontawesome",
         },
     ],
-    "footer_items": ["components/copyright", "components/sphinx-version"],
+    "footer_items": ["footer/copyright", "footer/sphinx-version"],
 }
 
 # ---- Other documentation options -------------------------
